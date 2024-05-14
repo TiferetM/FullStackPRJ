@@ -6,8 +6,8 @@ import About from './generalComponents/About'
 import Designs from './generalComponents/designs/Designs'
 import Design from './generalComponents/designs/Design'
 import Articles from './generalComponents/articles/Articles'
-import Article from './generalComponents/articles/Article'
-import Home from './userComponents/Home'
+import Article from './generalComponents/articles/Article';
+import {Home as U_Home} from './userComponents/Home';
 import NewDesign from './generalComponents/designs/newDesign/CreateDesign'
 import NewArticle from './generalComponents/articles/newArticle/CreateArticle'
 import Settings from './userComponents/Settings'
@@ -29,7 +29,7 @@ function App() {
         <Route path="/articles" element={<Articles />} >
           <Route path=":id_a" element={<Article />} />
         </Route>
-        <Route path="/:id_u" element={<Home />} >
+        <Route path="/:id_u" element={<U_Home />} >
           <Route path="Designs" element={<Designs />} >
             <Route path=":id_d" element={<Design />} />
             <Route path="new" element={<NewDesign />} />
