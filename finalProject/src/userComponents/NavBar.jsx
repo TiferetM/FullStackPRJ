@@ -3,17 +3,17 @@ import { NavLink, useLocation } from 'react-router-dom'
 
 function NavBar() {
     const [userIn, setUserIn] = useState(0);
-    // const location = useLocation();
-    // let id;
-    // useEffect(() => {
-    //     let json = localStorage.getItem('currentUser');
-    //     if (json) {
-    //         setUserIn(JSON.parse(json)?.id);
-    //     }
-    //     else {
-    //         setUserIn(0);
-    //     }
-    // }, [location.pathname]);
+    const location = useLocation();
+    let id;
+    useEffect(() => {
+        let json = localStorage.getItem('currentUser');
+        if (json) {
+            setUserIn(JSON.parse(json)?.id);
+        }
+        else {
+            setUserIn(0);
+        }
+    }, [location.pathname]);
     return (
         <nav>
             <h2 className='h2title'>design</h2>

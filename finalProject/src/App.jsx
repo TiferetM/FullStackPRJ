@@ -1,17 +1,49 @@
 import './App.css'
-import NavBar from './userComponents/navBar/NavBar'
-import { Routes } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
+import NavBar from './generalComponents/NavBar'
+import Home from './generalComponents/Home'
+import About from './generalComponents/About'
+import Designs from './generalComponents/designs/Designs'
+import Design from './generalComponents/designs/Design'
+import Articles from './generalComponents/articles/Articles'
+import Article from './generalComponents/articles/Article'
+import Home from './userComponents/Home'
+import NewDesign from './generalComponents/designs/newDesign/CreateDesign'
+import NewArticle from './generalComponents/articles/newArticle/CreateArticle'
+import Settings from './userComponents/Settings'
+import Products from './generalComponents/products/Products'
+import Product from './generalComponents/products/Product'
 
 function App() {
-    return (
+  return (
     <>
       <header>
-        <h1>home design</h1>
         <NavBar />
       </header>
-      {/*<Routes >
-        // Add the following code snippet to the Routes component in finalProject/src/App.jsx:
-    </Routes>*/}
+      <Routes >
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/designs" element={<Designs />} >
+          <Route path=":id_d" element={<Design />} />
+        </Route>
+        <Route path="/articles" element={<Articles />} >
+          <Route path=":id_a" element={<Article />} />
+        </Route>
+        <Route path="/:id_u" element={<Home />} >
+          <Route path="Designs" element={<Designs />} >
+            <Route path=":id_d" element={<Design />} />
+            <Route path="new" element={<NewDesign />} />
+          </Route>
+          <Route path="Articles" element={<Articles />} >
+            <Route path=":id_a" element={<Article />} />
+            <Route path="new" element={<NewArticle />} />
+          </Route>
+          <Route path="settings" element={<Settings />} />
+          <Route path="products" element={<Products />} >
+            <Route path=":id_p" element={<Product />} />
+          </Route>
+        </Route>
+      </Routes>
     </>
   )
 }
