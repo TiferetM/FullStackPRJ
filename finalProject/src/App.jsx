@@ -7,14 +7,20 @@ import Designs from './generalComponents/designs/Designs'
 import Design from './generalComponents/designs/Design'
 import Articles from './generalComponents/articles/Articles'
 import Article from './generalComponents/articles/Article';
-import {Home as U_Home} from './userComponents/Home';
+import U_Home from './userComponents/Home';
 import NewDesign from './generalComponents/designs/newDesign/CreateDesign'
 import NewArticle from './generalComponents/articles/newArticle/CreateArticle'
 import Settings from './userComponents/Settings'
 import Products from './generalComponents/products/Products'
 import Product from './generalComponents/products/Product'
+import U_NavBar from './userComponents/NavBar'
 
 function App() {
+  let nav = ( <NavBar />);
+  //if in the path, the first parameter is u_id, then nav = <U_NavBar />
+  if(window.location.pathname.split('/')[1] === 'u_id'){
+    nav = ( <U_NavBar />);
+  }
   return (
     <>
       <header>
