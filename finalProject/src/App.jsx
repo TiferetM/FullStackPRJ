@@ -16,15 +16,11 @@ import Product from './generalComponents/products/Product'
 import U_NavBar from './userComponents/NavBar'
 
 function App() {
-  let nav = ( <NavBar />);
-  //if in the path, the first parameter is u_id, then nav = <U_NavBar />
-  if(window.location.pathname.split('/')[1] === 'u_id'){
-    nav = ( <U_NavBar />);
-  }
+  let nav = sessionStorage.getItem('currentUser')?(<U_NavBar />):( <NavBar />);
   return (
     <>
       <header>
-        <NavBar />
+       {nav}
       </header>
       <Routes >
         <Route path="/" element={<Home />} />

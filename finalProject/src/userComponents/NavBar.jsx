@@ -6,7 +6,7 @@ function NavBar() {
     const location = useLocation();
     let id;
     useEffect(() => {
-        let json = localStorage.getItem('currentUser');
+        let json = sessionStorage.getItem('currentUser');
         if (json) {
             setUserIn(JSON.parse(json)?.id);
         }
@@ -16,14 +16,13 @@ function NavBar() {
     }, [location.pathname]);
     return (
         <nav>
-            <h2 className='h2title'>design</h2>
-            {/*userIn != 0 && <>
-                <h4 ><NavLink to={`/${userIn}`}>Home</NavLink></h4>
-                <h4 ><NavLink to={`/${userIn}/todos`}>Todos</NavLink></h4>
-                <h4 ><NavLink to={`/${userIn}/albums`}>Albums</NavLink></h4>
-                <h4 ><NavLink to={`/${userIn}/posts`}>Posts</NavLink></h4>
-                <h4 ><NavLink to={`/${userIn}/info`}>Info</NavLink></h4></>
-    */}
+            <div>D-home</div>
+            <NavLink to={`/${userIn}`}>Home</NavLink>
+            <NavLink to={`/${userIn}/about`}>About</NavLink>
+            <NavLink to={`/${userIn}/designs`}>Designs</NavLink>
+            <NavLink to={`/${userIn}/articles`}>Articles</NavLink>
+            <NavLink to={`/${userIn}/settings`}>Settings</NavLink>
+            <NavLink to={`/${userIn}/products`}>Products</NavLink>
         </nav>
     )
 }
