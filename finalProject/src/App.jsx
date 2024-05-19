@@ -16,32 +16,39 @@ import Product from './generalComponents/products/Product'
 import U_NavBar from './userComponents/NavBar'
 
 function App() {
-  let nav = sessionStorage.getItem('currentUser')?(<U_NavBar />):( <NavBar />);
+  let nav = sessionStorage.getItem('currentUser') ? (<U_NavBar />) : (<NavBar />);
   return (
     <>
       <header>
-       {nav}
+        {nav}
       </header>
       <Routes >
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
-        <Route path="/designs" element={<Designs />} >
+        <Route path="/designs">
+          <Route index element={<Designs />} />
           <Route path=":id_d" element={<Design />} />
         </Route>
-        <Route path="/articles" element={<Articles />} >
+        <Route path="/articles" >
+          <Route index element={<Articles />} />
           <Route path=":id_a" element={<Article />} />
         </Route>
-        <Route path="/:id_u" element={<U_Home />} >
-          <Route path="Designs" element={<Designs />} >
+        <Route path="/:id_u">
+          <Route index element={<U_Home />} />
+          <Route path="about" element={<About />} />
+          <Route path="designs">
+            <Route index element={<Designs />} />
             <Route path=":id_d" element={<Design />} />
             <Route path="new" element={<NewDesign />} />
           </Route>
-          <Route path="Articles" element={<Articles />} >
+          <Route path="articles">
+            <Route index element={<Articles />} />
             <Route path=":id_a" element={<Article />} />
             <Route path="new" element={<NewArticle />} />
           </Route>
           <Route path="settings" element={<Settings />} />
-          <Route path="products" element={<Products />} >
+          <Route path="products" >
+            <Route index element={<Products />} />
             <Route path=":id_p" element={<Product />} />
           </Route>
         </Route>

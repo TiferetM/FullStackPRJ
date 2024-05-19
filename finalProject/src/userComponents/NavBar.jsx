@@ -8,7 +8,7 @@ function NavBar() {
     useEffect(() => {
         let json = sessionStorage.getItem('currentUser');
         if (json) {
-            setUserIn(JSON.parse(json)?.id);
+            setUserIn(JSON.parse(json));
         }
         else {
             setUserIn(0);
