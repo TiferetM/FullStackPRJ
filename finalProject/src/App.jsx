@@ -25,7 +25,7 @@ function App() {
       <Routes >
         <Route path="/:id_u">
           <Route index element={<U_Home />} />
-          <Route pzath="home" element={<Home />} />
+          <Route path="home" element={<Home />} />
           <Route path="about" element={<About />} />
           <Route path="designs">
             <Route index element={<Designs />} />

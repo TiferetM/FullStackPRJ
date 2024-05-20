@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
+import './css/NavBar.css'
 
 function NavBar() {
     const [userIn, setUserIn] = useState("guest");
