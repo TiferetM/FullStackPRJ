@@ -5,7 +5,7 @@ import HoverNav from './HoverNav';
 
 function NavBar() {
     const [userIn, setUserIn] = useState("guest");
-    const [hoverNav, setHoverNav] = useState(false);
+    // const [hoverNav, setHoverNav] = useState(false);
     const location = useLocation();
     let id;
     useEffect(() => {
@@ -19,12 +19,12 @@ function NavBar() {
         }
     }, [location.pathname]);
 
-    onHover = () => {
-        setHoverNav(!hoverNav);
-    }
+    // onHover = () => {
+    //     setHoverNav(!hoverNav);
+    // }
 
     return (
-        <nav onHover={onHover} >
+        <nav >
             <NavLink to={`/${userIn}`}>p.pic</NavLink>
             <p>D-home</p>
             <NavLink to={`/${userIn}/home`}>Home</NavLink>
@@ -33,7 +33,7 @@ function NavBar() {
             <NavLink to={`/${userIn}/articles`}>Articles</NavLink>
             <NavLink to={`/${userIn}/settings`}>Settings</NavLink>
             <NavLink to={`/${userIn}/products`}>Products</NavLink>
-            {hoverNav && <HoverNav cordination={hoverNav.cordination} links={hoverNav.links}/>}
+            {/* {hoverNav && <HoverNav cordination={hoverNav.cordination} links={hoverNav.links}/>} */}
         </nav>
     )
 }
