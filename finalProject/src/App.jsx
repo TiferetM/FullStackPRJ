@@ -1,19 +1,19 @@
 import './App.css'
 import { Routes, Route } from 'react-router-dom'
-import NavBar from './generalComponents/NavBar'
-import Home from './generalComponents/Home'
-import About from './generalComponents/About'
-import Designs from './generalComponents/designs/Designs'
-import Design from './generalComponents/designs/Design'
-import Articles from './generalComponents/articles/Articles'
-import Article from './generalComponents/articles/Article';
-import U_Home from './userComponents/Home';
-import NewDesign from './generalComponents/designs/newDesign/CreateDesign'
-import NewArticle from './generalComponents/articles/newArticle/CreateArticle'
-import Settings from './userComponents/Settings'
-import Products from './generalComponents/products/Products'
-import Product from './generalComponents/products/Product'
-import U_NavBar from './userComponents/NavBar'
+import NavBar from './components/NavBar'
+import Home from './components/Home'
+import About from './components/About'
+import Designs from './components/designs/Designs'
+import Design from './components/designs/Design'
+import Articles from './components/articles/Articles'
+import Article from './components/articles/Article';
+import U_Home from './components/user/Home';
+import NewDesign from './components/designs/newDesign/CreateDesign'
+import NewArticle from './components/articles/newArticle/CreateArticle'
+import Settings from './components/user/Settings'
+import Products from './components/products/Products'
+import Product from './components/products/Product'
+import U_NavBar from './components/user/NavBar'
 
 function App() {
   let nav = sessionStorage.getItem('currentUser') ? (<U_NavBar />) : (<NavBar />);
