@@ -13,28 +13,19 @@ import NewArticle from './components/articles/newArticle/CreateArticle'
 import Settings from './components/user/Settings'
 import Products from './components/products/Products'
 import Product from './components/products/Product'
-import U_NavBar from './components/user/NavBar'
+import U_NavBar from './components/NavBar'
 
 function App() {
-  let nav = sessionStorage.getItem('currentUser') ? (<U_NavBar />) : (<NavBar />);
+  let nav = sessionStorage.getItem('currentUser') == "guest" ? (<NavBar />) : (<U_NavBar />);
   return (
     <>
       <header>
         {nav}
       </header>
       <Routes >
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/designs">
-          <Route index element={<Designs />} />
-          <Route path=":id_d" element={<Design />} />
-        </Route>
-        <Route path="/articles" >
-          <Route index element={<Articles />} />
-          <Route path=":id_a" element={<Article />} />
-        </Route>
         <Route path="/:id_u">
           <Route index element={<U_Home />} />
+          <Route pzath="home" element={<Home />} />
           <Route path="about" element={<About />} />
           <Route path="designs">
             <Route index element={<Designs />} />
