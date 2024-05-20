@@ -1,21 +1,5 @@
 import './App.css'
 import { Routes, Route } from 'react-router-dom'
-<<<<<<< HEAD
-import NavBar from './generalComponents/NavBar'
-import Home from './generalComponents/Home'
-import About from './generalComponents/About'
-import Designs from './generalComponents/designs/Designs'
-import Design from './generalComponents/designs/Design'
-import Articles from './generalComponents/articles/Articles'
-import Article from './generalComponents/articles/Article';
-import U_Home from './userComponents/Home';
-import NewDesign from './generalComponents/designs/newDesign/CreateDesign'
-import NewArticle from './generalComponents/articles/NewArticle/CreateArticle'
-import Settings from './userComponents/Settings'
-import Products from './generalComponents/products/Products'
-import Product from './generalComponents/products/Product'
-import U_NavBar from './userComponents/NavBar'
-=======
 import NavBar from './components/NavBar'
 import Home from './components/Home'
 import About from './components/About'
@@ -30,8 +14,6 @@ import Settings from './components/user/Settings'
 import Products from './components/products/Products'
 import Product from './components/products/Product'
 import U_NavBar from './components/NavBar'
->>>>>>> e49dd834e7ea6b390fc50488d224fe259f33e495
-
 
 function App() {
   let nav = sessionStorage.getItem('currentUser') == "guest" ? (<NavBar />) : (<U_NavBar />);
