@@ -9,11 +9,12 @@ import Articles from './generalComponents/articles/Articles'
 import Article from './generalComponents/articles/Article';
 import U_Home from './userComponents/Home';
 import NewDesign from './generalComponents/designs/newDesign/CreateDesign'
-import NewArticle from './generalComponents/articles/newArticle/CreateArticle'
+import NewArticle from './generalComponents/articles/NewArticle/CreateArticle'
 import Settings from './userComponents/Settings'
 import Products from './generalComponents/products/Products'
 import Product from './generalComponents/products/Product'
 import U_NavBar from './userComponents/NavBar'
+
 
 function App() {
   let nav = sessionStorage.getItem('currentUser') ? (<U_NavBar />) : (<NavBar />);
