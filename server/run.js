@@ -20,5 +20,5 @@ app.use("/comments", commentsRouter);
 
 const PORT = 3305;
 app.listen(PORT, () => {
-    console.log("Server is running on port 3305");
+    console.log(`Server listening on port ${PORT}`);
 });
