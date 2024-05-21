@@ -1,12 +1,16 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom'
 
-function HoverNav({title}) {
+function HoverNav({coordination, links}) {
   return (
-    <nav>
-        {/* if title is Products, Designs, or Articles,
-        display the routes that are under it in the routes that are defind in app.jsx */}
-        //sub nav
-
+    <nav style={{ top: `${coordination.y}px`, left: `${coordination.x}px` }}>
+      <ul>
+        {Object.entries(links).map(([key, value], i) => (
+          <li key={i}>
+            <NavLink to={value}>{key}</NavLink>
+          </li>
+        ))}
+      </ul>
     </nav>
   )
 }
