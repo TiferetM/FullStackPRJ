@@ -1,4 +1,3 @@
-//create mongo db database named D-home, with collections users, articles, comments, designs, products, passwordHashes
 //conect to the database
 const mongoose = require('mongoose');
 //dotnev is used to hide the mongo uri
@@ -30,7 +29,7 @@ db.once('open', () => {
     const articleSchema = new mongoose.Schema({
         title: String,
         content: String,
-        auther: string,
+        auther: String,
         pic: String
     });
     //create comments collection
