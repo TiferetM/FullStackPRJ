@@ -29,6 +29,7 @@ db.once('open', () => {
     const articleSchema = new mongoose.Schema({
         title: String,
         content: String,
+        //auther is defined as a string for now, but it should be a reference to the user collection
         auther: String,
         pic: String
     });
