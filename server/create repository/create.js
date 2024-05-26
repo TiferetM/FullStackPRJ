@@ -50,7 +50,8 @@ db.once('open', () => {
     const productSchema = new mongoose.Schema({
         title: String,
         data: String,
-        auther: String,
+        price: Number,
+        catagory: String,
         pic: String
     });
     //create passwordHashes collection
