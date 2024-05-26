@@ -11,10 +11,13 @@ const db = mongoose.connection;
 //check if the connection is successful
 db.on('error', console.error.bind(console, 'connection error:'));
 //if the connection is successful, log the message
+const mongoose = require('mongoose');
+// Define the schemas and models
 db.once('open', () => {
-    console.log('connected to mongo db');
-    //create users collection
-    const userSchema = new mongoose.Schema({
+    console.log('Connected to MongoDB');
+
+    // Define user schema and model
+    mongoose.model('Users', new mongoose.Schema({
         username: String,
         email: String,
         profilePic: String,
@@ -24,39 +27,45 @@ db.once('open', () => {
         products: [Array],
         cart: [Array],
         saved: [Array]
-    });
-    //create articles collection
-    const articleSchema = new mongoose.Schema({
+    }));
+
+    // Define article schema and model
+    mongoose.model('Articles', new mongoose.Schema({
         title: String,
         content: String,
-        //auther is defined as a string for now, but it should be a reference to the user collection
-        auther: String,
+        author: { type: mongoose.Schema.Types.ObjectId, ref: 'Users' }, // Reference to Users collection
         pic: String
-    });
-    //create comments collection
-    const commentSchema = new mongoose.Schema({
+    }));
+
+    // Define comment schema and model
+    mongoose.model('Comments', new mongoose.Schema({
         content: String,
-        auther: String,
+        author: { type: mongoose.Schema.Types.ObjectId, ref: 'Users' }, // Reference to Users collection
         baseItem: String
-    });
-    //create designs collection
-    const designSchema = new mongoose.Schema({
+    }));
+
+    // Define design schema and model
+    mongoose.model('Designs', new mongoose.Schema({
         title: String,
         content: String,
-        auther: String,
+        author: { type: mongoose.Schema.Types.ObjectId, ref: 'Users' }, // Reference to Users collection
         pic: String
-    });
-    //create products collection
-    const productSchema = new mongoose.Schema({
+    }));
+
+    // Define product schema and model
+    mongoose.model('Products', new mongoose.Schema({
         title: String,
         data: String,
         price: Number,
-        catagory: String,
+        category: String,
         pic: String
-    });
-    //create passwordHashes collection
-    const passwordHashSchema = new mongoose.Schema({
+    }));
+
+    // Define passwordHash schema and model
+    mongoose.model('PasswordHashs', new mongoose.Schema({
         username: String,
+        salt: Number,
         passwordHash: String
-    });
+    }));
+
 });
