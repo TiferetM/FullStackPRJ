@@ -21,10 +21,9 @@ db.once('open', () => {
         username: String,
         email: String,
         profilePic: String,
-        friends: [Array],
-        articles: [Array],
-        designs: [Array],
-        products: [Array],
+        staredArticles: [Array],
+        staredDesigns: [Array],
+        staredProducts: [Array],
         cart: [Array],
         saved: [Array]
     }));
@@ -68,4 +67,8 @@ db.once('open', () => {
         passwordHash: String
     }));
 
+    mongoose.model('friends', new mongoose.Schema({
+        username: { type: mongoose.Schema.Types.ObjectId, ref: 'Users' },
+        friend: { type: mongoose.Schema.Types.ObjectId, ref: 'Users' }
+    }));
 });

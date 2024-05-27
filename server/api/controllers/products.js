@@ -1,6 +1,6 @@
 import controlller from "./controlller";
 
-class productsCont extends controlller {
+class productsCtrl extends controlller {
     constructor() {
         super();
     }

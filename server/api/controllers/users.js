@@ -1,7 +1,8 @@
 import controlller from "./controlller";
 import { authenticateUser } from "../../services/authentication";
+import userService from "../../services/users";
 
-class usersCont extends controlller {
+class usersCtrl extends controlller {
     constructor() {
         super();
     }
@@ -18,7 +19,7 @@ class usersCont extends controlller {
 
     async post(req, res) {
         try {
-            const user = await this.model.users.create(req.body);
+            const user = await userService.createUser(req.body);
             return res.status(201).json(user);
         } catch (error) {
             return res.status(500).json({ error: error.message });

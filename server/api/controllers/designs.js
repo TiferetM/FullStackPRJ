@@ -1,6 +1,6 @@
 import controlller from "./controlller";
 
-class designsCont extends controlller {
+class designsCtrl extends controlller {
     constructor() {
         super();
     }

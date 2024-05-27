@@ -29,10 +29,20 @@ class userAccess extends access {
 
     async create(user) {
         try {
-            const newUser = this.db.users.create(user);
+            //add the user to the database without the salt and password hash
+            const newUser = this.db.users.create({
+                username: user.username,
+                email: user.email,
+                profilePic: user.profilePic,
+                staredArticles: [],
+                staredDesigns: [],
+                staredProducts: [],
+                cart: [],
+                saved: []
+            });
             this.db.PasswordHashs.create({
                 username: user.username,
-                salt: Math.ceil(Math.random()*1000),
+                salt: Math.ceil(Math.random() * 1000),
                 passwordHash: newUser.passwordHash
             });
             return newUser;
