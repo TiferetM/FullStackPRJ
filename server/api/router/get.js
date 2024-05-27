@@ -8,3 +8,4 @@ router.get("/:id_u/designs/?q", designsCtrl.get);
 router.get("/:id_u/articles/?q", articlesCtrl.get);
 router.get("/:id_u/products", productsCtrl.get);
 router.get("/:id_u/products/?q", productsCtrl.get);
+router.get("/:id_u/cart", productsCtrl.getCart);

@@ -57,7 +57,8 @@ db.once('open', () => {
         data: String,
         price: Number,
         category: String,
-        pic: String
+        pic: String,
+        quantity: Number
     }));
 
     // Define passwordHash schema and model

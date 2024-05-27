@@ -15,6 +15,16 @@ class productsCtrl extends controlller {
         }
     }
 
+    async getCart(req, res) {
+        try {
+            const id_u = req.params.id_u;
+            const products = await this.model.products.findAll({ where: query });
+            return res.status(200).json(products);
+        } catch (error) {
+            return res.status(500).json({ error: error.message });
+        }
+    }
+
     async post(req, res) {
         try {
             const product = await this.model.products.create(req.body);
