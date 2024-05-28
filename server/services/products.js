@@ -11,8 +11,19 @@ class productService {
         return accessProducts.read(id);
     }
 
+    async readCart(id){
+        return accessProducts.readCart(id);
+    }
+
     async updateProduct(product){
         return accessProducts.update(product);
+    }
+
+    async updateCart(product, usernameId, add=true){
+        if(!add){
+            return accessProducts.updateCart({username: usernameId, product: product.id}, false);
+        }
+        return accessProducts.updateCart({username: usernameId, product: product.id});
     }
 
     async deleteProduct(id){

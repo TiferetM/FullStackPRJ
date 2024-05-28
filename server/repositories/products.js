@@ -1,3 +1,4 @@
+import products from "../services/products";
 import access from "./access";
 
 class productAccess extends access {
@@ -13,7 +14,71 @@ class productAccess extends access {
             return { error: error.message };
         }
     }
- 
+    async readCart(id) {
+        try {
+            //natural join between products, cart and users, return the products
+            const cart = db.cart.aggregate([
+                {
+                    $match: { username: id }
+                },
+                {
+                    $lookup: {
+                        from: "products",
+                        localField: "product",
+                        foreignField: "_id",
+                        as: "product_details"
+                    }
+                },
+                {
+                    $unwind: "$product_details"
+                },
+                {
+                    //project the fields we want to return
+                    $project: {
+                        _id: 0,
+                        prod_id: 1,
+                        product_data: "$product_details.data",
+                        product_pic: "$product_details.pic",
+                        product_category: "$product_details.category",
+                        product_quantity : 1,
+                        product_title: "$product_details.title",
+                        product_price: "$product_details.price"
+                    }
+                }
+            ]);
+
+            products = cart.toArray();
+            products = products.map(product => {
+                return {
+                    id: product.prod_id,
+                    title: product.product_title,
+                    data: product.product_data,
+                    price: product.product_price,
+                    category: product.product_category,
+                    pic: product.product_pic,
+                    quantity: product.product_quantity
+                }
+            });
+            //return the products only one kind of each product, and quantity is the sum of all the same products
+            products = products.reduce((acc, current) => {
+                //check if the product is already in the array
+                const x = acc.find(item => item.id === current.id);
+                if (!x) {
+                    //if the product is not in the array, add it
+                    return acc.concat([current]);
+                } else {
+                    //if the product is in the array, add the quantity
+                    x.quantity += current.quantity;
+                    return acc;
+                }
+            }, []);
+
+            return products;
+        }
+        catch {
+            return { error: error.message };
+        }
+    }
 
     async create(product) {
         try {
@@ -41,6 +106,23 @@ class productAccess extends access {
             return { error: error.message };
         }
     }
+
+    async updateCart(product, add=true) {
+        try {
+            if (!add) {
+                await this.db.cart.destroy({
+                    where: { product: product.id }
+                });
+                return { message: "product removed from cart" };
+            }
+            const updatedProduct = this.db.cart.create(product);
+            return updatedProduct;
+        }
+        catch (error) {
+            return { error: error.message };
+        }
+    }
+
     async delete(id) {
         try {
             await this.db.products.destroy({
@@ -54,4 +136,4 @@ class productAccess extends access {
     }
 }
 
- export default userAccess = new productAccess();
+export default userAccess = new productAccess();

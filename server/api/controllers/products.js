@@ -1,5 +1,5 @@
 import controlller from "./controlller";
-
+import productService from "../../services/products";
 class productsCtrl extends controlller {
     constructor() {
         super();
@@ -8,7 +8,7 @@ class productsCtrl extends controlller {
     async get(req, res) {
         try {
             const query = req.query;
-            const products = await this.model.products.findAll({ where: query });
+            const products = await productService.readProduct(query);
             return res.status(200).json(products);
         } catch (error) {
             return res.status(500).json({ error: error.message });
@@ -18,7 +18,7 @@ class productsCtrl extends controlller {
     async getCart(req, res) {
         try {
             const id_u = req.params.id_u;
-            const products = await this.model.products.findAll({ where: query });
+            const products = await productService.readCart(id_u);
             return res.status(200).json(products);
         } catch (error) {
             return res.status(500).json({ error: error.message });
@@ -45,6 +45,20 @@ class productsCtrl extends controlller {
         }
     }
 
+    async putCart(req, res) {
+        try {
+            if (req.headers.add === "false") {
+                const product = await productService.updateCart(req.body, req.params.id_u, false);
+            }
+            else { 
+                const product = await productService.updateCart(req.body, req.params.id_u); 
+            }
+            return res.status(200).json(product);
+        } catch (error) {
+            return res.status(500).json({ error: error.message });
+        }
+    }
+
     async delete(req, res) {
         try {
             await this.model.products.destroy({
@@ -56,3 +70,4 @@ class productsCtrl extends controlller {
         }
     }
 }
+export default productsCtrl = new productsCtrl()

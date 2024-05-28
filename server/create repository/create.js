@@ -24,7 +24,6 @@ db.once('open', () => {
         staredArticles: [Array],
         staredDesigns: [Array],
         staredProducts: [Array],
-        cart: [Array],
         saved: [Array]
     }));
 
@@ -71,5 +70,10 @@ db.once('open', () => {
     mongoose.model('friends', new mongoose.Schema({
         username: { type: mongoose.Schema.Types.ObjectId, ref: 'Users' },
         friend: { type: mongoose.Schema.Types.ObjectId, ref: 'Users' }
+    }));
+
+    mongoose.model('cart', new mongoose.Schema({
+        username: { type: mongoose.Schema.Types.ObjectId, ref: 'Users' },
+        product: { type: mongoose.Schema.Types.ObjectId, ref: 'Products' }
     }));
 });
