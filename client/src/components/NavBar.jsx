@@ -1,25 +1,11 @@
-import React, { useEffect, useState } from 'react'
-import { NavLink, useLocation } from 'react-router-dom'
+import React, { useState } from 'react'
+import { NavLink } from 'react-router-dom'
 import navlinks from '../data/hoverNavLinks.js'
 import './css/NavBar.css'
 import HoverNav from './HoverNav';
 
-function NavBar() {
-    const [userIn, setUserIn] = useState("guest");
+function NavBar({userIn}) {
     const [hoverNav, setHoverNav] = useState(false);
-    const location = useLocation();
-    let id;
-    useEffect(() => {
-        let json = sessionStorage.getItem('currentUser');
-        if (json) {
-            setUserIn(JSON.parse(json));
-        }
-        else {
-            setUserIn("guest");
-            alert("problem accured, please try again later.")
-        }
-    }, [location.pathname]);
-
     const handleHover = e => {
         e.preventDefault();
         //if current target is not a nav link, return

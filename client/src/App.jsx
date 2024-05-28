@@ -1,5 +1,6 @@
 import './App.css'
-import { Routes, Route } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { Routes, Route, useNavigate } from 'react-router-dom'
 import NavBar from './components/NavBar'
 import Home from './components/Home'
 import About from './components/About'
@@ -16,36 +17,58 @@ import Product from './components/products/Product'
 import U_NavBar from './components/NavBar'
 
 function App() {
-  let nav = sessionStorage.getItem('currentUser') == "guest" ? (<NavBar />) : (<U_NavBar />);
-  return (
-    <>
-      <header>
-        {nav}
-      </header>
-      <Routes >
-        <Route path="/:id_u">
-          <Route index element={<U_Home />} />
-          <Route path="home" element={<Home />} />
-          <Route path="about" element={<About />} />
-          <Route path="designs">
-            <Route index element={<Designs />} />
-            <Route path=":id_d" element={<Design />} />
-            <Route path="new" element={<NewDesign />} />
-          </Route>
-          <Route path="articles">
-            <Route index element={<Articles />} />
-            <Route path=":id_a" element={<Article />} />
-            <Route path="new" element={<NewArticle />} />
-          </Route>
-          <Route path="settings" element={<Settings />} />
-          <Route path="products" >
-            <Route index element={<Products />} />
-            <Route path=":id_p" element={<Product />} />
-          </Route>
+  const [userIn, setUserIn] = useState("guest");
+  const navigate = useNavigate();
+  const [nav, setNav] = useState(<NavBar userIn={userIn}/>);
+  useEffect(() => {
+    if (!sessionStorage.getItem('currentUser')) {
+      alert("problem accured, please try again later.");
+      sessionStorage.setItem('currentUser', "guest");
+    }
+    else {
+      let json = sessionStorage.getItem('currentUser');
+      if (json != "guest" && json) {
+        setUserIn(JSON.parse(json));
+        setNav(<U_NavBar userIn={userIn}/>);
+        navigate("/" + JSON.parse(json));
+      }
+      else {
+        setUserIn("guest");
+        sessionStorage.setItem('currentUser', "guest");
+        setNav(<NavBar userIn = {userIn}/>);
+        navigate("/guest");
+      }
+    }
+  },[]);
+return (
+  <>
+    <header>
+      {nav}
+    </header>
+    <Routes >
+      <Route path="/:id_u">
+        <Route index element={<U_Home />} />
+        <Route path="home" element={<Home />} />
+        <Route path="about" element={<About />} />
+        <Route path="designs">
+          <Route index element={<Designs />} />
+          <Route path=":id_d" element={<Design />} />
+          <Route path="new" element={<NewDesign />} />
         </Route>
-      </Routes>
-    </>
-  )
+        <Route path="articles">
+          <Route index element={<Articles />} />
+          <Route path=":id_a" element={<Article />} />
+          <Route path="new" element={<NewArticle />} />
+        </Route>
+        <Route path="settings" element={<Settings />} />
+        <Route path="products" >
+          <Route index element={<Products />} />
+          <Route path=":id_p" element={<Product />} />
+        </Route>
+      </Route>
+    </Routes>
+  </>
+)
 }
 
 export default App
