@@ -9,7 +9,7 @@ function NavBar({userIn}) {
     const handleHover = e => {
         e.preventDefault();
         //if current target is not a nav link, return
-        // if(e.currentTarget.)
+        if(e.currentTarget.tagName !== "A") return;
         setHoverNav(cur=>{return{
             show: !cur.show,
             coordination: { x: e.currentTarget.style.left, y: e.currentTarget.style.bottom },
@@ -28,7 +28,7 @@ function NavBar({userIn}) {
             <NavLink to={`/${userIn}/articles`}>Articles</NavLink>
             <NavLink to={`/${userIn}/settings`}>Settings</NavLink>
             <NavLink to={`/${userIn}/products`}>Products</NavLink>
-            {hoverNav.show && <HoverNav coordination={hoverNav.cordination} links={hoverNav.links}/>}
+            {hoverNav.show && <HoverNav coordination={hoverNav.coordination} links={hoverNav.links}/>}
         </nav>
     )
 }
