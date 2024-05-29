@@ -27,7 +27,7 @@ function App() {
     }
     else {
       let json = sessionStorage.getItem('currentUser');
-      if (json != "guest" && json) {
+      if (json != "guest") {
         setUserIn(JSON.parse(json));
         setNav(<U_NavBar userIn={userIn}/>);
         navigate("/" + JSON.parse(json));

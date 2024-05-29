@@ -1,4 +1,4 @@
-nav{
+.mainNav{
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
     display: flex;
     width: 100%;
@@ -7,4 +7,15 @@ nav{
     position: sticky;
     top: 0;
     z-index: 100;
+}
+
+.hoverNav{
+    background-color: #f8f9fa;
+    color: #000;
+    border-radius: 5px;
+    padding: 5px 10px;
+    transition: 0.3s;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
 }

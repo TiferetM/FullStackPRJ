@@ -1,5 +1,5 @@
-export default userIn => {
-    return {
+export default (userIn, title) => {
+    return ({
         "Home": {
         },
         "About": {
@@ -25,5 +25,5 @@ export default userIn => {
             "saved products": `/${userIn}/products/saved`,
             "all products": `/${userIn}/products/all`
         }
-    }
+    })[title]
 }
