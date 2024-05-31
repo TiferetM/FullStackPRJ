@@ -1,5 +1,5 @@
 import React, {useRef, useEffect} from 'react'
-import * as THREE from 'three'
+import * as THREE from 'three';
 
 function RoomCanvas({height, width, depth}) {
     const containerRef = useRef(null);
