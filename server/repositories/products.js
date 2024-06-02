@@ -14,6 +14,17 @@ class productAccess extends access {
             return { error: error.message };
         }
     }
+
+    async readAll(query = null) {
+        try {
+            let products = this.db.products.find(query ? query : {});
+            products = products.toArray();
+            return products;
+        }
+        catch (error) {
+            return { error: error.message };
+        }
+    }
     async readCart(id) {
         try {
             //natural join between products, cart and users, return the products

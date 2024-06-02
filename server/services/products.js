@@ -11,6 +11,10 @@ class productService {
         return accessProducts.read(id);
     }
 
+    async readProducts(query = null){
+        return accessProducts.read(query?query:null);
+    }   
+
     async readCart(id){
         return accessProducts.readCart(id);
     }
