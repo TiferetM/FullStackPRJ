@@ -2,11 +2,27 @@
 import mongoose from 'mongoose';
 //dotnev is used to hide the mongo uri
 import dotenv from 'dotenv';
-//load the uri from the .env file
-dotenv.config();
-//connect to the database
+//path is used to get the path of the .env file
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+// הגדרת __dirname בסביבת ESM
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+// טוען קובץ .env
+dotenv.config({ path: `${__dirname}/../.env` });
+
 const uri = process.env.MONGO_URI;
-mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+if (!uri) {
+  throw new Error("MONGO_URI is not defined in the .env file");
+}
+//works great untill here
+mongoose.connect(uri)
+  .then(() => console.log('Connected to MongoDB'))
+  .catch((err) => console.error('Failed to connect to MongoDB', err));
+
 const db = mongoose.connection;
 //check if the connection is successful
 db.on('error', console.error.bind(console, 'connection error:'));
