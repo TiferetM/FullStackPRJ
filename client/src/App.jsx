@@ -11,7 +11,6 @@ import Article from './components/articles/Article';
 import U_Home from './components/user/Home';
 import NewDesign from './components/designs/newDesign/CreateDesign'
 import NewArticle from './components/articles/newArticle/CreateArticle'
-import Settings from './components/user/Settings'
 import Products from './components/products/Products'
 import Product from './components/products/Product'
 
@@ -63,7 +62,7 @@ return (
           <Route path=":id_a" element={<Article />} />
           <Route path="new" element={<NewArticle />} />
         </Route>
-        <Route path="settings" element={<Settings />} />
+
         <Route path="products" >
           <Route index element={<Products />} />
           <Route path=":id_p" element={<Product />} />

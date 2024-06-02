@@ -5,6 +5,7 @@ function home() {
   return (
     <>
         <div>home</div>
+        <img src={"./images/logo.png"} alt="Logo" />
     </>
   )
 }
