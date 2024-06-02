@@ -5,7 +5,7 @@ function Designs({ userIn }) {
   return (
     <>
       <div>Designs</div>
-      <Link to={`${userIn}/designs/new`}>Create Design</Link>
+      <Link to={`new`}>+</Link>
     </>
   )
 }
