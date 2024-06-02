@@ -1,7 +1,7 @@
 //conect to the database
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 //dotnev is used to hide the mongo uri
-const dotenv = require('dotenv');
+import dotenv from 'dotenv';
 //load the uri from the .env file
 dotenv.config();
 //connect to the database

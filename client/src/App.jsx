@@ -1,6 +1,6 @@
 import './App.css'
 import React, { useState, useEffect } from 'react'
-import { Routes, Route, useNavigate } from 'react-router-dom'
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
 import NavBar from './components/NavBar'
 import Home from './components/Home'
 import About from './components/About'
@@ -14,36 +14,39 @@ import NewArticle from './components/articles/newArticle/CreateArticle'
 import Settings from './components/user/Settings'
 import Products from './components/products/Products'
 import Product from './components/products/Product'
-import U_NavBar from './components/NavBar'
 
 function App() {
   const [userIn, setUserIn] = useState("guest");
   const navigate = useNavigate();
-  const [nav, setNav] = useState(<NavBar userIn={userIn}/>);
+  const location = useLocation();
   useEffect(() => {
+    let origionalPath = location.pathname;
+    //if there is no user in the session storage, set the user to guest
     if (!sessionStorage.getItem('currentUser')) {
       alert("problem accured, please try again later.");
       sessionStorage.setItem('currentUser', "guest");
+      setUserIn("guest");
+      navigate("/guest");
     }
     else {
       let json = sessionStorage.getItem('currentUser');
+      //if the user is not guest, set the user to the user in the session storage
       if (json != "guest") {
         setUserIn(JSON.parse(json));
-        setNav(<U_NavBar userIn={userIn}/>);
-        navigate("/" + JSON.parse(json));
+        navigate(origionalPath.replace(/[^/]+/, JSON.parse(json)));
       }
+      //if the user is guest, set the user to guest
       else {
         setUserIn("guest");
         sessionStorage.setItem('currentUser', "guest");
-        setNav(<NavBar userIn = {userIn}/>);
-        navigate("/guest");
+        navigate(origionalPath.replace(/[^/]+/, json));
       }
     }
   },[]);
 return (
   <>
     <header>
-      {nav}
+      <NavBar userIn={userIn} />
     </header>
     <Routes >
       <Route path="/:id_u">

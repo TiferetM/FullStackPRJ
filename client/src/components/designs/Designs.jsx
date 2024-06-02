@@ -1,8 +1,12 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
-function Designs() {
+function Designs({ userIn }) {
   return (
-    <div>Designs</div>
+    <>
+      <div>Designs</div>
+      <Link to={`${userIn}/designs/new`}>Create Design</Link>
+    </>
   )
 }
 

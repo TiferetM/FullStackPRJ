@@ -41,8 +41,8 @@ function NavBar({userIn}) {
             <NavLink to={`/${userIn}/about`}>About</NavLink>
             <NavLink to={`/${userIn}/designs`}>Designs</NavLink>
             <NavLink to={`/${userIn}/articles`}>Articles</NavLink>
-            <NavLink to={`/${userIn}/settings`}>Settings</NavLink>
-            <NavLink to={`/${userIn}/products`}>Products</NavLink>
+{           /* <NavLink to={`/${userIn}/settings`}>Settings</NavLink> */
+}            <NavLink to={`/${userIn}/products`}>Products</NavLink>
             {hoverNav.show && <HoverNav coordination={hoverNav.coordination} links={hoverNav.links}/>}
         </nav>
     )

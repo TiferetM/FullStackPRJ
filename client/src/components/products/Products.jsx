@@ -15,10 +15,11 @@
 // export default Products
 // Products.js
 import React from 'react';
-import Product from './Product.js';
+import Product from './Product.jsx';
 
 function Products() {
-  const productList = [
+  const productList = //fetch products from db with url as in routes, then parse using json
+  [
     {
       name: "Sample Product 1",
       description: "This is a sample product description 1.",

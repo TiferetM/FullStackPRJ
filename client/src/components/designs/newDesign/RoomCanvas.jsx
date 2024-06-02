@@ -1,18 +1,18 @@
-import React, {useRef, useEffect} from 'react'
+import React, { useRef, useEffect } from 'react';
 import * as THREE from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
-function RoomCanvas({height, width, depth}) {
-    const containerRef = useRef(null);
-    const sceneRef = useRef(null);
-    
+function RoomCanvas({ height, width, depth }) {
+  const containerRef = useRef(null);
+  const sceneRef = useRef(null);
+
   useEffect(() => {
     if (sceneRef.current) return; // Prevent reinitialization
 
     // Create a scene
     const scene = new THREE.Scene();
-    // Set the scene background color
-    scene.background = new THREE.Color(0xf0f0f0);
-    //the scene size should be the same as the 80% of the window size
+    // Change background color to magenta
+    scene.background = new THREE.Color(0xff00ff);
 
     // Create a camera
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -20,7 +20,7 @@ function RoomCanvas({height, width, depth}) {
 
     // Create a renderer
     const renderer = new THREE.WebGLRenderer();
-    renderer.setSize(window.innerWidth*0.8, window.innerHeight*0.8);
+    renderer.setSize(window.innerWidth * 0.8, window.innerHeight * 0.8);
 
     // Clear previous children from the container
     if (containerRef.current) {
@@ -30,26 +30,19 @@ function RoomCanvas({height, width, depth}) {
       containerRef.current.appendChild(renderer.domElement);
     }
 
-    // Create a material for the walls (beige) and floor (gray)
-    const wallMaterial = new THREE.MeshBasicMaterial({ color: 0xf5f5dc });
-    const floorMaterial = new THREE.MeshBasicMaterial({ color: 0x808080 });
+    // Initialize OrbitControls
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.update();
+
+    // Create a material for the walls (mauve) and floor (beige)
+    const wallMaterial = new THREE.MeshBasicMaterial({ color: 0xE0B0FF });
+    const floorMaterial = new THREE.MeshBasicMaterial({ color: 0xf5f5dc });
 
     // Create the walls
-    // make the visual width 60% of the window width and in the way that planegeometry will make it 60%
-    const visualWidth = (window.innerWidth*0.6)/30;
-    console.log(visualWidth);
-    
-    const proportion = visualWidth/width;
-    const backWallGeometry = new THREE.PlaneGeometry(visualWidth, height*proportion);
-    const sideWallGeometry = new THREE.PlaneGeometry(depth*proportion, height*proportion);
-
-    // const visualWidth = (window.innerWidth*0.6)/30;
-    // console.log(visualWidth);
-    
-    // const proportion = visualWidth/width;
-    // const scale = 
-    // const backWallGeometry = new THREE.PlaneGeometry(visualWidth, height*proportion);
-    // const sideWallGeometry = new THREE.PlaneGeometry(depth*proportion, height*proportion);
+    const visualWidth = (window.innerWidth * 0.6) / 30;
+    const proportion = visualWidth / width;
+    const backWallGeometry = new THREE.PlaneGeometry(visualWidth, height * proportion);
+    const sideWallGeometry = new THREE.PlaneGeometry(depth * proportion, height * proportion);
 
     const backWall = new THREE.Mesh(backWallGeometry, wallMaterial);
     backWall.position.set(0, 0, -5);
@@ -57,13 +50,12 @@ function RoomCanvas({height, width, depth}) {
 
     const leftWall = new THREE.Mesh(sideWallGeometry, wallMaterial);
     leftWall.rotation.y = Math.PI / 2;
-    //leftwall should be right next to the end of the backwall
-    leftWall.position.set(-visualWidth/2, 0, 0);
+    leftWall.position.set(-visualWidth / 2, 0, 0);
     scene.add(leftWall);
 
     const rightWall = new THREE.Mesh(sideWallGeometry, wallMaterial);
     rightWall.rotation.y = -Math.PI / 2;
-    rightWall.position.set(visualWidth/2, 0, 0);
+    rightWall.position.set(visualWidth / 2, 0, 0);
     scene.add(rightWall);
 
     const topWall = new THREE.Mesh(sideWallGeometry, wallMaterial);
@@ -78,7 +70,7 @@ function RoomCanvas({height, width, depth}) {
     scene.add(floor);
 
     // Add ambient light
-    const ambientLight = new THREE.AmbientLight(0x404040); // soft white light
+    const ambientLight = new THREE.AmbientLight(0x404040); // Soft white light
     scene.add(ambientLight);
 
     // Add directional light
@@ -89,6 +81,7 @@ function RoomCanvas({height, width, depth}) {
     // Animation loop
     const animate = () => {
       requestAnimationFrame(animate);
+      controls.update(); // Update controls in the animation loop
       renderer.render(scene, camera);
     };
     animate();
@@ -111,9 +104,10 @@ function RoomCanvas({height, width, depth}) {
     // Store scene in ref to prevent reinitialization
     sceneRef.current = scene;
   }, [height, width, depth]);
+
   return (
     <div ref={containerRef} />
-  )
+  );
 }
 
-export default RoomCanvas
+export default RoomCanvas;
