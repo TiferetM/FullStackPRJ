@@ -1,12 +1,25 @@
+//conect to the database
 import mongoose from 'mongoose';
+//dotnev is used to hide the mongo uri
 import dotenv from 'dotenv';
+//path is used to get the path of the .env file
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 
-// Load environment variables from .env file
-dotenv.config();
+// הגדרת __dirname בסביבת ESM
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+// טוען קובץ .env
+dotenv.config({ path: `${__dirname}/../.env` });
 
 // Connect to MongoDB
 const uri = process.env.MONGO_URI;
-mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+console.log(uri);
+mongoose.connect(uri)
+  .then(() => console.log('Connected to MongoDB'))
+  .catch((err) => console.error('Failed to connect to MongoDB', err));
+
 const db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'connection error:'));
