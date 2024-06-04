@@ -1,4 +1,4 @@
-import controlller from "./controlller";
+import controlller from "./controller";
 
 class ArticlesCtrl extends controlller {
     constructor() {

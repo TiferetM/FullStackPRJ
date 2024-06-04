@@ -1,4 +1,4 @@
-import controlller from "./controlller";
+import controlller from "./controller";
 import ProductService from "../../services/products";
 class ProductsCtrl extends controlller {
     constructor() {

@@ -1,6 +1,6 @@
-import controlller from "./controlller";
-import { authenticateUser } from "../../services/authentication";
-import UserService from "../../services/users";
+import controlller from "./controller.js";
+import { authenticateUser } from "../../services/authentication.js";
+import UserService from "../../services/users.js";
 
 class UsersCtrl extends controlller {
     constructor() {
