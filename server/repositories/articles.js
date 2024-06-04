@@ -1,6 +1,6 @@
 import access from "./access";
 
-class articleAccess extends access {
+class ArticleAccess extends access {
     constructor() {
         super();
     }   

@@ -1,4 +1,4 @@
-class controller {
+class Controller {
     static async get(req, res) {
         res.send('Hello World');
     }
@@ -13,4 +13,4 @@ class controller {
     }
 }
 
-export default controller = new controller();
+export default Controller = new Controller();

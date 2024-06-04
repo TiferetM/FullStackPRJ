@@ -1,6 +1,6 @@
 import accessUsers from '../repositories/designs.js'
 
-class designService {
+class DesignService {
     constructor(){
     }
     async create(design){
@@ -20,4 +20,4 @@ class designService {
     }
 }
 
-export default designService = new designService();
+export default DesignService = new DesignService();

@@ -1,6 +1,6 @@
 import controlller from "./controlller";
 
-class designsCtrl extends controlller {
+class DesignsCtrl extends controlller {
     constructor() {
         super();
     }
@@ -46,3 +46,5 @@ class designsCtrl extends controlller {
         }
     }
 }
+
+export default DesignsCtrl = new DesignsCtrl

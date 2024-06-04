@@ -8,6 +8,10 @@ server.use(cors({
     origin: '*'
   }));
 
+  server.get("/", (req, res) => {
+    res.send("Hello World!");
+  })
+
 const PORT = 3305;
 server.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);

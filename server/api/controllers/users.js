@@ -1,8 +1,8 @@
 import controlller from "./controlller";
 import { authenticateUser } from "../../services/authentication";
-import userService from "../../services/users";
+import UserService from "../../services/users";
 
-class usersCtrl extends controlller {
+class UsersCtrl extends controlller {
     constructor() {
         super();
     }
@@ -19,7 +19,7 @@ class usersCtrl extends controlller {
 
     async post(req, res) {
         try {
-            const user = await userService.createUser(req.body);
+            const user = await UserService.createUser(req.body);
             return res.status(201).json(user);
         } catch (error) {
             return res.status(500).json({ error: error.message });
@@ -60,3 +60,5 @@ class usersCtrl extends controlller {
         }
     }
 }
+
+export default UsersCtrl = new UsersCtrl();

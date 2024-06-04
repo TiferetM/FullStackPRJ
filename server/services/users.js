@@ -1,6 +1,6 @@
 import accessUsers from '../repositories/users.js'
 
-class userService {
+class UserService {
     constructor(){
     }
 
@@ -21,4 +21,4 @@ class userService {
     }
 }
 
-export default userService = new userService();
+export default UserService = new UserService();

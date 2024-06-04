@@ -1,6 +1,6 @@
 import controlller from "./controlller";
 
-class commentsCtrl extends controlller {
+class CommentsCtrl extends controlller {
     constructor() {
         super();
     }
@@ -46,3 +46,5 @@ class commentsCtrl extends controlller {
         }
     }
 }
+
+export default CommentsCtrl = new CommentsCtrl()

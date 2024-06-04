@@ -1,6 +1,6 @@
 import accessUsers from '../repositories/products.js'
 
-class productService {
+class ProductService {
     constructor(){
     }
     async create(productService){
@@ -35,4 +35,4 @@ class productService {
     }
 }
 
-export default productService = new productService();
+export default ProductService = new ProductService();

@@ -1,7 +1,7 @@
 import products from "../services/products";
-import access from "./access";
+import Access from "./access";
 
-class productAccess extends access {
+class ProductAccess extends Access {
     constructor() {
         super();
     }
@@ -147,4 +147,4 @@ class productAccess extends access {
     }
 }
 
-export default userAccess = new productAccess();
+export default userAccess = new ProductAccess();

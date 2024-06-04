@@ -1,6 +1,6 @@
 import controlller from "./controlller";
-import productService from "../../services/products";
-class productsCtrl extends controlller {
+import ProductService from "../../services/products";
+class ProductsCtrl extends controlller {
     constructor() {
         super();
     }
@@ -9,7 +9,7 @@ class productsCtrl extends controlller {
         try {
             console.log("get at productsCtrl")
             const query = req.query;
-            const products = query?await productService.readProducts(query):await productServices.readProduct();
+            const products = query?await ProductService.readProducts(query):await productServices.readProduct();
             return res.status(200).json(products);
         } catch (error) {
             return res.status(500).json({ error: error.message });
@@ -19,7 +19,7 @@ class productsCtrl extends controlller {
     async getCart(req, res) {
         try {
             const id_u = req.params.id_u;
-            const products = await productService.readCart(id_u);
+            const products = await ProductService.readCart(id_u);
             return res.status(200).json(products);
         } catch (error) {
             return res.status(500).json({ error: error.message });
@@ -49,10 +49,10 @@ class productsCtrl extends controlller {
     async putCart(req, res) {
         try {
             if (req.headers.add === "false") {
-                const product = await productService.updateCart(req.body, req.params.id_u, false);
+                const product = await ProductService.updateCart(req.body, req.params.id_u, false);
             }
             else { 
-                const product = await productService.updateCart(req.body, req.params.id_u); 
+                const product = await ProductService.updateCart(req.body, req.params.id_u); 
             }
             return res.status(200).json(product);
         } catch (error) {
@@ -71,4 +71,4 @@ class productsCtrl extends controlller {
         }
     }
 }
-export default productsCtrl = new productsCtrl()
+export default ProductsCtrl = new ProductsCtrl()

@@ -1,9 +1,9 @@
 import { sha512 } from "js-sha512";
-import { userAccess } from "../repositories/users.js";
+import { UserAccess } from "../repositories/users.js";
 
 export let authenticateUser = (user) => {
     //get the users salt from the database
-    const userSecurity = userAccess.getUserPassword(user.username);
+    const userSecurity = UserAccess.getUserPassword(user.username);
     if(userSecurity.error){
         return false;
     }

@@ -1,6 +1,6 @@
 import access from "./access";
 
-class commentAccess extends access {
+class CommentAccess extends access {
     constructor() {
         super();
     }   
@@ -51,4 +51,4 @@ class commentAccess extends access {
         }
     }
 }
-export default userAccess = new commentAccess();
+export default userAccess = new CommentAccess();

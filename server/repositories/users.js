@@ -1,6 +1,6 @@
-import access from "./access";
+import Access from "./access";
 
-class userAccess extends access {
+class UserAccess extends Access {
     constructor() {
         super();
         this.collection = this.db.users;
@@ -54,4 +54,4 @@ class userAccess extends access {
     }
 }
 
-export default userAccess = new userAccess();
+export default UserAccess = new UserAccess();

@@ -1,6 +1,6 @@
 import access from '../repositories/access.js'
 
-class articleService {
+class ArticleService {
     constructor() {
     }
     async create(article) {
@@ -20,4 +20,4 @@ class articleService {
     }
 }
 
-export default articleService = new articleService();
+export default ArticleService = new ArticleService();

@@ -1,4 +1,4 @@
-class access {
+class Access {
     constructor() {
         //access to the mongo database
         //conect to the database
@@ -18,4 +18,4 @@ class access {
     }
 }
 
-export default access = new access();
+export default Access = new Access();

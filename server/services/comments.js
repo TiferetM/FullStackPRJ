@@ -1,5 +1,5 @@
 import access from '../repositories/access';
-class commentAccess extends access
+class CommentAccess extends access
 {
     constructor() {
         this.access = accessComments;
