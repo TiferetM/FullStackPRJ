@@ -7,6 +7,7 @@ class productsCtrl extends controlller {
 
     async get(req, res) {
         try {
+            console.log("get at productsCtrl")
             const query = req.query;
             const products = query?await productService.readProducts(query):await productServices.readProduct();
             return res.status(200).json(products);

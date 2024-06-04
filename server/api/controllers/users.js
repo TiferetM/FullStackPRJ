@@ -50,6 +50,7 @@ class usersCtrl extends controlller {
 
     async login(req, res) {
         try {
+            console.log("login at usersCtrl")
             if (!authenticateUser(req.body)) {
                 return res.status(404).send();
             }

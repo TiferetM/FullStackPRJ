@@ -1,30 +1,37 @@
 import React, { useState } from 'react';
 import Product from './Product.jsx';
 
-function Products() {
+function Products({userIn}) {
   // נניח שהמשתמש הוא מנהל, אפשר לשנות לפי הצורך
   const isAdmin = true;
 
-  const [productList, setProductList] = useState([
-    {
-      name: "Sample Product 1",
-      description: "This is a sample product description 1.",
-      price: 19.99,
-      imageUrl: "https://via.placeholder.com/150"
-    },
-    {
-      name: "Sample Product 2",
-      description: "This is a sample product description 2.",
-      price: 29.99,
-      imageUrl: "https://via.placeholder.com/150"
-    },
-    {
-      name: "Sample Product 3",
-      description: "This is a sample product description 3.",
-      price: 39.99,
-      imageUrl: "https://via.placeholder.com/150"
-    }
-  ]);
+  // const [productList, setProductList] = useState([
+  //   {
+  //     name: "Sample Product 1",
+  //     description: "This is a sample product description 1.",
+  //     price: 19.99,
+  //     imageUrl: "https://via.placeholder.com/150"
+  //   },
+  //   {
+  //     name: "Sample Product 2",
+  //     description: "This is a sample product description 2.",
+  //     price: 29.99,
+  //     imageUrl: "https://via.placeholder.com/150"
+  //   },
+  //   {
+  //     name: "Sample Product 3",
+  //     description: "This is a sample product description 3.",
+  //     price: 39.99,
+  //     imageUrl: "https://via.placeholder.com/150"
+  //   }
+  // ]);
+
+  const [productList, setProductList] = useState(
+    fetch(`http://127.0.0.1:3305/${userIn}/products`).then(response => {
+      console.log(response);
+      return response.json();
+    })
+  );
 
   const [showForm, setShowForm] = useState(false);
   const [newProduct, setNewProduct] = useState({

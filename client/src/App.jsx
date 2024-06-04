@@ -31,6 +31,7 @@ function App() {
       let json = sessionStorage.getItem('currentUser');
       //if the user is not guest, set the user to the user in the session storage
       if (json != "guest") {
+        sessionStorage.setItem('currentUser', JSON.parse(json));
         setUserIn(JSON.parse(json));
         navigate(origionalPath.replace(/[^/]+/, JSON.parse(json)));
       }
@@ -64,7 +65,7 @@ return (
         </Route>
 
         <Route path="products" >
-          <Route index element={<Products />} />
+          <Route index element={<Products  userIn={userIn}/>} />
           <Route path=":id_p" element={<Product />} />
         </Route>
       </Route>

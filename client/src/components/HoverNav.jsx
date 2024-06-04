@@ -2,7 +2,6 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 
 function HoverNav({coordination, links}) {
-  console.log(links)
   return (
     <nav className='hoverNav' style={{ top: `${coordination.y}px`, left: `${coordination.x}px` }}>
       <ul>
