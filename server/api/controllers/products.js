@@ -9,9 +9,15 @@ class ProductsCtrl extends controlller {
         try {
             console.log("get at productsCtrl")
             const query = req.query;
-            const products = query?await ProductService.readProducts(query):await productServices.readProduct();
+            const products = query?
+            await ProductService.readProducts(query):
+            req.params.id_p?
+            await ProductService.readProduct(req.params.id_p):
+            await ProductService.readProducts();
+            console.log(products);
             return res.status(200).json(products);
         } catch (error) {
+            console.log(error)
             return res.status(500).json({ error: error.message });
         }
     }

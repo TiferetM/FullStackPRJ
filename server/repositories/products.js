@@ -141,7 +141,7 @@ class ProductAccess extends Access {
             return { message: "product deleted" };
         }
         catch (error) {
-            return { error: error.message };
+            throw new error(error.message);
         }
     }
 }

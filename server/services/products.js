@@ -1,4 +1,4 @@
-import accessUsers from '../repositories/products.js'
+import accessProducts from '../repositories/products.js'
 
 class ProductService {
     constructor(){
