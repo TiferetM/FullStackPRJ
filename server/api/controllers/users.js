@@ -9,6 +9,7 @@ class UsersCtrl extends controlller {
 
     async get(req, res) {
         try {
+            console.log("get user at userCtrl")
             const query = req.query;
             const users = await this.model.users.findAll({ where: query });
             return res.status(200).json(users);
@@ -19,6 +20,7 @@ class UsersCtrl extends controlller {
 
     async post(req, res) {
         try {
+            console.log("post user at userCtrl")
             const user = await UserService.createUser(req.body);
             return res.status(201).json(user);
         } catch (error) {
@@ -28,6 +30,7 @@ class UsersCtrl extends controlller {
 
     async put(req, res) {
         try {
+            console.log("put user at userCtrl")
             const user = await this.model.users.update(req.body, {
                 where: { id: req.params.id },
             });
@@ -39,6 +42,7 @@ class UsersCtrl extends controlller {
 
     async delete(req, res) {
         try {
+            console.log("delete user at userCtrl")
             await this.model.users.destroy({
                 where: { id: req.params.id },
             });

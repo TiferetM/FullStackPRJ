@@ -7,6 +7,7 @@ class DesignsCtrl extends controlller {
 
     async get(req, res) {
         try {
+            console.log("get design at designCtrl")
             const query = req.query;
             const designs = await this.model.designs.findAll({ where: query });
             return res.status(200).json(designs);
@@ -17,6 +18,7 @@ class DesignsCtrl extends controlller {
 
     async post(req, res) {
         try {
+            console.log("post design at designCtrl")
             const design = await this.model.designs.create(req.body);
             return res.status(201).json(design);
         } catch (error) {
@@ -26,6 +28,7 @@ class DesignsCtrl extends controlller {
 
     async put(req, res) {
         try {
+            console.log("put design at designCtrl")
             const design = await this.model.designs.update(req.body, {
                 where: { id: req.params.id },
             });
@@ -37,6 +40,7 @@ class DesignsCtrl extends controlller {
 
     async delete(req, res) {
         try {
+            console.log("delete design at designCtrl")
             await this.model.designs.destroy({
                 where: { id: req.params.id },
             });

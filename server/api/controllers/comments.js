@@ -7,6 +7,7 @@ class CommentsCtrl extends controlller {
 
     async get(req, res) {
         try {
+            console.log("get comment at commentsCtrl")
             const query = req.query;
             const comments = await this.model.comments.findAll({ where: query });
             return res.status(200).json(comments);
@@ -17,6 +18,7 @@ class CommentsCtrl extends controlller {
 
     async post(req, res) {
         try {
+            console.log("post comment at commentCtrl")
             const comment = await this.model.comments.create(req.body);
             return res.status(201).json(comment);
         } catch (error) {
@@ -26,6 +28,7 @@ class CommentsCtrl extends controlller {
 
     async put(req, res) {
         try {
+            console.log("put comment at commentCtrl")
             const comment = await this.model.comments.update(req.body, {
                 where: { id: req.params.id },
             });
@@ -37,6 +40,7 @@ class CommentsCtrl extends controlller {
 
     async delete(req, res) {
         try {
+            console.log("delete comment at commentCtrl")
             await this.model.comments.destroy({
                 where: { id: req.params.id },
             });

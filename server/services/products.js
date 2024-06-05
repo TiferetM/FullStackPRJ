@@ -3,8 +3,9 @@ import accessProducts from '../repositories/products.js'
 class ProductService {
     constructor(){
     }
-    async create(productService){
-        return accessProducts.create(products);
+    async create(product){
+        console.log("create product at productService")
+        return accessProducts.create(product);
     }
 
     async readProduct(id){

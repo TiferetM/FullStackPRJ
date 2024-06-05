@@ -7,6 +7,7 @@ class ArticleAccess extends access {
 
     async create(article) {
         try {
+            console.log("create article at articleAccess")
             const newArticle = this.db.articles.create({
                 title: article.title,
                 body: article.body,
@@ -21,6 +22,7 @@ class ArticleAccess extends access {
     }
     async read(id) {
         try {
+            console.log("read article at articleAccess")
             const article = this.db.articles.findOne({ where: { id: id } });
             return article;
         }
@@ -31,6 +33,7 @@ class ArticleAccess extends access {
     
     update(article) {
         try {
+            console.log("update article at articleAccess")
             const updatedArticle = this.db.articles.update(article, {
                 where: { id: article.id }
             });
@@ -42,6 +45,7 @@ class ArticleAccess extends access {
     }
     async delete(id) {
         try {
+            console.log("delete article at articleAccess")
             await this.db.articles.destroy({
                 where: { id: id }
             });
@@ -53,3 +57,5 @@ class ArticleAccess extends access {
     }
 
 }
+
+export default ArticleAccess = new ArticleAccess();
