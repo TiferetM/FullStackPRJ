@@ -1,4 +1,4 @@
-import Access from "./access";
+import Access from "./access.js";
 
 class UserAccess extends Access {
     constructor() {

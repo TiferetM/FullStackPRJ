@@ -1,9 +1,10 @@
 import UsersCtrl from '../controllers/users.js';
+import express from 'express';
 
-const userRouter = require('express').Router();
+const userRouter = express.Router();
 userRouter.delete('/:id_u', UsersCtrl.delete);
-router.get("/login", UsersCtrl.login);
-router.post('/signup', UsersCtrl.post);
-router.put('/:id_u', UsersCtrl.put);
+userRouter.get("/login", UsersCtrl.login);
+userRouter.post('/signup', UsersCtrl.post);
+userRouter.put('/:id_u', UsersCtrl.put);
 
 export default userRouter;

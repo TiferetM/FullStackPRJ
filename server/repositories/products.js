@@ -1,5 +1,4 @@
-import products from "../services/products";
-import Access from "./access";
+import Access from "./access.js";
 
 class ProductAccess extends Access {
     constructor() {
@@ -147,4 +146,4 @@ class ProductAccess extends Access {
     }
 }
 
-export default userAccess = new ProductAccess();
+export default ProductAccess = new ProductAccess();

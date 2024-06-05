@@ -1,6 +1,7 @@
 import DesignCtrl from "../controllers/designs.js";
+import express from "express";
 
-const designRouter = require("express").Router();
+const designRouter = express.Router();
 designRouter.post('/:id_u/designs', DesignCtrl.post);
 designRouter.delete('/:id_u/designs/:id_d', DesignCtrl.delete);
 designRouter.get("/:id_u/designs", DesignCtrl.get);

@@ -1,15 +1,16 @@
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+
 class Access {
     constructor() {
         //access to the mongo database
         //conect to the database
-        const mongoose = require('mongoose');
         //dotnev is used to hide the mongo uri
-        const dotenv = require('dotenv');
         //load the uri from the .env file
         dotenv.config();
         //connect to the database
         const uri = process.env.MONGO_URI;
-        mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+        mongoose.connect(uri).then(() => console.log('connected to the database')).catch((error) => console.log(error));
         const db = mongoose.connection;
         //check if the connection is successful
         db.on('error', console.error.bind(console, 'connection error:'));
@@ -18,4 +19,4 @@ class Access {
     }
 }
 
-export default Access = new Access();
+export default Access;

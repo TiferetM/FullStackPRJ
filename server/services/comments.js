@@ -1,4 +1,4 @@
-import access from '../repositories/access';
+import access from '../repositories/access.js';
 class CommentAccess extends access
 {
     constructor() {

@@ -1,4 +1,4 @@
-import controlller from "./controller";
+import controlller from "./controller.js";
 
 class CommentsCtrl extends controlller {
     constructor() {

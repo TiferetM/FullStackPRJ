@@ -1,6 +1,7 @@
 import ArticlesCtrl from "../controllers/articles.js";
+import express from "express";
 
-const articleRouter = require("exppress").Router();
+const articleRouter = express.Router();
 articleRouter.delete('/:id_u/articles/:id_a', ArticlesCtrl.delete);
 articleRouter.get("/:id_u/articles/?q", ArticlesCtrl.get);
 articleRouter.get("/:id_u/articles", ArticlesCtrl.get);

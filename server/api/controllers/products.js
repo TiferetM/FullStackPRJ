@@ -1,5 +1,5 @@
-import controlller from "./controller";
-import ProductService from "../../services/products";
+import controlller from "./controller.js";
+import ProductService from "../../services/products.js";
 class ProductsCtrl extends controlller {
     constructor() {
         super();

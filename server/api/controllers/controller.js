@@ -13,4 +13,4 @@ class Controller {
     }
 }
 
-export default Controller = new Controller();
+export default Controller;

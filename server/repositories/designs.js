@@ -1,4 +1,4 @@
-import access from "./access";
+import access from "./access.js";
 
 class DesignAccess extends access {
     constructor() {

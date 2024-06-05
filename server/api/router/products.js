@@ -1,6 +1,7 @@
 import ProductsCtrl from "../controllers/products.js";
+import express from "express";
 
-const productRouter = require("express").Router();
+const productRouter = express.Router();
 productRouter.put('/:id_u/products/:id_p', ProductsCtrl.put);
 productRouter.post('/:id_u/products', ProductsCtrl.post);
 productRouter.put('/:id_u/cart', ProductsCtrl.putCart);
