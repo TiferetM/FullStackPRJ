@@ -1,3 +1,4 @@
+
 import Access from "./access.js";
 
 class ProductAccess extends Access {
@@ -6,7 +7,7 @@ class ProductAccess extends Access {
     }
     async read(id) {
         try {
-            const product = this.db.products.findOne({ where: { id: id } });
+            const product = this.db.db.products.findOne({ where: { id: id } });
             return product;
         }
         catch (error) {
@@ -14,9 +15,9 @@ class ProductAccess extends Access {
         }
     }
 
-    async readAll(query = null) {
+    async readAll(query = {}) {
         try {
-            let products = this.db.products.find(query ? query : {});
+            let products = this.db.db.collection("products").find()
             products = products.toArray();
             return products;
         }
@@ -96,7 +97,7 @@ class ProductAccess extends Access {
                 name: product.tilte,
                 price: product.price,
                 category: product.category,
-                pic: product.image,
+            pic: product.image,
                 quantity: product.quantity
             });
             return newProduct;

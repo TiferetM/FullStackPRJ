@@ -13,7 +13,7 @@ class ProductService {
     }
 
     async readProducts(query = null){
-        return accessProducts.read(query?query:null);
+        return accessProducts.readAll(query?query:null);
     }   
 
     async readCart(id){

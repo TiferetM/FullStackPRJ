@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Product from './Product.jsx';
 
-function Products({userIn}) {
+function Products({ userIn }) {
   // נניח שהמשתמש הוא מנהל, אפשר לשנות לפי הצורך
   const isAdmin = true;
 
@@ -25,13 +25,26 @@ function Products({userIn}) {
   //     imageUrl: "https://via.placeholder.com/150"
   //   }
   // ]);
-
   const [productList, setProductList] = useState(
     fetch(`http://127.0.0.1:3305/${userIn}/products`).then(response => {
       console.log(response);
       return response.json();
+    }).then(data => {
+      console.log(data);
+      return data;
     })
   );
+
+  useEffect(() => {
+    fetch(`http://127.0.0.1:3305/${userIn}/products`).then(response => {
+      return response.json();
+    }).then(data => {
+      setProductList(data);
+    }
+    )
+  }, []);
+
+  console.log(productList);
 
   const [showForm, setShowForm] = useState(false);
   const [newProduct, setNewProduct] = useState({
@@ -62,7 +75,7 @@ function Products({userIn}) {
     <div>
       <h1>Product List</h1>
       {isAdmin && <button onClick={() => setShowForm(!showForm)}>Add New Product</button>}
-      
+
       {showForm && (
         <div className="new-product-form">
           <h2>Add New Product</h2>
@@ -122,7 +135,7 @@ function Products({userIn}) {
 
       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
         {productList.map((product, index) => (
-          <Product 
+          <Product
             key={index}
             name={product.name}
             description={product.description}

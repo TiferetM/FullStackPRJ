@@ -15,6 +15,7 @@ class ProductsCtrl extends controlller {
             await ProductService.readProduct(req.params.id_p):
             await ProductService.readProducts();
             console.log(products);
+            //returns products in json format
             return res.status(200).json(products);
         } catch (error) {
             console.log(error)
