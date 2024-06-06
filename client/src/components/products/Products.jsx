@@ -25,15 +25,7 @@ function Products({ userIn }) {
   //     imageUrl: "https://via.placeholder.com/150"
   //   }
   // ]);
-  const [productList, setProductList] = useState(
-    fetch(`http://127.0.0.1:3305/${userIn}/products`).then(response => {
-      console.log(response);
-      return response.json();
-    }).then(data => {
-      console.log(data);
-      return data;
-    })
-  );
+  const [productList, setProductList] = useState([]);
 
   useEffect(() => {
     fetch(`http://127.0.0.1:3305/${userIn}/products`).then(response => {
