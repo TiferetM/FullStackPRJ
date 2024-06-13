@@ -17,7 +17,7 @@ class ProductAccess extends Access {
 
     async readAll(query = {}) {
         try {
-            let products = this.db.db.collection("products").find()
+            let products = this.db.db.collection("products").find(query);
             products = products.toArray();
             return products;
         }
