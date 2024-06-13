@@ -4,27 +4,6 @@ import Product from './Product.jsx';
 function Products({ userIn }) {
   // נניח שהמשתמש הוא מנהל, אפשר לשנות לפי הצורך
   const isAdmin = true;
-
-  // const [productList, setProductList] = useState([
-  //   {
-  //     name: "Sample Product 1",
-  //     description: "This is a sample product description 1.",
-  //     price: 19.99,
-  //     imageUrl: "https://via.placeholder.com/150"
-  //   },
-  //   {
-  //     name: "Sample Product 2",
-  //     description: "This is a sample product description 2.",
-  //     price: 29.99,
-  //     imageUrl: "https://via.placeholder.com/150"
-  //   },
-  //   {
-  //     name: "Sample Product 3",
-  //     description: "This is a sample product description 3.",
-  //     price: 39.99,
-  //     imageUrl: "https://via.placeholder.com/150"
-  //   }
-  // ]);
   const [productList, setProductList] = useState([]);
 
   useEffect(() => {
@@ -34,7 +13,7 @@ function Products({ userIn }) {
       setProductList(data);
     }
     )
-  }, []);
+  }, []);//יבוא מוצרים מהDB
 
   console.log(productList);
 

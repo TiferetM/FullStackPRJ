@@ -13,6 +13,7 @@ import NewDesign from './components/designs/newDesign/CreateDesign'
 import NewArticle from './components/articles/newArticle/CreateArticle'
 import Products from './components/products/Products'
 import Product from './components/products/Product'
+import Cart from './components/products/Cart' // Import Cart component
 
 function App() {
   const [userIn, setUserIn] = useState("guest");
@@ -64,10 +65,11 @@ return (
           <Route path="new" element={<NewArticle />} />
         </Route>
 
-        <Route path="products" >
-          <Route index element={<Products  userIn={userIn}/>} />
-          <Route path=":id_p" element={<Product />} />
-        </Route>
+        <Route path="products">
+            <Route index element={<Products userIn={userIn} />} />
+            <Route path=":id_p" element={<Product />} />
+            <Route path="cart" element={<Cart />} /> {/* Add Cart route */}
+          </Route>
       </Route>
     </Routes>
   </>

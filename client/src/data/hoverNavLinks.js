@@ -21,9 +21,10 @@ export default (userIn, title) => {
         "Settings": {
         },
         "Products": {
+            "all products": `/${userIn}/products/all`,
             "my cart": `/${userIn}/products/cart`,
-            "saved products": `/${userIn}/products/saved`,
-            "all products": `/${userIn}/products/all`
+            "saved products": `/${userIn}/products/saved`
+          
         }
     })[title]
 }
