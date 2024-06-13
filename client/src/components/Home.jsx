@@ -1,16 +1,15 @@
-import React from 'react'
-import NavBar from './NavBar'
-import logo from '../images/logo.png'
+import React from 'react';
+import NavBar from './NavBar';
+import logo from '../images/logo.png';  // נתיב יחסי נכון לתמונה
 
-
-function home() {
+function Home() {
   return (
     <>
-        <div>home</div>
-        {/* <img src={"../images/logo.png"} alt="Logo" /> this kind of image that will work */}
-        <img src={logo} alt="Logo" />
+      <NavBar />
+      <div>Home</div>
+      <img src={logo} alt="home" />
     </>
-  )
+  );
 }
 
-export default home
+export default Home;

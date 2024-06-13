@@ -16,6 +16,10 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: left;
   direction: ltr;
+  background-image: url('C:\Users\dovma\OneDrive\Desktop\FullStackPRJ\client\src\images\logo.png'); /* Add this line */
+  background-size: cover; /* Ensure the image covers the container */
+  background-position: center; /* Center the background image */
+  background-repeat: no-repeat; /* Prevent the image from repeating */
 }
 
 h2 {
@@ -29,6 +33,9 @@ h2 {
   line-height: 1.8;
   color: #666;
   margin-bottom: 20px;
+  background-color: rgba(255, 255, 255, 0.8); /* Background for text to ensure readability */
+  padding: 20px;
+  border-radius: 10px;
 }
 
 .button {
