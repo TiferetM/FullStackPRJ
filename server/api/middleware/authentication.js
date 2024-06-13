@@ -1,4 +1,4 @@
-import authenticateUser, {decryptData} from '../../services/authentication.js';
+import {decryptData, authenticateUser} from '../../services/authentication.js';
 const authenticate = (req, res, next) => {
     // Get the token from the header
     const token = req.header('Authorization').replace('Bearer ', '');

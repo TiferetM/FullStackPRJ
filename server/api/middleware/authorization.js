@@ -1,4 +1,4 @@
-import UserService from '../services/users.js';
+import UserService from '../../services/users.js';
 const authorize = (requiredRoles) => (req, res, next) => {
     // Get the user's roles
     const userRoles = UserService.readRole(req.user.username); 

@@ -13,7 +13,9 @@ import NewDesign from './components/designs/newDesign/CreateDesign'
 import NewArticle from './components/articles/newArticle/CreateArticle'
 import Products from './components/products/Products'
 import Product from './components/products/Product'
-import Cart from './components/products/Cart' // Import Cart component
+import Cart from './components/products/Cart';
+import Login from './components/register/Login';
+import Signup from './components/register/Signup'
 
 function App() {
   const [userIn, setUserIn] = useState("guest");
@@ -71,6 +73,8 @@ return (
             <Route path="cart" element={<Cart />} /> {/* Add Cart route */}
           </Route>
       </Route>
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Signup />} />
     </Routes>
   </>
 )

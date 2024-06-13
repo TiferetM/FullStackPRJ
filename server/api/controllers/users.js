@@ -1,6 +1,6 @@
 import controlller from "./controller.js";
 import UserService from "../../services/users.js";
-import { publicKey } from "../../services/authentication.js";
+import { authenticateUser, publicKey } from "../../services/authentication.js";
 
 class UsersCtrl extends controlller {
     constructor() {
@@ -54,9 +54,9 @@ class UsersCtrl extends controlller {
 
     async login(req, res) {
         try {
-            UserService.readUser(req.body);
+            const user = await authenticateUser(req.body);
             res.header("Authorization", "public key " + publicKey);
-            return res.status(200).json(req.user);
+            return res.status(200).json(user);
         } catch (error) {
             return res.status(500).json({ error: error.message });
         }

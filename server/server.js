@@ -18,8 +18,22 @@ server.use(cors({
 }));
 
 //middleware
-server.use(authenticate);
-server.use(authorize);
+server.use((req, res, next) => {
+  if(req.path === '/login' || req.path === '/signup') {
+    return next();
+  }
+  else {
+    return authenticate(req, res, next);
+  }
+});
+server.use((req, res, next) => {
+  if(req.path === '/login' || req.path === '/signup') {
+    return next();
+  }
+  else {
+    return authorize(req, res, next);
+  }
+});
 server.use(errorHandler);
 
 //routes

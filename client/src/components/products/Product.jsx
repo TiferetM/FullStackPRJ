@@ -6,9 +6,10 @@ function Product({ id, name, description, price, imageUrl, userIn }) {
 
   const addItemToCart = async () => {
     try {
-      const response = await fetch(`http://127.0.0.1:3305/${userIn}/products/cart`, {
+      const response = await fetch(`http://127.0.0.1:3305/${userIn}/cart`, {
         method: 'PUT',
         headers: {
+          'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
           'Content-Type': 'application/json',
           'add': 'true' // Assuming you're using this header to specify the operation
         },
