@@ -88,4 +88,9 @@ db.once('open', () => {
         username: { type: mongoose.Schema.Types.ObjectId, ref: 'Users' },
         friend: { type: mongoose.Schema.Types.ObjectId, ref: 'Users' }
     }));
+
+    mongoose.model('roles', new mongoose.Schema({
+        username: String,
+        role: String
+    }));
 });

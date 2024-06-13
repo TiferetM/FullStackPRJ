@@ -5,6 +5,9 @@ import designRouter from './api/router/designs.js';
 import commentRouter from './api/router/comments.js';
 import articleRouter from './api/router/articles.js';
 import productRouter from './api/router/products.js';
+import authenticate from './api/middleware/authentication.js';
+import authorize from './api/middleware/authorization.js';
+import errorHandler from './api/middleware/errorHandling.js';
 
 export const server = express();
 
@@ -14,6 +17,12 @@ server.use(cors({
   origin: '*'
 }));
 
+//middleware
+server.use(authenticate);
+server.use(authorize);
+server.use(errorHandler);
+
+//routes
 server.use("/", userRouter);
 server.use("/", designRouter);
 server.use("/", commentRouter);

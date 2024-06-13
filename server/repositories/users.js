@@ -52,6 +52,26 @@ class UserAccess extends Access {
         }
 
     }
+    async getUser(username) {
+        try {
+            const user = this.db.db.users.findOne({ where: { username: username } });
+            return user;
+        }
+        catch (error) {
+            return { error: error.message };
+        }
+    }
+
+    async readRole(username) {
+        try {
+            //get the role from role collection where username is the same
+            const role = this.db.db.roles.findOne({ where: { username: username } });
+            return role;
+        }
+        catch (error) {
+            return { error: error.message };
+        }
+    }
 }
 
 export default UserAccess = new UserAccess();
