@@ -38,7 +38,7 @@ function Product({ id, name, description, price, imageUrl, userIn }) {
       <p>{description}</p>
       <p className="product-price">${price}</p>
       <button className="product-button" onClick={addItemToCart}>Add to Cart</button>
-     {show && <AddedSuccessfully/>}
+     {showSuccess && <AddedSuccessfully/>}
     </div>
   );
 }
