@@ -5,7 +5,6 @@ import logo from '../images/logo.png';  // נתיב יחסי נכון לתמונ
 function Home() {
   return (
     <>
-      <NavBar />
       <div>Home</div>
       <img src={logo} alt="home" />
     </>
