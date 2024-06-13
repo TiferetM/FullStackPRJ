@@ -9,11 +9,11 @@ class ProductsCtrl extends controlller {
         try {
             console.log("get at productsCtrl")
             const query = req.query;
-            const products = query?
-            await ProductService.readProducts(query):
-            req.params.id_p?
-            await ProductService.readProduct(req.params.id_p):
-            await ProductService.readProducts();
+            const products = query ?
+                await ProductService.readProducts(query) :
+                req.params.id_p ?
+                    await ProductService.readProduct(req.params.id_p) :
+                    await ProductService.readProducts();
             console.log(products);
             //returns products in json format
             return res.status(200).json(products);
@@ -62,8 +62,8 @@ class ProductsCtrl extends controlller {
             if (req.headers.add === "false") {
                 const product = await ProductService.updateCart(req.body, req.params.id_u, false);
             }
-            else { 
-                const product = await ProductService.updateCart(req.body, req.params.id_u); 
+            else {
+                const product = await ProductService.updateCart(req.body, req.params.id_u);
             }
             return res.status(200).json(product);
         } catch (error) {
