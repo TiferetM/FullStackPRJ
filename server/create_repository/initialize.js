@@ -141,4 +141,11 @@ db.once('open', async () => {
     } finally {
         mongoose.connection.close();
     }
+
+    //initialize roles collectiion
+    const RoleSchema = new mongoose.Schema({
+        username: { type: mongoose.Schema.Types.ObjectId, ref: 'Users' },
+        role: String
+    });
+    const Role = mongoose.model('roles', RoleSchema);
 });

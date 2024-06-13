@@ -12,6 +12,10 @@ class UserService {
         return accessUsers.read(id);
     }
 
+    async readRole(id){
+        return accessUsers.readRole(id);
+    }
+
     async updateUser(user){
         return accessUsers.update(user);
     }
