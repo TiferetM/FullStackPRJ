@@ -18,7 +18,13 @@ export default (userIn, title) => {
             "stared articles": `/${userIn}/articles/stared`,
             "all articles": `/${userIn}/articles/all`
         },
-        "Settings": {
+        "Settings": userIn === "guest" ? {
+            "sign up": "/signup",   
+            "login": "/login"
+        } :
+        {
+            "profile": `/${userIn}/info`,
+            "exit": "/exit"
         },
         "Products": {
             "all products": `/${userIn}/products/all`,

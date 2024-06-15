@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-function Login() {
+function Login({ userIn, setUserIn}) {
     const navigate = useNavigate()  
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -11,10 +11,11 @@ function Login() {
             }
         }).then(res => {
             return res.json()
-        }).then(data => {
+        }).then(async data => {
             console.log(data)
             sessionStorage.setItem("token", data.token)
-            sessionStorage.setItem("currentUser", data.user)
+            sessionStorage.setItem("currentUser", data.user.id);
+            await setUserIn(data.user.id);
             navigate(`/${userIn}`)
         }).catch(err => {
             console.log(err)
