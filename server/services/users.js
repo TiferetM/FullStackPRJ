@@ -5,6 +5,7 @@ class UserService {
     }
 
     async createUser(user){
+        console.log("createUser at userService")
         return accessUsers.create(user);
     }
 
