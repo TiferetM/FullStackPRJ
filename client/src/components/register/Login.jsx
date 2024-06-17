@@ -15,7 +15,7 @@ function Login({ userIn, setUserIn}) {
             return res.json()
         }).then(async data => {
             sessionStorage.setItem("currentUser", JSON.stringify(data.username));
-            await setUserIn(data.user.id);
+            await setUserIn(data.username);
             navigate(`/${userIn}`)
         }).catch(err => {
             console.log(err)

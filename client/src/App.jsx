@@ -26,12 +26,7 @@ function App() {
     let origionalPath = location.pathname;
     //if there is no user in the session storage, set the user to guest
     if (!sessionStorage.getItem('currentUser')) {
-      alert("problem accured, please try again later.");
-      sessionStorage.setItem('currentUser', JSON.stringify("guest"));
-      sessionStorage.setItem('token', JSON.stringify(encryptedToken));
-      // Encrypt the token with the public key
-      setUserIn("guest");
-      navigate("/guest");
+      signGuest();
     }
     else {
       let json = sessionStorage.getItem('currentUser');
@@ -42,13 +37,27 @@ function App() {
       }
       //if the user is guest, set the user to guest
       else {
-        setUserIn("guest");
-        sessionStorage.setItem('currentUser', JSON.stringify("guest"));
-        sessionStorage.setItem('token', JSON.stringify(encryptedToken));
-        navigate(origionalPath.replace(/[^/]+/, json));
+        signGuest();
       }
     }
   },[]);
+  const signGuest = async () => {
+    await fetch("http://localhost:3305/login", {
+      method: "GET",
+      headers: {
+          "Content-Type": "application/json"
+      }
+  }).then(res => {
+      sessionStorage.setItem("token", JSON.stringify(res.headers.get("Authorization")));
+      return res.json()
+  }).then(async data => {
+      sessionStorage.setItem("currentUser", JSON.stringify(data.username));
+      setUserIn(data.username);
+      navigate(`/${data.username}`)
+  }).catch(err => {
+      console.log(err)
+  })
+  }
 return (
   <>
     <header>
@@ -76,8 +85,8 @@ return (
             <Route path="cart" element={<Cart />} /> {/* Add Cart route */}
           </Route>
       </Route>
-      <Route path="/login" element={<Login publicKey={publicKey} setUserIn={setUserIn}/>} />
-      <Route path="/signup" element={<Signup publicKey={publicKey} setUserIn={setUserIn}/>} />
+      <Route path="/login" element={<Login setUserIn={setUserIn}/>} />
+      <Route path="/signup" element={<Signup setUserIn={setUserIn}/>} />
       <Route path="/exit" element={<Exit setUserIn={setUserIn} />} />
       <Route path="*" element={<h1>404: Page Not Found</h1>} />
     </Routes>

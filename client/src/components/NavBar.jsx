@@ -9,19 +9,19 @@ import '@fortawesome/fontawesome-free/css/all.css';
 function NavBar({ userIn }) {
     const [hoverNav, setHoverNav] = useState({ show: false, coordination: { x: 0, y: 0 }, links: {} });
     let hideTimeout;
-    const ppic = userIn=="guest"? <i class="fa-regular fa-user"></i>:fetch(`http://localhost:3305/${userIn}`,{
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer " + sessionStorage.getItem("token")
-        }
-    }).then(res => {
-        return res.json()
-    }).then(data => {
-        return (data.profilePic ? <img src={data.profilePic} /> : <i class="fa-regular fa-user"></i>)
-    }).catch(err => {
-        console.log(err)
-    });
+    // const ppic = userIn=="guest"? (<i className="fa-regular fa-user"></i>):fetch(`http://localhost:3305/${userIn}`,{
+    //     method: "GET",
+    //     headers: {
+    //         "Content-Type": "application/json",
+    //         "Authorization": "Bearer " + sessionStorage.getItem("token")
+    //     }
+    // }).then(res => {
+    //     return res.json()
+    // }).then(data => {
+    //     return (data.profilePic ? <img src={data.profilePic} /> : (<i className="fa-regular fa-user"></i>))
+    // }).catch(err => {
+    //     console.log(err)
+    // });
 
     const handleMouseEnter = (e) => {
         clearTimeout(hideTimeout);
@@ -45,7 +45,7 @@ function NavBar({ userIn }) {
 
     return (
         <nav className='mainNav'>
-            <NavLink to={`/${userIn}`} onMouseEnter={e => handleMouseEnter(e)} onMouseLeave={e => handleMouseLeave(e)}>{ppic}</NavLink>
+            <NavLink to={`/${userIn}`} onMouseEnter={e => handleMouseEnter(e)} onMouseLeave={e => handleMouseLeave(e)}><i className="fa-regular fa-user"></i></NavLink>
             <NavLink to={`/${userIn}/home`} onMouseEnter={e => handleMouseEnter(e)} onMouseLeave={e => handleMouseLeave(e)}><img src={logo} /></NavLink>
             <NavLink to={`/${userIn}/about`} onMouseEnter={e => handleMouseEnter(e)} onMouseLeave={e => handleMouseLeave(e)}>About</NavLink>
             <NavLink to={`/${userIn}/designs`} onMouseEnter={e => handleMouseEnter(e)} onMouseLeave={e => handleMouseLeave(e)}>Designs</NavLink>
