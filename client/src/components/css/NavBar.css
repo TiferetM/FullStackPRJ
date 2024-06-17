@@ -9,6 +9,7 @@
     top: 0;
     z-index: 100;
     background-color: #d9c5c5;
+    box-sizing: border-box;
 }
 
 nav a{
