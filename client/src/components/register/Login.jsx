@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import './css/css.css'
 function Login({ userIn, setUserIn}) {
     const navigate = useNavigate()  
     const handleSubmit = async (e) => {
@@ -29,8 +30,8 @@ function Login({ userIn, setUserIn}) {
                 <input type="text" placeholder="Username" />
                 <input type="password" placeholder="Password" />
                 <button type="submit">Login</button>
+                <Link to="/signup">Don't have an account? sign up here</Link>
             </form>
-            <Link to="/signup">Don't have an account? sign up here</Link>
         </div>
     )
 }

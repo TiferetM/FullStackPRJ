@@ -8,11 +8,11 @@
     position: sticky;
     top: 0;
     z-index: 100;
-    background-color: #e7a464;
+    background-color: #d9c5c5;
 }
 
-a{
-    color: #fff !important;
+nav a{
+    color: #fff;
 }
 
 .hoverNav{
@@ -25,6 +25,10 @@ a{
     flex-direction: column;
     position: absolute;
     background-color: #e7a464;
+}
+
+nav img{
+    height: 10vh;
 }
 /* 
 .hoverNav li{

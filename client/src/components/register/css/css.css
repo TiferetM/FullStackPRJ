@@ -1,0 +1,24 @@
+form{
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+form input{
+    margin: 10px;
+    padding: 10px;
+    width: 300px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+form a{
+    margin: 10px;
+    padding: 10px;
+    width: 300px;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    color: #e27f6d;
+}

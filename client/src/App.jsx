@@ -15,7 +15,8 @@ import Products from './components/products/Products'
 import Product from './components/products/Product'
 import Cart from './components/products/Cart';
 import Login from './components/register/Login';
-import Signup from './components/register/Signup'
+import Signup from './components/register/Signup';
+import Exit from './components/register/Exit';
 
 function App() {
   const [userIn, setUserIn] = useState("guest");
@@ -75,6 +76,8 @@ return (
       </Route>
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
+      <Route path="/exit" element={<Exit setUserIn={setUserIn} />} />
+      <Route path="*" element={<h1>404: Page Not Found</h1>} />
     </Routes>
   </>
 )

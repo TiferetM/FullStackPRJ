@@ -43,12 +43,12 @@ class UserAccess extends Access {
             this.db.PasswordHashs.create({
                 username: user.username,
                 salt: Math.ceil(Math.random() * 1000),
-                passwordHash: newUser.passwordHash
+                passwordHash: user.passwordHash
             });
             return newUser;
         }
         catch (error) {
-            return { error: error.message };
+            throw new Error(error.message);
         }
 
     }
