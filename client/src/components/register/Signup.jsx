@@ -27,8 +27,8 @@ function Signup({ setUserIn, publicKey }) {
         passwordHash: sha512(e.target[2].value)
       })
     }).then(res => {
-      sessionStorage.setItem('currentUser', e.target[0].value);
-      sessionStorage.setItem('token', res.headers.get("Authorization"));
+      sessionStorage.setItem('currentUser', JSON.stringify(e.target[0].value));
+      sessionStorage.setItem('token', JSON.stringify(res.headers.get("Authorization")));
       setUserIn(e.target[0].value);
       navigate("/" + e.target[0].value);
     }).catch(err => {

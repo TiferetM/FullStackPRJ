@@ -45,6 +45,7 @@ class UserAccess extends Access {
                 salt: Math.ceil(Math.random() * 1000),
                 passwordHash: user.passwordHash
             });
+            console.log(`user created: ${newUser.username}`);
             return newUser;
         }
         catch (error) {

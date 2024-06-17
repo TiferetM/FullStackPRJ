@@ -22,25 +22,13 @@ function App() {
   const [userIn, setUserIn] = useState("guest");
   const navigate = useNavigate();
   const location = useLocation();
-  const publicKey ="MIIBCgKCAQEA7Q3e7c97O+q6RU2KJd4JcWmVJ+4NZl1QK/qkYZwrayZjJygjLNL+X7KgImFvSRHt0y5UMLGp9d7mP6Jw7OFO/sWf+p/jz0TAenld7Fv8v6piCciJ7D3SPUQc0GT4L/A7U/z+tZ9QXh4C4MJZaXak0t9QJcZtEdPUnxdJ/4D+T+VrGfXRU8bhVVZj5bwK6mOAzY9eDFe8k3fLriNf3Rt5x1/qfgzv1fKkExfS+aI+V7R6FFAL3P8LoSD2W7jW5y7/s91uQ4odE7XhYHHTth42gPb58FttGbqBFWKlJ5dFgOfuK1BOGrrJYRtldhnO/yN8D7XnXBS0ezlEpMRR0FeUowIDAQAB";
-  const data = JSON.stringify({
-    "username": "guest",
-    "passwordHash": "w3l0v3gu3sts"
-  });
-  const encodedData = new TextEncoder().encode(data);
-  let encryptedToken; 
-  window.crypto.subtle.encrypt({
-    name: "RSA-OAEP",
-  }, publicKey, encodedData).then((encrypted) => {
-    encryptedToken = new Uint8Array(encrypted);
-  });
   useEffect(() => {
     let origionalPath = location.pathname;
     //if there is no user in the session storage, set the user to guest
     if (!sessionStorage.getItem('currentUser')) {
       alert("problem accured, please try again later.");
-      sessionStorage.setItem('currentUser', "guest");
-      sessionStorage.setItem('token', encryptedToken);
+      sessionStorage.setItem('currentUser', JSON.stringify("guest"));
+      sessionStorage.setItem('token', JSON.stringify(encryptedToken));
       // Encrypt the token with the public key
       setUserIn("guest");
       navigate("/guest");
@@ -55,8 +43,8 @@ function App() {
       //if the user is guest, set the user to guest
       else {
         setUserIn("guest");
-        sessionStorage.setItem('currentUser', "guest");
-        sessionStorage.setItem('token', encryptedToken);
+        sessionStorage.setItem('currentUser', JSON.stringify("guest"));
+        sessionStorage.setItem('token', JSON.stringify(encryptedToken));
         navigate(origionalPath.replace(/[^/]+/, json));
       }
     }
