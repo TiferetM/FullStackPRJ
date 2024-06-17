@@ -11,11 +11,10 @@ function Login({ userIn, setUserIn}) {
                 "Content-Type": "application/json"
             }
         }).then(res => {
+            sessionStorage.setItem("token", res.headers.get("Authorization"));
             return res.json()
         }).then(async data => {
-            console.log(data)
-            sessionStorage.setItem("token", data.token)
-            sessionStorage.setItem("currentUser", data.user.id);
+            sessionStorage.setItem("currentUser", data.id);
             await setUserIn(data.user.id);
             navigate(`/${userIn}`)
         }).catch(err => {

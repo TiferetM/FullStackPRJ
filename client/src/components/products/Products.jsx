@@ -7,7 +7,13 @@ function Products({ userIn }) {
   const [productList, setProductList] = useState([]);
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:3305/${userIn}/products`).then(response => {
+    fetch(`http://127.0.0.1:3305/${userIn}/products`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+      }
+    }).then(response => {
       return response.json();
     }).then(data => {
       setProductList(data);

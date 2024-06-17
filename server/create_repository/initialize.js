@@ -91,9 +91,11 @@ db.once('open', async () => {
         // Create users
         const user1 = new User({ username: 'user1', email: 'user1@example.com', profilePic: 'user1.jpg' });
         const user2 = new User({ username: 'user2', email: 'user2@example.com', profilePic: 'user2.jpg' });
+        const guest = new User({ username: 'guest', email: null, profilePic: 'guest.jpg' });
 
         await user1.save();
         await user2.save();
+        await guest.save();
 
         // Create articles
         const article1 = new Article({ title: 'Article 1', content: 'Content of article 1', author: user1._id, pic: 'article1.jpg' });
@@ -126,9 +128,11 @@ db.once('open', async () => {
         // Create password hashes
         const passwordHash1 = new PasswordHash({ username: 'user1', salt: 123, passwordHash: 'hash1' });
         const passwordHash2 = new PasswordHash({ username: 'user2', salt: 456, passwordHash: 'hash2' });
+        const guestHash = new PasswordHash({ username: 'guest', salt: 789, passwordHash: 'w3l0v3gu3sts' });
 
         await passwordHash1.save();
         await passwordHash2.save();
+        await guestHash.save();
 
         // Create friendships
         const friendship1 = new Friend({ username: user1._id, friend: user2._id });
