@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
-function Exit(setUserIn) {
+function Exit({setUserIn}) {
   const navigate = useNavigate();
   const handleExit = async () => {
     sessionStorage.setItem('currentUser', JSON.stringify("guest"));
@@ -13,7 +13,7 @@ function Exit(setUserIn) {
       <h2>Thank you for visiting our site</h2>
       <h1>Are you sure you want to leave us?</h1>
       <button onClick={handleExit}>Yes</button>
-      <button onClick={window.history.back()}>No</button>
+      <button onClick={window.history.back}>No</button>
     </div>
   )
 }
