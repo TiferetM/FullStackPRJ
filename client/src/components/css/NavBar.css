@@ -17,20 +17,28 @@ nav a{
 
 .hoverNav{
     background-color: #f8f9fa;
-    color: #000;
     border-radius: 5px;
     padding: 5px 10px;
     transition: 0.3s;
     display: flex;
     flex-direction: column;
     position: absolute;
-    background-color: #e7a464;
+    background-color: #e27f6d24;
+}
+
+.hoverNav li{
+    list-style-type: none;
+}
+
+.hoverNav a{
+    color:#e27f6d;
 }
 
 nav img{
     height: 10vh;
 }
-/* 
-.hoverNav li{
-    
-} */
+
+nav a:hover{
+    color: #e27f6d;
+    border-bottom: #fff solid 3px;
+}
