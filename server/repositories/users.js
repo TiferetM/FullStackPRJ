@@ -29,9 +29,9 @@ class UserAccess extends Access {
 
     async create(user) {
         try {
-            this.db.collection('users').insertOne
             //add the user to the database without the salt and password hash
             const newUser = await this.db.collection('users').insertOne({
+                //returns the user object
                 username: user.username,
                 email: user.email,
                 profilePic: user.profilePic??'',
@@ -41,13 +41,13 @@ class UserAccess extends Access {
                 cart: [],
                 saved: []
             });
-            console.log(`user created: ${newUser.username}`);
-            await this.db.collection('PasswordHash').insertOne({
+            console.log(`user created: ${newUser.insertedId}`);
+            const pswd = await this.db.collection('PasswordHash').insertOne({
                 username: user.username,
                 salt: Math.ceil(Math.random() * 1000),
                 passwordHash: user.passwordHash
             });
-            console.log(`user created: ${newUser.username} and pswd`);
+            console.log(`user created: ${newUser.insertedId} and pswd ${pswd.insertedId}`);
             return newUser;
         }
         catch (error) {
