@@ -14,9 +14,9 @@ export const server = express();
 server.use(express.json()); // Middleware to parse JSON bodies
 //make requests from localhost everywhere
 server.use(cors({
-  origin: '*'
+  origin: '*',
+  exposedHeaders: ['Authorization']
 }));
-
 //middleware
 server.use((req, res, next) => {
   if(req.path === '/login' || req.path === '/signup') {

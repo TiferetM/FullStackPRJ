@@ -2,27 +2,33 @@ import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { sha512 } from 'js-sha512'
 import './css/css.css'
-function Login({ userIn, setUserIn}) {
-    const navigate = useNavigate()  
+function Login({ userIn, setUserIn }) {
+    const navigate = useNavigate()
     const handleSubmit = async (e) => {
         e.preventDefault()
-        await fetch("http://localhost:3305/login", {
+        const username = e.target[0].value;
+        const passwordHash = sha512(e.target[1].value);
+
+        const url = new URL("http://localhost:3305/login");
+        url.search = new URLSearchParams({
+            username: username,
+            passwordHash: passwordHash
+        }).toString();
+
+        await fetch(url, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
-            },
-            params: {
-                username: e.target[0].value,
-                passwordHash: sha512(e.target[1].value)
             }
         }).then(res => {
+            console.log(res)
             console.log(res.headers.get("Authorization"))
             sessionStorage.setItem("token", JSON.stringify(res.headers.get("Authorization")));
             return res.json()
         }).then(async data => {
-            sessionStorage.setItem("currentUser", JSON.stringify(e.target[0].value));
-            await setUserIn(e.target[0].value);
-            navigate(`/${userIn}`)
+            sessionStorage.setItem("currentUser", JSON.stringify(username));
+            await setUserIn(username);
+            navigate(`/${username}`)
         }).catch(err => {
             console.log(err)
         })

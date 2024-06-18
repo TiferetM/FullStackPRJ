@@ -4,6 +4,7 @@ import UserAccess from "../repositories/users.js";
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
+import { Buffer } from 'buffer';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -20,22 +21,25 @@ export function getToken(data) {
 }
 
 // Function to decrypt the token
-export function decryptData(token) {
+export async function decryptData(token) {
     const buffer = Buffer.from(token, 'base64');
     const decrypted = crypto.privateDecrypt(privateKey, buffer);
-    return JSON.parse(decrypted.toString('utf8'));
+    return await JSON.parse(decrypted.toString('utf8'));
 }
 
-export const authenticateUser = (user) => {
-    console.log("authenticate user at authentication")
-    const userSecurity = UserAccess.getUserPassword(user.username);
-    if (userSecurity.error) {
-        throw new Error(userSecurity.error);
+export const authenticateUser = async (user) => {
+    console.log("authenticate user at authentication " + user.username)
+    let userSecurity;
+    try{
+        userSecurity = await UserAccess.getUserPassword(user.username);
     }
-    else {
-        if (user.passwordHash == userSecurity.pswd) {
-            return UserAccess.getUser(user.username);
-        }
+    catch (error) {
+        throw new Error(userSecurity);
+    }
+    if (user.passwordHash == userSecurity.pswd) {
+        const fullUser = await UserAccess.getUser(user.username);
+        console.log(`user authenticated: ${fullUser.email}`);
+        return {fullUser, userSecurity};
     }
 }
 

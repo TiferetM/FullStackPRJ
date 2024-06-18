@@ -8,18 +8,19 @@ class UserAccess extends Access {
     }
     async getUserPassword(username) {
         try {
-            const user = this.db.collection('users').findOne({ where: { username: username } });
-            console.log(user.username);
+            const user = await this.db.collection('PasswordHash').findOne({ username: username });
+            console.log(user);
             return { pswd: user.passwordHash, salt: user.salt };
         }
         catch (error) {
+            console.log(error);
             return { error: error.message };
         }
     }
 
     async getUserID(username) {
         try {
-            const user = this.collection('users').findOne({ where: { username: username } });
+            const user = this.collection('users').findOne({ username: username });
             return user.id;
         }
         catch (error) {
@@ -59,7 +60,8 @@ class UserAccess extends Access {
     }
     async getUser(username) {
         try {
-            const user = this.db.collection('users').findOne({ where: { username: username } });
+            const user = await this.db.collection('users').findOne({ username: username });
+            console.log(`getUser: ${user.toString()} at userAccess`);
             return user;
         }
         catch (error) {
@@ -70,7 +72,7 @@ class UserAccess extends Access {
     async readRole(path) {
         try {
             //get the role from role collection where username is the same
-            const role = this.db.collection('roles').findOne({ where: { path: path } });
+            const role = this.db.collection('roles').findOne({ path: path });
             return role;
         }
         catch (error) {
