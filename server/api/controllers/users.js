@@ -24,9 +24,10 @@ class UsersCtrl extends controlller {
             const user = await UserService.createUser(req.body);
             const token = getToken(user);
             res.header("Authorization", token);
-            console.log(`user created: ${user.username}`)
+            console.log(`user created: ${user} token: ${token}`)
             return res.status(201).json(user);
         } catch (error) {
+            console.log(error)
             return res.status(500).json({ error: error.message });
         }
     }
