@@ -7,7 +7,7 @@ class ProductAccess extends Access {
     }
     async read(id) {
         try {
-            const product = this.db.db.products.findOne({ where: { id: id } });
+            const product = await this.db.collection("products").findOne({ where: { id: id } });
             return product;
         }
         catch (error) {
@@ -17,7 +17,7 @@ class ProductAccess extends Access {
 
     async readAll(query = {}) {
         try {
-            let products = this.db.db.collection("products").find(query);
+            let products = this.db.collection("products").find(query);
             products = products.toArray();
             return products;
         }
@@ -28,7 +28,7 @@ class ProductAccess extends Access {
     async readCart(id) {
         try {
             //natural join between products, cart and users, return the products
-            const cart = db.cart.aggregate([
+            const cart = this.db.collection("cart").aggregate([
                 {
                     $match: { username: id }
                 },
@@ -93,7 +93,7 @@ class ProductAccess extends Access {
 
     async create(product) {
         try {
-            const newProduct = this.db.products.create({
+            const newProduct = await this.db.collection("products").insertOne({
                 name: product.tilte,
                 price: product.price,
                 category: product.category,
@@ -106,9 +106,9 @@ class ProductAccess extends Access {
             return { error: error.message };
         }
     }
-    update(product) {
+    async update(product) {
         try {
-            const updatedProduct = this.db.products.update(product, {
+            const updatedProduct = await this.db.collection("products").update(product, {
                 where: { id: product.id }
             });
             return updatedProduct;
@@ -121,7 +121,7 @@ class ProductAccess extends Access {
     async updateCart(product, add=true) {
         try {
             if (!add) {
-                await this.db.cart.destroy({
+                await this.db.collection("cart").destroy({
                     where: { product: product.id }
                 });
                 return { message: "product removed from cart" };
@@ -136,7 +136,7 @@ class ProductAccess extends Access {
 
     async delete(id) {
         try {
-            await this.db.products.destroy({
+            await this.db.collection("products").destroy({
                 where: { id: id }
             });
             return { message: "product deleted" };

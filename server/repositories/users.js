@@ -8,7 +8,7 @@ class UserAccess extends Access {
     }
     async getUserPassword(username) {
         try {
-            const user = this.db.users.findOne({ where: { username: username } });
+            const user = this.db.collection('users').findOne({ where: { username: username } });
             console.log(user.username);
             return { pswd: user.passwordHash, salt: user.salt };
         }
@@ -19,7 +19,7 @@ class UserAccess extends Access {
 
     async getUserID(username) {
         try {
-            const user = this.db.users.findOne({ where: { username: username } });
+            const user = this.collection('users').findOne({ where: { username: username } });
             return user.id;
         }
         catch (error) {
@@ -29,8 +29,9 @@ class UserAccess extends Access {
 
     async create(user) {
         try {
+            this.db.collection('users').insertOne
             //add the user to the database without the salt and password hash
-            const newUser = this.db.db.users.create({
+            const newUser = await this.db.collection('users').insertOne({
                 username: user.username,
                 email: user.email,
                 profilePic: user.profilePic??'',
@@ -40,22 +41,24 @@ class UserAccess extends Access {
                 cart: [],
                 saved: []
             });
-            this.db.db.PasswordHashs.create({
+            console.log(`user created: ${newUser.username}`);
+            await this.db.collection('PasswordHash').insertOne({
                 username: user.username,
                 salt: Math.ceil(Math.random() * 1000),
                 passwordHash: user.passwordHash
             });
-            console.log(`user created: ${newUser.username}`);
+            console.log(`user created: ${newUser.username} and pswd`);
             return newUser;
         }
         catch (error) {
+            console.log(error.message);
             throw new Error(error.message);
         }
 
     }
     async getUser(username) {
         try {
-            const user = this.db.db.users.findOne({ where: { username: username } });
+            const user = this.db.collection('users').findOne({ where: { username: username } });
             return user;
         }
         catch (error) {
@@ -66,7 +69,7 @@ class UserAccess extends Access {
     async readRole(username) {
         try {
             //get the role from role collection where username is the same
-            const role = this.db.db.roles.findOne({ where: { username: username } });
+            const role = this.db.collection('roles').findOne({ where: { username: username } });
             return role;
         }
         catch (error) {

@@ -8,7 +8,7 @@ class DesignAccess extends access {
     async create(design) {
         try {
             console.log("create design at designAccess")
-            const newDesign = this.db.designs.create({
+            const newDesign = await this.db.collection("designs").insertOne({
                 title: design.title,
                 body: design.body,
                 category: design.category,
@@ -24,7 +24,7 @@ class DesignAccess extends access {
     async read(id) {
         try {
             console.log("read design at designAccess")
-            const design = this.db.designs.findOne({ where: { id: id } });
+            const design = await this.db.collection("designs").findOne({ where: { id: id } });
             return design;
         }
         catch (error) {
@@ -32,10 +32,10 @@ class DesignAccess extends access {
         }
     }
     
-    update(design) {
+    async update(design) {
         try {
             console.log("update design at designAccess")
-            const updatedDesign = this.db.designs.update(design, {
+            const updatedDesign = await this.db.collection("designs").update(design, {
                 where: { id: design.id }
             });
             return updatedDesign;
@@ -47,7 +47,7 @@ class DesignAccess extends access {
     async delete(id) {
         try {
             console.log("delete design at designAccess")
-            await this.db.designs.destroy({
+            await this.db.collection("designs").destroy({
                 where: { id: id }
             });
             return { message: "design deleted" };

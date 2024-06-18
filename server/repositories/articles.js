@@ -8,7 +8,7 @@ class ArticleAccess extends access {
     async create(article) {
         try {
             console.log("create article at articleAccess")
-            const newArticle = this.db.articles.create({
+            const newArticle = await this.db.collection('articles').insertOne({
                 title: article.title,
                 body: article.body,
                 category: article.category,
@@ -23,7 +23,7 @@ class ArticleAccess extends access {
     async read(id) {
         try {
             console.log("read article at articleAccess")
-            const article = this.db.articles.findOne({ where: { id: id } });
+            const article = await this.db.collection('articles').findOne({ where: { id: id } });
             return article;
         }
         catch (error) {
@@ -31,10 +31,10 @@ class ArticleAccess extends access {
         }
     }
     
-    update(article) {
+    async update(article) {
         try {
             console.log("update article at articleAccess")
-            const updatedArticle = this.db.articles.update(article, {
+            const updatedArticle = await this.db.collection('articles').update(article, {
                 where: { id: article.id }
             });
             return updatedArticle;
@@ -46,7 +46,7 @@ class ArticleAccess extends access {
     async delete(id) {
         try {
             console.log("delete article at articleAccess")
-            await this.db.articles.destroy({
+            await this.db.collection('articles').destroy({
                 where: { id: id }
             });
             return { message: "article deleted" };
