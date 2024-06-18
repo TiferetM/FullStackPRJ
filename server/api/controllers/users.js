@@ -58,7 +58,9 @@ class UsersCtrl extends controlller {
 
     async login(req, res) {
         try {
-            const user = await authenticateUser(req.body);
+            console.log("login user at userCtrl")
+            const { username, passwordHash } = req.query;
+            const user = await authenticateUser({ username, passwordHash });
             const token = getToken(user);
             res.header("Authorization", token);
             console.log(`user logedin: ${user.username}`)

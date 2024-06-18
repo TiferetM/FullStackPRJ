@@ -35,6 +35,7 @@ class UserAccess extends Access {
                 username: user.username,
                 email: user.email,
                 profilePic: user.profilePic??'',
+                role: "user",
                 staredArticles: [],
                 staredDesigns: [],
                 staredProducts: [],
@@ -66,10 +67,10 @@ class UserAccess extends Access {
         }
     }
 
-    async readRole(username) {
+    async readRole(path) {
         try {
             //get the role from role collection where username is the same
-            const role = this.db.collection('roles').findOne({ where: { username: username } });
+            const role = this.db.collection('roles').findOne({ where: { path: path } });
             return role;
         }
         catch (error) {

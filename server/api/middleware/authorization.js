@@ -1,13 +1,9 @@
 import UserService from '../../services/users.js';
-const authorize = (requiredRoles) => (req, res, next) => {
-    // Get the user's roles
-    const userRoles = UserService.readRole(req.user.username); 
-    const hasRequiredRole = requiredRoles.some(role => userRoles.includes(role));
+const authorize = () => (req, res, next) => {; 
     // Check if the user has the required role
-    if (!hasRequiredRole) {
+    if (!UserService.checkRole(req.path, req.user.role)) {
         return res.status(403).send({ error: 'Access denied' });
     }
-
     next();
 };
 export default authorize;	

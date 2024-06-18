@@ -148,7 +148,7 @@ db.once('open', async () => {
 
     //initialize roles collectiion
     const RoleSchema = new mongoose.Schema({
-        username: { type: mongoose.Schema.Types.ObjectId, ref: 'Users' },
+        path: String,
         role: String
     });
     const Role = mongoose.model('roles', RoleSchema);
