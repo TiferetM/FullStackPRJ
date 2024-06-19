@@ -32,14 +32,12 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', () => {
     console.log('Connected to MongoDB');
 
-    //
-    
-
     // Define user schema and model
     mongoose.model('Users', new mongoose.Schema({
         username: String,
         email: String,
         profilePic: String,
+        role: String,
         staredArticles: [Array],
         staredDesigns: [Array],
         staredProducts: [Array],

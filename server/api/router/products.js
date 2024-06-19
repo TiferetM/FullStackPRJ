@@ -11,7 +11,7 @@ productRouter.get("/:id_u/cart", ProductsCtrl.getCart);
 productRouter.post('/:id_u/products', ProductsCtrl.post);
 
 productRouter.put('/:id_u/products/:id_p', ProductsCtrl.put);
-productRouter.put('/:id_u/cart', ProductsCtrl.putCart);
+productRouter.put('/:id_u/cart/:id_p', ProductsCtrl.putCart);
 
 productRouter.delete('/:id_u/products/:id_p', ProductsCtrl.delete);
 

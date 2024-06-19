@@ -1,22 +1,17 @@
-//conect to the database
 import mongoose from 'mongoose';
-//dotnev is used to hide the mongo uri
 import dotenv from 'dotenv';
-//path is used to get the path of the .env file
 import { fileURLToPath } from 'url';
-import { dirname } from 'path';
+import path, { dirname } from 'path';
 
-// הגדרת __dirname בסביבת ESM
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// טוען קובץ .env
 dotenv.config({ path: `${__dirname}/../.env` });
 
-// Connect to MongoDB
 const uri = process.env.MONGO_URI;
 console.log(uri);
-mongoose.connect(uri)
+
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('Connected to MongoDB'))
   .catch((err) => console.error('Failed to connect to MongoDB', err));
 
@@ -25,131 +20,305 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
 db.once('open', async () => {
-    console.log('Connected to MongoDB');
+  console.log('Connected to MongoDB');
 
-    // Define models
-    const UserSchema = new mongoose.Schema({
-        username: String,
-        email: String,
-        profilePic: String,
-        staredArticles: [Array],
-        staredDesigns: [Array],
-        staredProducts: [Array],
-        cart: [Array],
-        saved: [Array]
-    });
-    const User = mongoose.model('Users', UserSchema);
+  const UserSchema = new mongoose.Schema({
+    username: String,
+    email: String,
+    profilePic: String,
+    staredArticles: [Array],
+    staredDesigns: [Array],
+    staredProducts: [Array],
+    cart: [Array],
+    saved: [Array]
+  });
+  const User = mongoose.model('Users', UserSchema);
 
-    const ArticleSchema = new mongoose.Schema({
-        title: String,
-        content: String,
-        author: { type: mongoose.Schema.Types.ObjectId, ref: 'Users' },
-        pic: String
-    });
-    const Article = mongoose.model('Articles', ArticleSchema);
+  const ArticleSchema = new mongoose.Schema({
+    title: String,
+    content: String,
+    author: { type: mongoose.Schema.Types.ObjectId, ref: 'Users' },
+    pic: String
+  });
+  const Article = mongoose.model('Articles', ArticleSchema);
 
-    const CommentSchema = new mongoose.Schema({
-        content: String,
-        author: { type: mongoose.Schema.Types.ObjectId, ref: 'Users' },
-        baseItem: String
-    });
-    const Comment = mongoose.model('Comments', CommentSchema);
+  const CommentSchema = new mongoose.Schema({
+    content: String,
+    author: { type: mongoose.Schema.Types.ObjectId, ref: 'Users' },
+    baseItem: String
+  });
+  const Comment = mongoose.model('Comments', CommentSchema);
 
-    const DesignSchema = new mongoose.Schema({
-        title: String,
-        content: String,
-        author: { type: mongoose.Schema.Types.ObjectId, ref: 'Users' },
-        pic: String
-    });
-    const Design = mongoose.model('Designs', DesignSchema);
+  const DesignSchema = new mongoose.Schema({
+    title: String,
+    content: String,
+    author: { type: mongoose.Schema.Types.ObjectId, ref: 'Users' },
+    pic: String
+  });
+  const Design = mongoose.model('Designs', DesignSchema);
 
-    const ProductSchema = new mongoose.Schema({
-        title: String,
-        data: String,
-        price: Number,
-        category: String,
-        pic: String,
-        quantity: Number
-    });
-    const Product = mongoose.model('Products', ProductSchema);
+  const ProductSchema = new mongoose.Schema({
+    title: String,
+    data: String,
+    price: Number,
+    category: String,
+    pic: String,
+    quantity: Number
+  });
+  const Product = mongoose.model('Products', ProductSchema);
 
-    const PasswordHashSchema = new mongoose.Schema({
-        username: String,
-        salt: Number,
-        passwordHash: String
-    });
-    const PasswordHash = mongoose.model('PasswordHashs', PasswordHashSchema);
+  const PasswordHashSchema = new mongoose.Schema({
+    username: String,
+    salt: Number,
+    passwordHash: String
+  });
+  const PasswordHash = mongoose.model('PasswordHashs', PasswordHashSchema);
 
-    const FriendSchema = new mongoose.Schema({
-        username: { type: mongoose.Schema.Types.ObjectId, ref: 'Users' },
-        friend: { type: mongoose.Schema.Types.ObjectId, ref: 'Users' }
-    });
-    const Friend = mongoose.model('friends', FriendSchema);
+  const FriendSchema = new mongoose.Schema({
+    username: { type: mongoose.Schema.Types.ObjectId, ref: 'Users' },
+    friend: { type: mongoose.Schema.Types.ObjectId, ref: 'Users' }
+  });
+  const Friend = mongoose.model('friends', FriendSchema);
 
-    // Initialize data
-    try {
-        // Create users
-        const user1 = new User({ username: 'user1', email: 'user1@example.com', profilePic: 'user1.jpg' });
-        const user2 = new User({ username: 'user2', email: 'user2@example.com', profilePic: 'user2.jpg' });
-        const guest = new User({ username: 'guest', email: null, profilePic: 'guest.jpg' });
+  const RoleSchema = new mongoose.Schema({
+    path: String,
+    method: String,
+    role: String
+  });
+  const Role = mongoose.model('roles', RoleSchema);
 
-        await user1.save();
-        await user2.save();
-        await guest.save();
+  try {
+    const registeredPathes = [
+      { path: '/:id_u/articles', method: 'POST' },
+      { path: '/:id_u/comments', method: 'POST' },
+      { path: '/:id_u/designs', method: 'POST' },
+      { path: '/:id_u/cart', method: 'GET' },
+      { path: '/:id_u/cart/:id_p', method: 'PUT' },
+      { path: '/:id_u', method: 'DELETE' }
+    ];
 
-        // Create articles
-        const article1 = new Article({ title: 'Article 1', content: 'Content of article 1', author: user1._id, pic: 'article1.jpg' });
-        const article2 = new Article({ title: 'Article 2', content: 'Content of article 2', author: user2._id, pic: 'article2.jpg' });
+    await Promise.all(registeredPathes.map(async (path) => {
+      const role = new Role({ path: path.path, method: path.method, role: 'registered' });
+      await role.save();
+    }));
 
-        await article1.save();
-        await article2.save();
+    const adminPathes = [
+      { path: '/:id_u/products', method: 'POST' },
+      { path: '/:id_u/products/:id_p', method: 'PUT' },
+      { path: '/:id_u/products/:id_p', method: 'DELETE' },
+      { path: '/:id_u', method: 'DELETE' }
+    ];
 
-        // Create comments
-        const comment1 = new Comment({ content: 'Great article!', author: user1._id, baseItem: 'article1' });
-        const comment2 = new Comment({ content: 'Thanks for the info!', author: user2._id, baseItem: 'article2' });
+    await Promise.all(adminPathes.map(async (path) => {
+      const role = new Role({ path: path.path, method: path.method, role: 'admin' });
+      await role.save();
+    }));
 
-        await comment1.save();
-        await comment2.save();
+    const everyonePathes = [
+      { path: '/:id_u/articles', method: 'GET' },
+      { path: '/:id_u/articles/:id_a', method: 'GET' },
+      { path: '/:id_u/articles/?q', method: 'GET' },
+      { path: '/:id_u/designs', method: 'GET' },
+      { path: '/:id_u/designs/:id_d', method: 'GET' },
+      { path: '/:id_u/products', method: 'GET' },
+      { path: '/:id_u/products/:id_p', method: 'GET' },
+      { path: '/:id_u/products/?q', method: 'GET' },
+      { path: '/:id_u', method: 'GET' },
+      { path: '/:id_u/designs/?q', method: 'GET' },
+      { path: '/:id_u/comments', method: 'GET' }
+    ];
 
-        // Create designs
-        const design1 = new Design({ title: 'Design 1', content: 'Content of design 1', author: user1._id, pic: 'design1.jpg' });
-        const design2 = new Design({ title: 'Design 2', content: 'Content of design 2', author: user2._id, pic: 'design2.jpg' });
+    await Promise.all(everyonePathes.map(async (path) => {
+      const role = new Role({ path: path.path, method: path.method, role: 'everyone' });
+      await role.save();
+    }));
 
-        await design1.save();
-        await design2.save();
+    const ownerPathes = [
+      { path: '/:id_u/articles/:id_a', method: 'PUT' },
+      { path: '/:id_u/articles/:id_a', method: 'DELETE' },
+      { path: '/:id_u/designs/:id_d', method: 'PUT' },
+      { path: '/:id_u/designs/:id_d', method: 'DELETE' },
+      { path: '/:id_u/comments/:id_c', method: 'PUT' },
+      { path: '/:id_u/comments/:id_c', method: 'DELETE' },
+      { path: '/:id_u', method: 'PUT' }
+    ];
 
-        // Create products
-        const product1 = new Product({ title: 'Product 1', data: 'Data of product 1', price: 10, category: 'Category 1', pic: 'product1.jpg', quantity: 100 });
-        const product2 = new Product({ title: 'Product 2', data: 'Data of product 2', price: 20, category: 'Category 2', pic: 'product2.jpg', quantity: 200 });
+    await Promise.all(ownerPathes.map(async (path) => {
+      const role = new Role({ path: path.path, method: path.method, role: 'owner' });
+      await role.save();
+    }));
 
-        await product1.save();
-        await product2.save();
-
-        // Create password hashes
-        const passwordHash1 = new PasswordHash({ username: 'user1', salt: 123, passwordHash: 'hash1' });
-        const passwordHash2 = new PasswordHash({ username: 'user2', salt: 456, passwordHash: 'hash2' });
-        const guestHash = new PasswordHash({ username: 'guest', salt: 789, passwordHash: 'w3l0v3gu3sts' });
-
-        await passwordHash1.save();
-        await passwordHash2.save();
-        await guestHash.save();
-
-        // Create friendships
-        const friendship1 = new Friend({ username: user1._id, friend: user2._id });
-
-        await friendship1.save();
-
-        console.log('Data initialized successfully');
-    } catch (error) {
-        console.error('Error initializing data:', error);
-    } finally {
-        mongoose.connection.close();
-    }
-
-    //initialize roles collectiion
-    const RoleSchema = new mongoose.Schema({
-        path: String,
-        role: String
-    });
-    const Role = mongoose.model('roles', RoleSchema);
+    console.log('Data initialized successfully');
+  } catch (error) {
+    console.error('Error initializing data:', error);
+  } finally {
+    mongoose.connection.close();
+  }
 });
+
+// //conect to the database
+// import mongoose from 'mongoose';
+// //dotnev is used to hide the mongo uri
+// import dotenv from 'dotenv';
+// //path is used to get the path of the .env file
+// import { fileURLToPath } from 'url';
+// import path, { dirname } from 'path';
+
+// // הגדרת __dirname בסביבת ESM
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = dirname(__filename);
+
+// // טוען קובץ .env
+// dotenv.config({ path: `${__dirname}/../.env` });
+
+// // Connect to MongoDB
+// const uri = process.env.MONGO_URI;
+// console.log(uri);
+// mongoose.connect(uri)
+//   .then(() => console.log('Connected to MongoDB'))
+//   .catch((err) => console.error('Failed to connect to MongoDB', err));
+
+// const db = mongoose.connection;
+
+// db.on('error', console.error.bind(console, 'connection error:'));
+
+// db.once('open', async () => {
+//     console.log('Connected to MongoDB');
+
+//     // Define models
+//     const UserSchema = new mongoose.Schema({
+//         username: String,
+//         email: String,
+//         profilePic: String,
+//         staredArticles: [Array],
+//         staredDesigns: [Array],
+//         staredProducts: [Array],
+//         cart: [Array],
+//         saved: [Array]
+//     });
+//     const User = mongoose.model('Users', UserSchema);
+
+//     const ArticleSchema = new mongoose.Schema({
+//         title: String,
+//         content: String,
+//         author: { type: mongoose.Schema.Types.ObjectId, ref: 'Users' },
+//         pic: String
+//     });
+//     const Article = mongoose.model('Articles', ArticleSchema);
+
+//     const CommentSchema = new mongoose.Schema({
+//         content: String,
+//         author: { type: mongoose.Schema.Types.ObjectId, ref: 'Users' },
+//         baseItem: String
+//     });
+//     const Comment = mongoose.model('Comments', CommentSchema);
+
+//     const DesignSchema = new mongoose.Schema({
+//         title: String,
+//         content: String,
+//         author: { type: mongoose.Schema.Types.ObjectId, ref: 'Users' },
+//         pic: String
+//     });
+//     const Design = mongoose.model('Designs', DesignSchema);
+
+//     const ProductSchema = new mongoose.Schema({
+//         title: String,
+//         data: String,
+//         price: Number,
+//         category: String,
+//         pic: String,
+//         quantity: Number
+//     });
+//     const Product = mongoose.model('Products', ProductSchema);
+
+//     const PasswordHashSchema = new mongoose.Schema({
+//         username: String,
+//         salt: Number,
+//         passwordHash: String
+//     });
+//     const PasswordHash = mongoose.model('PasswordHashs', PasswordHashSchema);
+
+//     const FriendSchema = new mongoose.Schema({
+//         username: { type: mongoose.Schema.Types.ObjectId, ref: 'Users' },
+//         friend: { type: mongoose.Schema.Types.ObjectId, ref: 'Users' }
+//     });
+//     const Friend = mongoose.model('friends', FriendSchema);
+
+//     const RoleSchema = new mongoose.Schema({
+//         path: String,
+//         method: String,
+//         role: String
+//     });
+//     const Role = mongoose.model('roles', RoleSchema);
+
+//     // Initialize data
+//     try {
+//         // Create guest user
+//         // const guest = new User({ username: 'guest', email: null, profilePic: 'guest.jpg' });
+//         // await guest.save();
+//         // const guestHash = new PasswordHash({ username: 'guest', salt: 789, passwordHash: 'w3l0v3gu3sts' });
+//         // await guestHash.save();
+
+//         // Create roles path collection
+//         const registeredPathes = [
+//             {path: '/:id_u/articles', method: 'POST'},
+//             {path: '/:id_u/comments', method: 'POST'},
+//             {path: '/:id_u/designs', method: 'POST'},
+//             {path: '/:id_u/cart', method: 'GET'},
+//             {path: '/:id_u/cart/:id_p', method: 'PUT'},
+//             {path: '/:id_u', method: 'DELETE'},
+//         ];
+//         registeredPathes.map(async (path) => {
+//             const role = new Role({ path: path.path, method: path.method, role: 'registered' });
+//             await role.save();
+//         });
+
+//         const adminPathes = [
+//             {path: '/:id_u/products', method: 'POST'},
+//             {path: '/:id_u/products/:id_p', method: 'PUT'},
+//             {path: '/:id_u/products/:id_p', method: 'DELETE'},
+//             {path: '/:id_u', method: 'DELETE'}
+//         ];
+//         adminPathes.map(async (path) => {
+//             const role = new Role({ path: path.path, method: path.method, role: 'admin' });
+//             await role.save();
+//         });
+
+//         const everyonePathes = [
+//             {path: '/:id_u/articles', method: 'GET'},
+//             {path: '/:id_u/articles/:id_a', method: 'GET'},
+//             {path: '/:id_u/articles/?q', method: 'GET'},
+//             {path: '/:id_u/designs', method: 'GET'},
+//             {path: '/:id_u/designs/:id_d', method: 'GET'},
+//             {path: '/:id_u/products', method: 'GET'},
+//             {path: '/:id_u/products/:id_p', method: 'GET'},
+//             {path: '/:id_u/products/?q', method: 'GET'},
+//             {path: '/:id_u', method: 'GET'},
+//             {path: '/:id_u/designs/?q', method: 'GET'},
+//             {path: '/:id_u/comments', method: 'GET'}
+//         ];
+//         everyonePathes.map(async (path) => {
+//             const role = new Role({ path: path.path, method: path.method, role: 'everyone' });
+//             await role.save();
+//         });
+
+//         const ownerPathes = [
+//             {path: '/:id_u/articles/:id_a', method: 'PUT'},
+//             {path: '/:id_u/articles/:id_a', method: 'DELETE'},
+//             {path: '/:id_u/designs/:id_d', method: 'PUT'},
+//             {path: '/:id_u/designs/:id_d', method: 'DELETE'},
+//             {path: '/:id_u/comments/:id_c', method: 'PUT'},
+//             {path: '/:id_u/comments/:id_c', method: 'DELETE'},
+//             {path: '/:id_u', method: 'PUT'}
+//         ];
+//         ownerPathes.map(async (path) => {
+//             const role = new Role({ path: path.path, method: path.method, role: 'owner' });
+//             await role.save();
+//         });
+//         console.log('Data initialized successfully');
+//     } catch (error) {
+//         console.error('Error initializing data:', error);
+//     } finally {
+//         mongoose.connection.close();
+//     }
+// });
