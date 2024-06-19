@@ -3,13 +3,11 @@ import Access from "./access.js";
 class UserAccess extends Access {
     constructor() {
         super();
-        this.collection = this.db.users;
         //access to the user model
     }
     async getUserPassword(username) {
         try {
             const user = await this.db.collection('PasswordHash').findOne({ username: username });
-            console.log(user);
             return { username: user.username, pswd: user.passwordHash, salt: user.salt };
         }
         catch (error) {
@@ -43,13 +41,11 @@ class UserAccess extends Access {
                 cart: [],
                 saved: []
             });
-            console.log(`user created: ${newUser.insertedId}`);
             const pswd = await this.db.collection('PasswordHash').insertOne({
                 username: user.username,
                 salt: Math.ceil(Math.random() * 1000),
                 passwordHash: user.passwordHash
             });
-            console.log(`user created: ${newUser.insertedId} and pswd ${pswd.insertedId}`);
             return newUser;
         }
         catch (error) {
@@ -61,7 +57,6 @@ class UserAccess extends Access {
     async getUser(username) {
         try {
             const user = await this.db.collection('users').findOne({ username: username });
-            console.log(`getUser: ${user.toString()} at userAccess`);
             return user;
         }
         catch (error) {

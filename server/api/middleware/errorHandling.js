@@ -10,6 +10,5 @@ function errorHandler(err, req, res, next) {
             status: status
         }
     });
-    next();
 }
 export default errorHandler;

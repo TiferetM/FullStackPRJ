@@ -28,15 +28,14 @@ export async function decryptData(token) {
 }
 
 export const authenticateUser = async (user) => {
-    console.log("authenticate user at authentication " + user.username)
     let userSecurity;
     try{
         userSecurity = await UserAccess.getUserPassword(user.username);
     }
     catch (error) {
-        throw new Error(userSecurity);
+        throw new Error(error);
     }
-    if (user.passwordHash == userSecurity.pswd) {
+    if (user.pswd == userSecurity.pswd) {
         const fullUser = await UserAccess.getUser(user.username);
         console.log(`user authenticated: ${fullUser.email}`);
         return {fullUser, userSecurity};
