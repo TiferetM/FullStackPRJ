@@ -31,6 +31,18 @@ class DesignAccess extends access {
             return { error: error.message };
         }
     }
+
+    async readById(id) {
+        try {
+            console.log("read design at designAccess")
+            const designID = new ObjectId(id);
+            const design = await this.db.collection("designs").findOne({ _id: designID });
+            return design;
+        }
+        catch (error) {
+           throw new Error(error.message);
+        }
+    }
     
     async update(design) {
         try {

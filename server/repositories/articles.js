@@ -30,6 +30,18 @@ class ArticleAccess extends access {
             return { error: error.message };
         }
     }
+
+    async readById(id) {
+        try {
+            console.log("read article at articleAccess")
+            const articleID = new ObjectId(id);
+            const article = await this.db.collection('articles').findOne({ _id: articleID });
+            return article;
+        }
+        catch (error) {
+           throw new Error(error.message);
+        }
+    }
     
     async update(article) {
         try {

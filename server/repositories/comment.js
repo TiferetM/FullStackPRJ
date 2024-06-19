@@ -29,6 +29,18 @@ class CommentAccess extends access {
             return { error: error.message };
         }
     }
+
+    async readById(id) {
+        try {
+            console.log("read comment at commentAccess")
+            const commentID = new ObjectId(id);
+            const comment = await this.db.collection("comments").findOne({ _id: commentID });
+            return comment;
+        }
+        catch (error) {
+           throw new Error(error.message);
+        }
+    }
     
     async update(comment) {
         try {
