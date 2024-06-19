@@ -59,7 +59,7 @@ class UsersCtrl extends controlller {
         try {
             console.log("login user at userCtrl")
             let { username, passwordHash } = req.query;
-            const {userSecurity, fullUser} = await authenticateUser({ username:username, passwordHash:passwordHash });
+            const {userSecurity, fullUser} = await authenticateUser({ username:username, pswd:passwordHash });
             const token = getToken(userSecurity);
             //add the token to the header
             res.setHeader("Authorization", token);
