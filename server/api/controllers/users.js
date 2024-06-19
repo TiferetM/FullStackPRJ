@@ -7,18 +7,18 @@ class UsersCtrl extends controlller {
         super();
     }
 
-    async get(req, res) {
+    async get(req, res, next) {
         try {
             console.log("get user at userCtrl")
             const query = req.query;
             const users = await this.model.users.findAll({ where: query });
             return res.status(200).json(users);
         } catch (error) {
-            return res.status(500).json({ error: error.message });
+            next(error);    
         }
     }
 
-    async post(req, res) {
+    async post(req, res, next) {
         try {
             console.log("post user at userCtrl")
             const user = await UserService.createUser(req.body);
@@ -27,12 +27,11 @@ class UsersCtrl extends controlller {
             console.log(`user created: ${user} token: ${token}`)
             return res.status(201).json(user);
         } catch (error) {
-            console.log(error)
-            return res.status(500).json({ error: error.message });
+            next(error);
         }
     }
 
-    async put(req, res) {
+    async put(req, res, next) {
         try {
             console.log("put user at userCtrl")
             const user = await this.model.users.update(req.body, {
@@ -40,11 +39,11 @@ class UsersCtrl extends controlller {
             });
             return res.status(200).json(user);
         } catch (error) {
-            return res.status(500).json({ error: error.message });
+            next(error);
         }
     }
 
-    async delete(req, res) {
+    async delete(req, res, next) {
         try {
             console.log("delete user at userCtrl")
             await this.model.users.destroy({
@@ -52,15 +51,14 @@ class UsersCtrl extends controlller {
             });
             return res.status(204).send();
         } catch (error) {
-            return res.status(500).json({ error: error.message });
+            next(error);
         }
     }
 
-    async login(req, res) {
+    async login(req, res, next) {
         try {
             console.log("login user at userCtrl")
             let { username, passwordHash } = req.query;
-            console.log(`username: ${username} passwordHash: ${passwordHash} at userCtrl login`)
             const {userSecurity, fullUser} = await authenticateUser({ username:username, passwordHash:passwordHash });
             const token = getToken(userSecurity);
             //add the token to the header
@@ -68,8 +66,7 @@ class UsersCtrl extends controlller {
             console.log(`user logedin: ${fullUser.username}`)
             return res.status(200).json(fullUser);
         } catch (error) {
-            console.log(error)
-            return res.status(500).json({ error: error.message });
+            next(error);
         }
     }
 }

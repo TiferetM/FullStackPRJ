@@ -5,28 +5,28 @@ class DesignsCtrl extends controlller {
         super();
     }
 
-    async get(req, res) {
+    async get(req, res, next) {
         try {
             console.log("get design at designCtrl")
             const query = req.query;
             const designs = await this.model.designs.findAll({ where: query });
             return res.status(200).json(designs);
         } catch (error) {
-            return res.status(500).json({ error: error.message });
+            next(error);
         }
     }
 
-    async post(req, res) {
+    async post(req, res, next) {
         try {
             console.log("post design at designCtrl")
             const design = await this.model.designs.create(req.body);
             return res.status(201).json(design);
         } catch (error) {
-            return res.status(500).json({ error: error.message });
+            next(error);
         }
     }
 
-    async put(req, res) {
+    async put(req, res, next) {
         try {
             console.log("put design at designCtrl")
             const design = await this.model.designs.update(req.body, {
@@ -34,11 +34,11 @@ class DesignsCtrl extends controlller {
             });
             return res.status(200).json(design);
         } catch (error) {
-            return res.status(500).json({ error: error.message });
+            next(error);    
         }
     }
 
-    async delete(req, res) {
+    async delete(req, res, next) {
         try {
             console.log("delete design at designCtrl")
             await this.model.designs.destroy({
@@ -46,7 +46,7 @@ class DesignsCtrl extends controlller {
             });
             return res.status(204).send();
         } catch (error) {
-            return res.status(500).json({ error: error.message });
+            next(error);
         }
     }
 }

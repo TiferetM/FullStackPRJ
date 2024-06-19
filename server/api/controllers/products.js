@@ -5,7 +5,7 @@ class ProductsCtrl extends controlller {
         super();
     }
 
-    async get(req, res) {
+    async get(req, res, next) {
         try {
             console.log("get at productsCtrl")
             const query = req.query;
@@ -18,33 +18,32 @@ class ProductsCtrl extends controlller {
             //returns products in json format
             return res.status(200).json(products);
         } catch (error) {
-            console.log(error)
-            return res.status(500).json({ error: error.message });
+            next(error);
         }
     }
 
-    async getCart(req, res) {
+    async getCart(req, res, next) {
         try {
             console.log("get cart at productCtrl")
             const id_u = req.params.id_u;
             const products = await ProductService.readCart(id_u);
             return res.status(200).json(products);
         } catch (error) {
-            return res.status(500).json({ error: error.message });
+            next(error);
         }
     }
 
-    async post(req, res) {
+    async post(req, res, next) {
         try {
             console.log("post product at productCtrl")
             const product = await this.model.products.create(req.body);
             return res.status(201).json(product);
         } catch (error) {
-            return res.status(500).json({ error: error.message });
+            next(error);
         }
     }
 
-    async put(req, res) {
+    async put(req, res, next) {
         try {
             console.log("put product at productCtrl")
             const product = await this.model.products.update(req.body, {
@@ -52,11 +51,11 @@ class ProductsCtrl extends controlller {
             });
             return res.status(200).json(product);
         } catch (error) {
-            return res.status(500).json({ error: error.message });
+            next(error);
         }
     }
 
-    async putCart(req, res) {
+    async putCart(req, res, next) {
         try {
             console.log("put cart at productCtrl")
             if (req.headers.add === "false") {
@@ -67,11 +66,11 @@ class ProductsCtrl extends controlller {
             }
             return res.status(200).json(product);
         } catch (error) {
-            return res.status(500).json({ error: error.message });
+            next(error);
         }
     }
 
-    async delete(req, res) {
+    async delete(req, res, next) {
         try {
             console.log("delete product at productCtrl")
             await this.model.products.destroy({
@@ -79,7 +78,7 @@ class ProductsCtrl extends controlller {
             });
             return res.status(204).send();
         } catch (error) {
-            return res.status(500).json({ error: error.message });
+            next(error);
         }
     }
 }
