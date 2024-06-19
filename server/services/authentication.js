@@ -41,6 +41,9 @@ export const authenticateUser = async (user) => {
         console.log(`user authenticated: ${fullUser.email}`);
         return {fullUser, userSecurity};
     }
+    else{
+        throw new Error("Invalid password");
+    }
 }
 
 

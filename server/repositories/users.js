@@ -10,7 +10,7 @@ class UserAccess extends Access {
         try {
             const user = await this.db.collection('PasswordHash').findOne({ username: username });
             console.log(user);
-            return { pswd: user.passwordHash, salt: user.salt };
+            return { username: user.username, pswd: user.passwordHash, salt: user.salt };
         }
         catch (error) {
             console.log(error);

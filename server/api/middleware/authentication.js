@@ -10,7 +10,7 @@ const authenticate = async (req, res, next) => {
     // Decrypt the token and authenticate the user
     try {
         const decoded = await decryptData(token);
-        console.log("decoded at authenticate" + decoded)
+        console.log("decoded at authenticate",  decoded)
         const user = await authenticateUser(decoded);
         req.user = user;
         next();

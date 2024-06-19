@@ -11,7 +11,7 @@ function Products({ userIn }) {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+        'Authorization': sessionStorage.getItem('token'),
       }
     }).then(response => {
       return response.json();

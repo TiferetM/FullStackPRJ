@@ -21,8 +21,6 @@ function Login({ userIn, setUserIn }) {
                 "Content-Type": "application/json"
             }
         }).then(res => {
-            console.log(res)
-            console.log(res.headers.get("Authorization"))
             sessionStorage.setItem("token", JSON.stringify(res.headers.get("Authorization")));
             return res.json()
         }).then(async data => {
