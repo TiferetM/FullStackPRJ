@@ -5,17 +5,17 @@ export default (userIn, title) => {
         "About": {
         },
         "Designs": {
-            "my designs": `/${userIn}/designs/me`,
-            "new design": `/${userIn}/designs/new`,
-            "friends designs": `/${userIn}/designs/friends`,
-            "stared designs": `/${userIn}/designs/stared`,
+            "my designs": userIn == "guest" ? '/login' : `/${userIn}/designs/me`,
+            "new design": userIn == "guest" ? '/login' : `/${userIn}/designs/new`,
+            "friends designs": userIn == "guest" ? '/login' : `/${userIn}/designs/friends`,
+            "stared designs": userIn == "guest" ? '/login' : `/${userIn}/designs/stared`,
             "all designs": `/${userIn}/designs/all`
         },
         "Articles": {
-            "my articles": `/${userIn}/articles/me`,
-            "new article": `/${userIn}/articles/new`,
-            "friends articles": `/${userIn}/articles/friends`,
-            "stared articles": `/${userIn}/articles/stared`,
+            "my articles": userIn == "guest" ? '/login' : `/${userIn}/articles/me`,
+            "new article": userIn == "guest" ? '/login' : `/${userIn}/articles/new`,
+            "friends articles": userIn == "guest" ? '/login' : `/${userIn}/articles/friends`,
+            "stared articles": userIn == "guest" ? '/login' : `/${userIn}/articles/stared`,
             "all articles": `/${userIn}/articles/all`
         },
         "Settings": userIn === "guest" ? {
@@ -27,9 +27,9 @@ export default (userIn, title) => {
             "exit": "/exit"
         },
         "Products": {
-            "all products": `/${userIn}/products/all`,
-            "my cart": `/${userIn}/products/cart`,
-            "saved products": `/${userIn}/products/saved`
+            "all products": `/${userIn}/products`,
+            "my cart": userIn == "guest" ? '/login' : `/${userIn}/products/cart`,
+            "saved products": userIn == "guest" ? '/login' : `/${userIn}/products/saved`
           
         }
     })[title]
