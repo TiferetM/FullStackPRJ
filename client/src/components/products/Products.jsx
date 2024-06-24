@@ -22,8 +22,6 @@ function Products({ userIn }) {
     )
   }, []);//יבוא מוצרים מהDB
 
-  console.log(productList);
-
   const [showForm, setShowForm] = useState(false);
 
   return (
@@ -31,7 +29,7 @@ function Products({ userIn }) {
       <h1>Product List</h1>
       {isAdmin && <button onClick={() => setShowForm(!showForm)}>Add New Product</button>}
 
-      {showForm && <AddProduct/>}
+      {showForm && <AddProduct userIn={userIn} setProductList={setProductList}/>}
 
       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
         {productList.map((product, index) => (

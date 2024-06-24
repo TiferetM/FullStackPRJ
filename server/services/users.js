@@ -18,9 +18,13 @@ class UserService {
 
     async checkRole(path, method, role) {
         const pathArray = path.split('/');
-        const entity = pathArray[pathArray.length - 2] ?? "users";
-        const noIDPath = path.replace(/\/\d+/, '/:id_u').replace(/\/\d+/, '/:id_' + entity[0]);
-        const roles = accessUsers.readRole(noIDPath, method);
+        const entity = pathArray[2] ?? "users";
+        const segments = path.split('/')
+        segments[1] = ':id_u';
+        if(segments.length == 4) segments[3] = ':id_' + entity[0];
+        const noIDPath = segments.join('/');
+        const roles = await accessUsers.readRole(noIDPath, method);
+        console.log(`roles: ${roles}, noIDPath:${noIDPath} at checkRole`);
 
         if (roles.some(path => path.role === 'owner')) {
             const userid = pathArray[0];

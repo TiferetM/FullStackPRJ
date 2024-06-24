@@ -34,7 +34,6 @@ server.use((req, res, next) => {
     return authorize(req, res, next);
   }
 });
-server.use(errorHandler);
 
 //routes
 server.use("/", userRouter);
@@ -42,6 +41,8 @@ server.use("/", designRouter);
 server.use("/", commentRouter);
 server.use("/", articleRouter);
 server.use("/", productRouter);
+
+server.use(errorHandler);
 
 const PORT = 3305;
 server.listen(PORT, () => {

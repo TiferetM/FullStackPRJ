@@ -2,13 +2,23 @@
 import React, { useState, useEffect } from 'react';
 //import '../css/Cart.css';  // Import CSS file
 
-function Cart() {
+function Cart({userIn}) {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
     // Fetch cart items from local storage or server
-    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-    setItems(cartItems);
+    fetch(`http://localhost:3305/${userIn}/cart`, {
+      method: 'GET',
+      headers: {
+        'Authorization': sessionStorage.getItem('token'),
+      }
+    }).then(response => {
+      return response.json();
+    }).then(data => {
+      setItems(data);
+    }).catch(error => {
+      console.error('Error:', error);
+    }); 
   }, []);
 
   const handleRemoveItem = (itemId) => {

@@ -67,7 +67,8 @@ class UserAccess extends Access {
     async readRole(path, method) {
         try {
             //get the role from role collection where username is the same
-            const roles = this.db.collection('roles').find({ path: path, method: method});
+            const roles = await this.db.db.collection('roles').find({ path: path, method: method}).toArray();
+            console.log(roles);
             return roles;
         }
         catch (error) {

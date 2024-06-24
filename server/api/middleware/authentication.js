@@ -11,8 +11,8 @@ const authenticate = async (req, res, next) => {
     try {
         const decoded = await decryptData(token);
         console.log("decoded at authenticate",  decoded)
-        const user = await authenticateUser(decoded);
-        req.user = user;
+        const {fullUser} = await authenticateUser(decoded);
+        req.user = fullUser;
         next();
     } catch (error) {
         res.status(401).send({ error: 'Invalid token' });

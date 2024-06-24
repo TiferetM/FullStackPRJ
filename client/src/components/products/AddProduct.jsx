@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 
-function AddProduct({ setProductList }) {
+function AddProduct({ setProductList, userIn }) {
     const [newProduct, setNewProduct] = useState({
         name: '',
         description: '',
@@ -16,7 +16,7 @@ function AddProduct({ setProductList }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        fetch(`http://localhost:3305/products`, {
+        fetch(`http://localhost:3305/${userIn}/products`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -27,16 +27,15 @@ function AddProduct({ setProductList }) {
             return response.json();
         }).then(data => {
             console.log('Product added successfully:', data);
+            setProductList(productList => [...productList, { ...newProduct, price: parseFloat(newProduct.price) }]);
+            setNewProduct({
+                name: '',
+                description: '',
+                price: '',
+                imageUrl: ''
+            });
         }).catch(error => {
             console.error('Error:', error);
-        });
-        setProductList(productList => [...productList, { ...newProduct, price: parseFloat(newProduct.price) }]);
-        setShowForm(false);
-        setNewProduct({
-            name: '',
-            description: '',
-            price: '',
-            imageUrl: ''
         });
     };
     return (

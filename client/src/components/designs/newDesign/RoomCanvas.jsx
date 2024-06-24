@@ -43,6 +43,10 @@ function RoomCanvas({ height, width, depth }) {
     const proportion = visualWidth / width;
     const backWallGeometry = new THREE.PlaneGeometry(visualWidth, height * proportion);
     const sideWallGeometry = new THREE.PlaneGeometry(depth * proportion, height * proportion);
+    const XrightBottomBackCorner = new THREE.Vector3(-visualWidth / 2, -height / 2, -depth / 2);	
+    const XleftBottomBackCorner = new THREE.Vector3(visualWidth / 2, -height / 2, -depth / 2);
+    const XrightBottomFrontCorner = new THREE.Vector3(-visualWidth / 2, -height / 2, depth / 2);
+    const XleftBottomFrontCorner = new THREE.Vector3(visualWidth / 2, -height / 2, depth / 2);
 
     const backWall = new THREE.Mesh(backWallGeometry, wallMaterial);
     backWall.position.set(0, 0, -5);
