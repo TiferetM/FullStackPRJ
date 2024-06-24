@@ -67,4 +67,4 @@ class CommentAccess extends access {
         }
     }
 }
-export default userAccess = new CommentAccess();
+export default CommentAccess = new CommentAccess();

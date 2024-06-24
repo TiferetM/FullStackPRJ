@@ -70,4 +70,4 @@ class DesignAccess extends access {
     }
 
 }
-export default userAccess = new DesignAccess();
+export default DesignAccess = new DesignAccess();
