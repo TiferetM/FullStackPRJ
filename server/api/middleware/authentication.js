@@ -15,7 +15,8 @@ const authenticate = async (req, res, next) => {
         req.user = fullUser;
         next();
     } catch (error) {
-        res.status(401).send({ error: 'Invalid token' });
+        res.status(401);
+        throw new Error("invalid at aytheticate");
     }
 };
 export default authenticate;

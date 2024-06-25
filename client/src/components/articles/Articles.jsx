@@ -8,7 +8,7 @@ const initialArticles = [
   { id: 3, title: 'Article 3', content: 'This is the content of article 3.' },
 ];
 
-function Articles() {
+function Articles({userIn}) {
   const [articles, setArticles] = useState(initialArticles);
   const [showForm, setShowForm] = useState(false);
   const [newArticle, setNewArticle] = useState({ title: '', content: '' });

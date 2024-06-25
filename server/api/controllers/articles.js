@@ -1,4 +1,5 @@
 import controlller from "./controller.js";
+import ArticleService from "../../services/articles.js"
 
 class ArticlesCtrl extends controlller {
     constructor() {
@@ -9,7 +10,8 @@ class ArticlesCtrl extends controlller {
         try {
             console.log("get articles at ArticlesCtrl")
             const query = req.query;
-            const articles = await this.model.articles.findAll({ where: query });
+            const id = req.params.id_a;
+            const articles = id ? await ArticleService.read(id) : await ArticleService.readAll(query??{});
             return res.status(200).json(articles);
         } catch (error) {
             next(error, req, res);
@@ -19,7 +21,7 @@ class ArticlesCtrl extends controlller {
     async post(req, res, next) {
         try {
             console.log("post articles at ArticlesCtrl")
-            const article = await this.model.articles.create(req.body);
+            const article = await ArticleService.create(req.body);
             return res.status(201).json(article);
         } catch (error) {
             next(error, req, res);

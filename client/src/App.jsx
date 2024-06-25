@@ -65,24 +65,24 @@ return (
     </header>
     <Routes >
       <Route path="/:id_u">
-        <Route index element={<U_Home />} />
-        <Route path="home" element={<Home />} />
-        <Route path="about" element={<About />} />
+        <Route index element={<U_Home userIn={userIn}/>} />
+        <Route path="home" element={<Home userIn={userIn}/>} />
+        <Route path="about" element={<About userIn={userIn}/>} />
         <Route path="designs">
-          <Route index element={<Designs />} />
-          <Route path=":id_d" element={<Design />} />
-          <Route path="new" element={<NewDesign />} />
+          <Route index element={<Designs userIn={userIn}/>} />
+          <Route path=":id_d" element={<Design userIn={userIn}/>} />
+          <Route path="new" element={<NewDesign userIn={userIn}/>} />
         </Route>
         <Route path="articles">
-          <Route index element={<Articles />} />
-          <Route path=":id_a" element={<Article />} />
-          <Route path="new" element={<NewArticle />} />
+          <Route index element={<Articles userIn={userIn}/>} />
+          <Route path=":id_a" element={<Article userIn={userIn}/>} />
+          <Route path="new" element={<NewArticle userIn={userIn}/>} />
         </Route>
 
         <Route path="products">
             <Route index element={<Products userIn={userIn} />} />
-            <Route path=":id_p" element={<Product />} />
-            <Route path="cart" element={<Cart />} /> {/* Add Cart route */}
+            <Route path=":id_p" element={<Product userIn={userIn}/>} />
+            <Route path="cart" element={<Cart userIn={userIn}/>} /> {/* Add Cart route */}
           </Route>
       </Route>
       <Route path="/login" element={<Login setUserIn={setUserIn}/>} />

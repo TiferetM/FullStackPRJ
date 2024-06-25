@@ -4,7 +4,7 @@ import navlinks from '../data/hoverNavLinks.js'
 import './css/NavBar.css'
 import HoverNav from './HoverNav';
 import logo from '../images/logo_min.png';
-//import '@fortawesome/fontawesome-free/css/all.css';
+import '@fortawesome/fontawesome-free/css/all.css';
 
 function NavBar({ userIn }) {
     const [hoverNav, setHoverNav] = useState({ show: false, coordination: { x: 0, y: 0 }, links: {} });

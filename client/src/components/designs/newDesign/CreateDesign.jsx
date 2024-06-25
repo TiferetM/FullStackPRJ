@@ -3,9 +3,9 @@ import RoomCanvas from './RoomCanvas';
 import SideNav from './SideNav';
 
 function CreateDesign() {
-  const [height, setHeight] = React.useState(100);
-  const [width, setWidth] = React.useState(100);
-  const [depth, setDepth] = React.useState(100);
+  const [height, setHeight] = React.useState(150);
+  const [width, setWidth] = React.useState(150);
+  const [depth, setDepth] = React.useState(150);
 
   return (
     <>
