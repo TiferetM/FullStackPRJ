@@ -13,7 +13,7 @@ function Exit({setUserIn}) {
       <h2>Thank you for visiting our  website</h2>
       <h1>Are you sure you want to leave us?</h1>
       <button onClick={handleExit}>Yes</button>
-      <button onClick={window.history.back}>No</button>
+      <button onClick={()=>window.history.back()}>No</button>
     </div>
   )
 }

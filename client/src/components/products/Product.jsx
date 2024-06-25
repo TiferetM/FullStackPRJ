@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import "../css/Product.css";
-import AddedSuccessfully from './AddedSuccessfully';
+import AddedSuccessfully from './new product/AddedSuccessfully';
 function Product({ id, name, description, price, imageUrl, userIn }) {
   const [showSuccess, setShowSuccess] = useState(false);
 

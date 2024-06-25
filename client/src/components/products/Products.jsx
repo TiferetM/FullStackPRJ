@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Product from './Product.jsx';
-import AddProduct from './AddProduct.jsx';
+import AddProduct from './new product/AddProduct.jsx';
 
 function Products({ userIn }) {
   // נניח שהמשתמש הוא מנהל, אפשר לשנות לפי הצורך
@@ -27,9 +27,9 @@ function Products({ userIn }) {
   return (
     <div>
       <h1>Product List</h1>
-      {isAdmin && <button onClick={() => setShowForm(!showForm)}>Add New Product</button>}
+      {(isAdmin&&!showForm) && <button onClick={() => setShowForm(!showForm)}>Add New Product</button>}
 
-      {showForm && <AddProduct userIn={userIn} setProductList={setProductList}/>}
+      {showForm && <AddProduct userIn={userIn} setProductList={setProductList} setShowForm={setShowForm}/>}
 
       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
         {productList.map((product, index) => (

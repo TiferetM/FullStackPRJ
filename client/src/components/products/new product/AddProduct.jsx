@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 
-function AddProduct({ setProductList, userIn }) {
+function AddProduct({ setProductList, userIn, setShowForm }) {
     const [newProduct, setNewProduct] = useState({
         name: '',
         description: '',
@@ -38,12 +38,14 @@ function AddProduct({ setProductList, userIn }) {
                 pic: '',
                 quantity: ''
             });
+            setShowForm(false);
         }).catch(error => {
             console.error('Error:', error);
         });
     };
     return (
         <div className="new-product-form">
+            <i className="fas fa-times" onClick={() => setShowForm(false)}></i>
             <h2>Add New Product</h2>
             <form onSubmit={handleSubmit}>
                 <div>
