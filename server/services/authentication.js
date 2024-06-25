@@ -14,7 +14,8 @@ const privateKey = fs.readFileSync(`${keyPath}/private_key.pem`, 'utf8');
 const publicKey = fs.readFileSync(`${keyPath}/public_key.pem`, 'utf8');
 
 // Function to create a token
-export function getToken(data) {
+export async function getToken(username) {
+    const data = await UserAccess.getUserPassword(username);
     const buffer = Buffer.from(JSON.stringify(data));
     const encrypted = crypto.publicEncrypt(publicKey, buffer);
     return encrypted.toString('base64');
