@@ -1,13 +1,28 @@
 import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import Article from './Article.jsx';
 import CreateArticle from './newArticle/CreateArticle.jsx';
 
-function Articles({userIn}) {
+function Articles({ userIn }) {
   const [articles, setArticles] = useState([]);
   const [showForm, setShowForm] = useState(false);
+  const [query, setQuery] = useState('');
+  const location = useLocation();
 
   useEffect(() => {
-    fetch(`http://localhost:3305/${userIn}/articles`, {
+    if (location.pathname.includes("/me"))
+      setQuery(`/?author=${userIn}`);
+    else if (location.pathname.includes("/friends"))
+      setQuery(`/?friends=true`);
+    else if (location.pathname.includes("/stared"))
+      setQuery(`/?stared=true`);
+    else
+      setQuery('');
+    console.log("query", query);
+  }, [location.pathname]);
+
+  useEffect(() => {
+    fetch(`http://localhost:3305/${userIn}/articles${query}`, {
       headers: {
         'Authorization': sessionStorage.getItem('token'),
       }
@@ -19,7 +34,7 @@ function Articles({userIn}) {
     }).catch(error => {
       console.error('Error:', error);
     });
-  }, []);
+  }, [query]);
 
   return (
     <div className="article-list">
@@ -27,7 +42,7 @@ function Articles({userIn}) {
         <Article key={article.id} title={article.title} content={article.content} />
       ))}
       {!showForm && <button onClick={() => setShowForm(!showForm)}>Add Article</button>}
-      {showForm && <CreateArticle userIn={userIn} setArticles={setArticles} setShowForm={setShowForm}/>}
+      {showForm && <CreateArticle userIn={userIn} setArticles={setArticles} setShowForm={setShowForm} />}
     </div>
   );
 }

@@ -62,7 +62,7 @@ class UserAccess extends Access {
             return user;
         }
         catch (error) {
-            return { error: error.message };
+            throw new Error(error.message);
         }
     }
 
@@ -74,7 +74,7 @@ class UserAccess extends Access {
             return roles;
         }
         catch (error) {
-            return { error: error.message };
+            throw new Error(error.message);
         }
     }
 }

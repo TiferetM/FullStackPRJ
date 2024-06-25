@@ -9,14 +9,14 @@ export default (userIn, title) => {
             "new design": userIn == "guest" ? '/login' : `/${userIn}/designs/new`,
             "friends designs": userIn == "guest" ? '/login' : `/${userIn}/designs/friends`,
             "stared designs": userIn == "guest" ? '/login' : `/${userIn}/designs/stared`,
-            "all designs": `/${userIn}/designs/all`
+            "all designs": `/${userIn}/designs`
         },
         "Articles": {
             "my articles": userIn == "guest" ? '/login' : `/${userIn}/articles/me`,
             "new article": userIn == "guest" ? '/login' : `/${userIn}/articles/new`,
             "friends articles": userIn == "guest" ? '/login' : `/${userIn}/articles/friends`,
             "stared articles": userIn == "guest" ? '/login' : `/${userIn}/articles/stared`,
-            "all articles": `/${userIn}/articles/all`
+            "all articles": `/${userIn}/articles`
         },
         "Settings": userIn === "guest" ? {
             "sign up": "/signup",   

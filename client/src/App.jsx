@@ -77,12 +77,15 @@ return (
           <Route index element={<Articles userIn={userIn}/>} />
           <Route path=":id_a" element={<Article userIn={userIn}/>} />
           <Route path="new" element={<NewArticle userIn={userIn}/>} />
+          <Route path="me" element={<Articles userIn={userIn}/>} />
+          <Route path="friends" element={<Articles userIn={userIn}/>} />
+          <Route path="stared" element={<Articles userIn={userIn}/>} />
         </Route>
 
         <Route path="products">
             <Route index element={<Products userIn={userIn} />} />
             <Route path=":id_p" element={<Product userIn={userIn}/>} />
-            <Route path="cart" element={<Cart userIn={userIn}/>} /> {/* Add Cart route */}
+            <Route path="cart" element={<Cart userIn={userIn}/>} /> 
           </Route>
       </Route>
       <Route path="/login" element={<Login setUserIn={setUserIn}/>} />
