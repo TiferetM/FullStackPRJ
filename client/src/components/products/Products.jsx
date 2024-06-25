@@ -33,12 +33,15 @@ function Products({ userIn }) {
 
       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
         {productList.map((product, index) => (
+          console.log(product),
           <Product
             key={index}
             name={product.name}
             description={product.description}
             price={product.price}
-            imageUrl={product.imageUrl}
+            imageUrl={product.pic}
+            userIn={userIn}
+            id={product.id}
           />
         ))}
       </div>

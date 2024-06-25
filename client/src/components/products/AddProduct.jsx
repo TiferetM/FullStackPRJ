@@ -6,7 +6,9 @@ function AddProduct({ setProductList, userIn }) {
         name: '',
         description: '',
         price: '',
-        imageUrl: ''
+        category: '',
+        pic: '',
+        quantity: ''
     });
 
     const handleInputChange = (e) => {
@@ -32,7 +34,9 @@ function AddProduct({ setProductList, userIn }) {
                 name: '',
                 description: '',
                 price: '',
-                imageUrl: ''
+                category: '',
+                pic: '',
+                quantity: ''
             });
         }).catch(error => {
             console.error('Error:', error);
@@ -80,11 +84,35 @@ function AddProduct({ setProductList, userIn }) {
                 </div>
                 <div>
                     <label>
+                        Category:
+                        <input
+                            type="text"
+                            name="category"
+                            value={newProduct.category}
+                            onChange={handleInputChange}
+                            required
+                        />
+                    </label>
+                </div>
+                <div>
+                    <label>
                         Image URL:
                         <input
                             type="text"
-                            name="imageUrl"
-                            value={newProduct.imageUrl}
+                            name="pic"
+                            value={newProduct.pic}
+                            onChange={handleInputChange}
+                            required
+                        />
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        Quantity:
+                        <input
+                            type="number"
+                            name="quantity"
+                            value={newProduct.quantity}
                             onChange={handleInputChange}
                             required
                         />

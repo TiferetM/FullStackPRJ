@@ -12,7 +12,7 @@ class CommentsCtrl extends controlller {
             const comments = await this.model.comments.findAll({ where: query });
             return res.status(200).json(comments);
         } catch (error) {
-            next(error);
+            next(error, req, res);
         }
     }
 
@@ -22,7 +22,7 @@ class CommentsCtrl extends controlller {
             const comment = await this.model.comments.create(req.body);
             return res.status(201).json(comment);
         } catch (error) {
-            next(error);
+            next(error, req, res);
         }
     }
 
@@ -34,7 +34,8 @@ class CommentsCtrl extends controlller {
             });
             return res.status(200).json(comment);
         } catch (error) {
-           next(error);
+            next(error, req, res);
+            next(error, req, res);
         }
     }
 
@@ -46,7 +47,7 @@ class CommentsCtrl extends controlller {
             });
             return res.status(204).send();
         } catch (error) {
-            next(error);
+            next(error, req, res);
         }
     }
 }

@@ -12,7 +12,7 @@ class DesignsCtrl extends controlller {
             const designs = await this.model.designs.findAll({ where: query });
             return res.status(200).json(designs);
         } catch (error) {
-            next(error);
+            next(error, req, res);
         }
     }
 
@@ -22,7 +22,7 @@ class DesignsCtrl extends controlller {
             const design = await this.model.designs.create(req.body);
             return res.status(201).json(design);
         } catch (error) {
-            next(error);
+            next(error, req, res);
         }
     }
 
@@ -34,7 +34,7 @@ class DesignsCtrl extends controlller {
             });
             return res.status(200).json(design);
         } catch (error) {
-            next(error);    
+            next(error, req, res);
         }
     }
 
@@ -46,7 +46,7 @@ class DesignsCtrl extends controlller {
             });
             return res.status(204).send();
         } catch (error) {
-            next(error);
+            next(error, req, res);
         }
     }
 }

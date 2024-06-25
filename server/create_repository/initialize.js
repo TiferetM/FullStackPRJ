@@ -58,8 +58,8 @@ db.once('open', async () => {
   const Design = mongoose.model('Designs', DesignSchema);
 
   const ProductSchema = new mongoose.Schema({
-    title: String,
-    data: String,
+    name: String,
+    description: String,
     price: Number,
     category: String,
     pic: String,
@@ -88,6 +88,26 @@ db.once('open', async () => {
   const Role = mongoose.model('roles', RoleSchema);
 
   try {
+    const guest = new User({
+      username: "guest",
+      email: null,
+      profilePic: null,
+      role: "guest",
+      staredArticles: [],
+      staredDesigns: [],
+      staredProducts: [],
+      cart: [],
+      saved: []
+      });
+    await guest.save();
+
+    const guestHash = new PasswordHash({
+      username: "guest",
+      salt: 789,
+      passwordHash: "w3l0v3gu3sts"
+    });
+    await guestHash.save();
+
     const registeredPathes = [
       { path: '/:id_u/articles', method: 'POST' },
       { path: '/:id_u/comments', method: 'POST' },

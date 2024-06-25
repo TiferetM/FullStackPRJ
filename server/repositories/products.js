@@ -94,10 +94,11 @@ class ProductAccess extends Access {
     async create(product) {
         try {
             const newProduct = await this.db.collection("products").insertOne({
-                name: product.tilte,
+                name: product.name,
+                description: product.description,
                 price: product.price,
                 category: product.category,
-            pic: product.image,
+                pic: product.pic,
                 quantity: product.quantity
             });
             return newProduct;

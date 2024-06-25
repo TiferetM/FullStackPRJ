@@ -9,6 +9,8 @@ class UserService {
 
     async createUser(user) {
         console.log("createUser at userService")
+        if(!accessUsers.getUser(user.username))
+           throw new Error("Username already exist");
         return accessUsers.create(user);
     }
 

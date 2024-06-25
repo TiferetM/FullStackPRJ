@@ -14,7 +14,7 @@ class UsersCtrl extends controlller {
             const users = await this.model.users.findAll({ where: query });
             return res.status(200).json(users);
         } catch (error) {
-            next(error);    
+            next(error, req, res);    
         }
     }
 
@@ -27,7 +27,9 @@ class UsersCtrl extends controlller {
             console.log(`user created: ${user} token: ${token}`)
             return res.status(201).json(user);
         } catch (error) {
-            next(error);
+            if(error.message == "Username already exist")
+                res.status = 409;
+            next(error, req, res);
         }
     }
 
@@ -39,7 +41,7 @@ class UsersCtrl extends controlller {
             });
             return res.status(200).json(user);
         } catch (error) {
-            next(error);
+            next(error, req, res);
         }
     }
 
@@ -51,7 +53,7 @@ class UsersCtrl extends controlller {
             });
             return res.status(204).send();
         } catch (error) {
-            next(error);
+            next(error, req, res);
         }
     }
 
@@ -66,7 +68,7 @@ class UsersCtrl extends controlller {
             console.log(`user logedin: ${fullUser.username}`)
             return res.status(200).json(fullUser);
         } catch (error) {
-            next(error);
+            next(error, req, res);
         }
     }
 }

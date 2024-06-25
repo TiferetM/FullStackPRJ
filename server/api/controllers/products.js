@@ -18,7 +18,7 @@ class ProductsCtrl extends controlller {
             //returns products in json format
             return res.status(200).json(products);
         } catch (error) {
-            next(error);
+            next(error, req, res);
         }
     }
 
@@ -29,17 +29,18 @@ class ProductsCtrl extends controlller {
             const products = await ProductService.readCart(id_u);
             return res.status(200).json(products);
         } catch (error) {
-            next(error);
+            next(error, req, res);
         }
     }
 
     async post(req, res, next) {
         try {
-            console.log("post product at productCtrl")
-            const product = await this.model.products.create(req.body);
+            console.log("post product at productCtrl");
+            console.log(req.body);
+            const product = await ProductService.create(req.body);
             return res.status(201).json(product);
         } catch (error) {
-            next(error);
+            next(error, req, res);
         }
     }
 
@@ -51,7 +52,7 @@ class ProductsCtrl extends controlller {
             });
             return res.status(200).json(product);
         } catch (error) {
-            next(error);
+            next(error, req, res);
         }
     }
 
@@ -66,7 +67,7 @@ class ProductsCtrl extends controlller {
             }
             return res.status(200).json(product);
         } catch (error) {
-            next(error);
+            next(error, req, res);
         }
     }
 
@@ -78,7 +79,7 @@ class ProductsCtrl extends controlller {
             });
             return res.status(204).send();
         } catch (error) {
-            next(error);
+            next(error, req, res);
         }
     }
 }

@@ -70,8 +70,8 @@ db.once('open', () => {
 
     // Define product schema and model
     mongoose.model('Products', new mongoose.Schema({
-        title: String,
-        data: String,
+        name: String,
+        description: String,
         price: Number,
         category: String,
         pic: String,
