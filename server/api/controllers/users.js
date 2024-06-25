@@ -22,7 +22,7 @@ class UsersCtrl extends controlller {
         try {
             console.log("post user at userCtrl")
             const user = await UserService.createUser(req.body);
-            const token = getToken(user);
+            const token = await getToken(user.username);
             res.setHeader("Authorization", token);
             console.log(`user created: ${user} token: ${token}`)
             return res.status(201).json(user);
@@ -61,8 +61,8 @@ class UsersCtrl extends controlller {
         try {
             console.log("login user at userCtrl")
             let { username, passwordHash } = req.query;
-            const {userSecurity, fullUser} = await authenticateUser({ username:username, pswd:passwordHash });
-            const token = getToken(userSecurity);
+            const {fullUser} = await authenticateUser({ username:username, pswd:passwordHash });
+            const token = await getToken(fullUser.username);
             //add the token to the header
             res.setHeader("Authorization", token);
             console.log(`user logedin: ${fullUser.username}`)

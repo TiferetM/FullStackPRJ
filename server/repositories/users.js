@@ -29,7 +29,7 @@ class UserAccess extends Access {
     async create(user) {
         try {
             //add the user to the database without the salt and password hash
-            const newUser = await this.db.collection('users').insertOne({
+            let newUser = await this.db.collection('users').insertOne({
                 //returns the user object
                 username: user.username,
                 email: user.email,
@@ -41,11 +41,13 @@ class UserAccess extends Access {
                 cart: [],
                 saved: []
             });
+            if(newUser) newUser = await this.getUser(user.username)
             const pswd = await this.db.collection('PasswordHash').insertOne({
                 username: user.username,
                 salt: Math.ceil(Math.random() * 1000),
                 passwordHash: user.passwordHash
             });
+            console.log(newUser)
             return newUser;
         }
         catch (error) {
