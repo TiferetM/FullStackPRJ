@@ -4,25 +4,12 @@ import navlinks from '../data/hoverNavLinks.js'
 import './css/NavBar.css'
 import HoverNav from './HoverNav';
 import logo from '../images/logo_min.png';
-import '@fortawesome/fontawesome-free/css/all.css';
+//import '@fortawesome/fontawesome-free/css/all.css';
 
 function NavBar({ userIn }) {
     const [hoverNav, setHoverNav] = useState({ show: false, coordination: { x: 0, y: 0 }, links: {} });
     let hideTimeout;
-    // const ppic = userIn=="guest"? (<i className="fa-regular fa-user"></i>):fetch(`http://localhost:3305/${userIn}`,{
-    //     method: "GET",
-    //     headers: {
-    //         "Content-Type": "application/json",
-    //         "Authorization": "Bearer " + sessionStorage.getItem("token")
-    //     }
-    // }).then(res => {
-    //     return res.json()
-    // }).then(data => {
-    //     return (data.profilePic ? <img src={data.profilePic} /> : (<i className="fa-regular fa-user"></i>))
-    // }).catch(err => {
-    //     console.log(err)
-    // });
-
+    
     const handleMouseEnter = (e) => {
         clearTimeout(hideTimeout);
         const target = e.currentTarget;
