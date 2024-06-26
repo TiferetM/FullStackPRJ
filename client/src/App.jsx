@@ -17,6 +17,7 @@ import Cart from './components/products/Cart';
 import Login from './components/register/Login';
 import Signup from './components/register/Signup';
 import Exit from './components/register/Exit';
+import FullArticle from './components/articles/FullArticle'
 
 function App() {
   const [userIn, setUserIn] = useState("guest");
@@ -75,7 +76,7 @@ return (
         </Route>
         <Route path="articles">
           <Route index element={<Articles userIn={userIn}/>} />
-          <Route path=":id_a" element={<Article userIn={userIn}/>} />
+          <Route path=":id_a" element={<FullArticle userIn={userIn}/>} />
           <Route path="new" element={<NewArticle userIn={userIn}/>} />
           <Route path="me" element={<Articles userIn={userIn}/>} />
           <Route path="friends" element={<Articles userIn={userIn}/>} />

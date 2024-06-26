@@ -19,7 +19,7 @@ const isAdmin=JSON.parse(sessionStorage.getItem('role'))==='admin';
       setProductList(data);
     }
     )
-  }, []);//יבוא מוצרים מהDB
+  }, []);
 
   const [showForm, setShowForm] = useState(false);
 
