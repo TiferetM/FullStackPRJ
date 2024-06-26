@@ -1,9 +1,10 @@
 import access from "./access.js";
+import { ObjectId } from 'mongodb';
 
 class ArticleAccess extends access {
     constructor() {
         super();
-    }   
+    }
 
     async create(article) {
         try {
@@ -23,7 +24,7 @@ class ArticleAccess extends access {
     async read(id) {
         try {
             console.log("read article at articleAccess")
-            const article = await this.db.collection('articles').findOne({ where: { id: id } });
+            const article = await this.db.collection('articles').findOne({ _id: new ObjectId(id) });
             return article;
         }
         catch (error) {
@@ -50,10 +51,10 @@ class ArticleAccess extends access {
             return article;
         }
         catch (error) {
-           throw new Error(error.message);
+            throw new Error(error.message);
         }
     }
-    
+
     async update(article) {
         try {
             console.log("update article at articleAccess")

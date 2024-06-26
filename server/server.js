@@ -15,7 +15,7 @@ server.use(express.json()); // Middleware to parse JSON bodies
 //make requests from localhost everywhere
 server.use(cors({
   origin: '*',
-  exposedHeaders: ['Authorization']
+  exposedHeaders: ['Authorization', 'Role']
 }));
 //middleware
 server.use((req, res, next) => {

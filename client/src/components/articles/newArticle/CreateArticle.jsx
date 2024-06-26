@@ -4,7 +4,7 @@ import { useState } from 'react'
 
 function CreateArticle({userIn, setArticles, setShowForm}) {
   
-  const [newArticle, setNewArticle] = useState({ title: '', content: '' });
+  const [newArticle, setNewArticle] = useState({ title: '', body: '' });
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setNewArticle({ ...newArticle, [name]: value });
@@ -25,7 +25,7 @@ function CreateArticle({userIn, setArticles, setShowForm}) {
       console.log('Article added successfully:', data);
       setArticles(last => [...last, { id: data.id, ...newArticle }]);
       setShowForm(false);
-      setNewArticle({ title: '', content: '' });
+      setNewArticle({ title: '', body: '' });
     }).catch(error => {
       console.error('Error:', error);
     });
@@ -51,8 +51,8 @@ function CreateArticle({userIn, setArticles, setShowForm}) {
               <label>
                 Content:
                 <textarea
-                  name="content"
-                  value={newArticle.content}
+                  name="body"
+                  value={newArticle.body}
                   onChange={handleInputChange}
                   required
                 />

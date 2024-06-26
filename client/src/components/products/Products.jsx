@@ -3,7 +3,7 @@ import Product from './Product.jsx';
 import AddProduct from './new product/AddProduct.jsx';
 
 function Products({ userIn }) {
-const isAdmin=sessionStorage.getItem('role')=='admin';
+const isAdmin=JSON.parse(sessionStorage.getItem('role'))==='admin';
   const [productList, setProductList] = useState([]);
 
   useEffect(() => {
@@ -19,7 +19,7 @@ const isAdmin=sessionStorage.getItem('role')=='admin';
       setProductList(data);
     }
     )
-  }, []);//יבוא מוצרים מהDB
+  }, []);
 
   const [showForm, setShowForm] = useState(false);
 

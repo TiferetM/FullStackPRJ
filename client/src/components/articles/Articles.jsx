@@ -39,7 +39,7 @@ function Articles({ userIn }) {
   return (
     <div className="article-list">
       {articles.map(article => (
-        <Article key={article.id} title={article.title} content={article.content} />
+        <Article key={article.id} article={article} />
       ))}
       {!showForm && <button onClick={() => setShowForm(!showForm)}>Add Article</button>}
       {showForm && <CreateArticle userIn={userIn} setArticles={setArticles} setShowForm={setShowForm} />}

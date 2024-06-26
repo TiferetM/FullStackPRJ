@@ -1,11 +1,14 @@
 import React from 'react';
 import "../css/Articles.css";
-function Article({ title, content }) {
+import { Link } from 'react-router-dom';
+function Article({ article}) {
   return (
-    <div className="article">
-      <h2>{title}</h2>
-      <p>{content}</p>
-    </div>
+    <Link to={article._id}>
+      <div className="article">
+        <h2>{article.title}</h2>
+        <p>{article.body}</p>
+      </div>
+    </Link>
   );
 }
 
