@@ -47,7 +47,7 @@ class ProductsCtrl extends controlller {
     async put(req, res, next) {
         try {
             console.log("put product at productCtrl")
-            const product = await this.model.products.update(req.body, {
+            const product = await ProductService.update(req.body, {
                 where: { id: req.params.id },
             });
             return res.status(200).json(product);
@@ -74,7 +74,7 @@ class ProductsCtrl extends controlller {
     async delete(req, res, next) {
         try {
             console.log("delete product at productCtrl")
-            await this.model.products.destroy({
+            await ProductService.destroy({
                 where: { id: req.params.id },
             });
             return res.status(204).send();

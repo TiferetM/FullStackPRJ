@@ -41,7 +41,7 @@ class ArticlesCtrl extends controlller {
     async put(req, res, next) {
         try {
             console.log("put articles at ArticlesCtrl")
-            const article = await this.model.articles.update(req.body, {
+            const article = await ArticleService.update(req.body, {
                 where: { id: req.params.id },
             });
             return res.status(200).json(article);
@@ -53,7 +53,7 @@ class ArticlesCtrl extends controlller {
     async delete(req, res, next) {
         try {
             console.log("delete article at ArticleCtrl")
-            await this.model.articles.destroy({
+            await ArticleService.destroy({
                 where: { id: req.params.id },
             });
             return res.status(204).send();

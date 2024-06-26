@@ -1,4 +1,5 @@
 import controlller from "./controller.js";
+import DesignsService from "../../services/designs.js"
 
 class DesignsCtrl extends controlller {
     constructor() {
@@ -9,7 +10,7 @@ class DesignsCtrl extends controlller {
         try {
             console.log("get design at designCtrl")
             const query = req.query;
-            const designs = await this.model.designs.findAll({ where: query });
+            const designs = await DesignsService.findAll({ where: query });
             return res.status(200).json(designs);
         } catch (error) {
             next(error, req, res);
@@ -19,7 +20,7 @@ class DesignsCtrl extends controlller {
     async post(req, res, next) {
         try {
             console.log("post design at designCtrl")
-            const design = await this.model.designs.create(req.body);
+            const design = await DesignsService.create(req.body);
             return res.status(201).json(design);
         } catch (error) {
             next(error, req, res);
@@ -29,7 +30,7 @@ class DesignsCtrl extends controlller {
     async put(req, res, next) {
         try {
             console.log("put design at designCtrl")
-            const design = await this.model.designs.update(req.body, {
+            const design = await DesignsService.update(req.body, {
                 where: { id: req.params.id },
             });
             return res.status(200).json(design);
@@ -41,7 +42,7 @@ class DesignsCtrl extends controlller {
     async delete(req, res, next) {
         try {
             console.log("delete design at designCtrl")
-            await this.model.designs.destroy({
+            await DesignsService.destroy({
                 where: { id: req.params.id },
             });
             return res.status(204).send();

@@ -1,4 +1,5 @@
 import controlller from "./controller.js";
+import CommentsService from "../../services/comments.js"
 
 class CommentsCtrl extends controlller {
     constructor() {
@@ -9,7 +10,7 @@ class CommentsCtrl extends controlller {
         try {
             console.log("get comment at commentsCtrl")
             const query = req.query;
-            const comments = await this.model.comments.findAll({ where: query });
+            const comments = await CommentsService.findAll({ where: query });
             return res.status(200).json(comments);
         } catch (error) {
             next(error, req, res);
@@ -19,7 +20,7 @@ class CommentsCtrl extends controlller {
     async post(req, res, next) {
         try {
             console.log("post comment at commentCtrl")
-            const comment = await this.model.comments.create(req.body);
+            const comment = await CommentsService.create(req.body);
             return res.status(201).json(comment);
         } catch (error) {
             next(error, req, res);
@@ -29,7 +30,7 @@ class CommentsCtrl extends controlller {
     async put(req, res, next) {
         try {
             console.log("put comment at commentCtrl")
-            const comment = await this.model.comments.update(req.body, {
+            const comment = await CommentsService.update(req.body, {
                 where: { id: req.params.id },
             });
             return res.status(200).json(comment);
@@ -42,7 +43,7 @@ class CommentsCtrl extends controlller {
     async delete(req, res, next) {
         try {
             console.log("delete comment at commentCtrl")
-            await this.model.comments.destroy({
+            await CommentsService.destroy({
                 where: { id: req.params.id },
             });
             return res.status(204).send();
