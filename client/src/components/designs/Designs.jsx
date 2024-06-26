@@ -9,36 +9,36 @@ import Lightbox from 'react-images';
 // import image4 from '.../images/image4.jpg';
 // import image5 from '.../images/image5.jpg';
 const photos = [
-  {
-    src: image1,
-    width: 4,
-    height: 3,
-    title: 'Beautiful Landscape'
-  },
-  {
-    src: image2,
-    width: 1,
-    height: 1,
-    title: 'City View'
-  },
-  {
-    src: image3,
-    width: 3,
-    height: 4,
-    title: 'Mountain Adventure'
-  },
-  {
-    src: image4,
-    width: 3,
-    height: 4,
-    title: 'Sunny Beach'
-  },
-  {
-    src: image5,
-    width: 3,
-    height: 4,
-    title: 'Serene Forest'
-  }
+  // {
+  //   src: image1,
+  //   width: 4,
+  //   height: 3,
+  //   title: 'Beautiful Landscape'
+  // },
+  // {
+  //   src: image2,
+  //   width: 1,
+  //   height: 1,
+  //   title: 'City View'
+  // },
+  // {
+  //   src: image3,
+  //   width: 3,
+  //   height: 4,
+  //   title: 'Mountain Adventure'
+  // },
+  // {
+  //   src: image4,
+  //   width: 3,
+  //   height: 4,
+  //   title: 'Sunny Beach'
+  // },
+  // {
+  //   src: image5,
+  //   width: 3,
+  //   height: 4,
+  //   title: 'Serene Forest'
+  // }
 ];
 
 function Design() {
