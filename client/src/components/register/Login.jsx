@@ -22,8 +22,8 @@ function Login({ userIn, setUserIn }) {
             }
         }).then(res => {
                 sessionStorage.setItem("token", JSON.stringify(res.headers.get("Authorization")));
+                console.log(res.headers.get("Role"));
                 sessionStorage.setItem("role", JSON.stringify(res.headers.get("Role")));
-
                 return res.json()
             }).then(async data => {
                 sessionStorage.setItem("currentUser", JSON.stringify(username));

@@ -66,7 +66,7 @@ class UsersCtrl extends controlller {
             //add the token to the header
             res.setHeader("Role", fullUser.role);
             res.setHeader("Authorization", token);
-            console.log(`user logedin: ${fullUser.username}`)
+            console.log(`user logedin: `, fullUser.role)
             return res.status(200).json(fullUser);
         } catch (error) {
             next(error, req, res);
