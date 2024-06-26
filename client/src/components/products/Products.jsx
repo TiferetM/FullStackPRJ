@@ -3,8 +3,7 @@ import Product from './Product.jsx';
 import AddProduct from './new product/AddProduct.jsx';
 
 function Products({ userIn }) {
-  // נניח שהמשתמש הוא מנהל, אפשר לשנות לפי הצורך
-  const isAdmin = true;
+const isAdmin=sessionStorage.getItem('role')=='admin';
   const [productList, setProductList] = useState([]);
 
   useEffect(() => {

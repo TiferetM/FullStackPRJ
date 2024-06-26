@@ -64,6 +64,7 @@ class UsersCtrl extends controlller {
             const {fullUser} = await authenticateUser({ username:username, pswd:passwordHash });
             const token = await getToken(fullUser.username);
             //add the token to the header
+            res.setHeader("Role", fullUser.role);
             res.setHeader("Authorization", token);
             console.log(`user logedin: ${fullUser.username}`)
             return res.status(200).json(fullUser);
