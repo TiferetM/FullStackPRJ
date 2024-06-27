@@ -15,7 +15,7 @@ class UserService {
     }
 
     async readUser(id) {
-        return accessUsers.read(id);
+        return accessUsers.getUser(id);
     }
 
     async checkRole(path, method, role) {

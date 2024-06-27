@@ -59,6 +59,7 @@ class UserAccess extends Access {
     async getUser(username) {
         try {
             const user = await this.db.collection('users').findOne({ username: username });
+            console.log("getUser at user access",user);
             return user;
         }
         catch (error) {

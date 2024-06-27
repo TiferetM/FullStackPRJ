@@ -10,8 +10,8 @@ class UsersCtrl extends controlller {
     async get(req, res, next) {
         try {
             console.log("get user at userCtrl")
-            const query = req.query;
-            const users = await UserService.readUser({ where: query });
+            const username = req.params.id_u;
+            const users = await UserService.readUser(username);
             return res.status(200).json(users);
         } catch (error) {
             next(error, req, res);    

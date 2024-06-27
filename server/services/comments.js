@@ -20,4 +20,4 @@ class CommentService
         return this.access.delete(id);
     }
 }
-export default comments = new comments();
+export default CommentService = new CommentService();

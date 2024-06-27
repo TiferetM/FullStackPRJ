@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import ImageUpload from '../tools/ImageUpload';
 
 function Settings({userIn}) {
   const [user, setUser] = useState({});
@@ -10,7 +11,6 @@ function Settings({userIn}) {
     }).then(response => {
       return response.json();
     }).then(data => {
-      console.log('Settings fetched successfully:', data);
       setUser(data);
     }).catch(error => {
       console.error('Error:', error);
@@ -18,9 +18,11 @@ function Settings({userIn}) {
   }, []);
   return (
     <div>
+      <img src={user.profilePic} alt="profile pic" />
       <h1>{userIn}</h1>
       <p>{user.email}</p>
       <p>{user.role}</p>
+      <ImageUpload />
 
     </div>
   )
