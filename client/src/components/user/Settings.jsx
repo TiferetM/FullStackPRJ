@@ -4,6 +4,7 @@ import ImageUpload from '../tools/ImageUpload';
 function Settings({userIn}) {
   const [user, setUser] = useState({});
   useEffect(() => {
+    console.log(userIn);
     fetch(`http://localhost:3305/${userIn}`, {
       headers: {
         'Authorization': sessionStorage.getItem('token'),
