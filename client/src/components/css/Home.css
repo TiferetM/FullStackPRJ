@@ -1,0 +1,46 @@
+.home-container {
+    position: relative;
+    text-align: center;
+    padding: 20px;
+    background-image: url('../images/logo.png'); /* נתיב יחסי נכון לתמונה */
+    background-size: cover;
+    background-position: center;
+    height: 100vh; /* הגדרה שגובה הדף יכסה את כל המסך */
+  }
+  
+  .testimonials {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -20%);
+    background-color: rgba(255, 255, 255, 0.8); /* רקע לבן שקוף מעט */
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 600px;
+    width: 80%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  .testimonial {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 10px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .testimonial .feedback {
+    font-style: italic;
+    margin-bottom: 5px;
+  }
+  
+  .testimonial .name {
+    font-weight: bold;
+    margin-bottom: 2px;
+  }
+  
+  .testimonial .date {
+    color: #888;
+    font-size: 0.9em;
+  }
+  

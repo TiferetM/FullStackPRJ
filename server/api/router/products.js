@@ -12,7 +12,8 @@ productRouter.post('/:id_u/products', ProductsCtrl.post);
 
 productRouter.put('/:id_u/products/:id_p', ProductsCtrl.put);
 productRouter.put('/:id_u/cart/:id_p', ProductsCtrl.putCart);
-
+productRouter.put("/:id_u/cart", ProductsCtrl.putCart);
+//http://127.0.0.1:3305/${userIn}/cart
 productRouter.delete('/:id_u/products/:id_p', ProductsCtrl.delete);
 
 export default productRouter;

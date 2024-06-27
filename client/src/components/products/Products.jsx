@@ -25,8 +25,6 @@ const isAdmin=JSON.parse(sessionStorage.getItem('role'))==='admin';
 
   return (
     <div>
-      {/* <h1>Product List</h1> */}
-      <h2>Product List</h2>
       {(isAdmin&&!showForm) && <button onClick={() => setShowForm(!showForm)}>Add New Product</button>}
 
       {showForm && <AddProduct userIn={userIn} setProductList={setProductList} setShowForm={setShowForm}/>}

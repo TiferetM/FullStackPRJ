@@ -92,7 +92,7 @@ function App() {
         <Route path="/login" element={<Login setUserIn={setUserIn} />} />
         <Route path="/signup" element={<Signup setUserIn={setUserIn} />} />
         <Route path="/exit" element={<Exit setUserIn={setUserIn} />} />
-        <Route path="*" element={<h1>404: Page Not Found</h1>} />
+        <Route path="*" element={<Home />} />
       </Routes>
     </>
   )

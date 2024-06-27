@@ -5,8 +5,9 @@ function Product({ id, name, description, price, imageUrl, userIn }) {
   const [showSuccess, setShowSuccess] = useState(false);
 
   const addItemToCart = async () => {
+    console.log(id);
     try {
-      const response = await fetch(`http://127.0.0.1:3305/${userIn}/cart`, {
+      const response = await fetch(`http://127.0.0.1:3305/${userIn}/cart/${id}`, {
         method: 'PUT',
         headers: {
           'Authorization': sessionStorage.getItem('token'),

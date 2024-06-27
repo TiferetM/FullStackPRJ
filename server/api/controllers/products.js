@@ -47,7 +47,7 @@ class ProductsCtrl extends controlller {
     async put(req, res, next) {
         try {
             console.log("put product at productCtrl")
-            const product = await ProductService.update(req.body, {
+            const product = await this.model.products.update(req.body, {
                 where: { id: req.params.id },
             });
             return res.status(200).json(product);
@@ -57,13 +57,14 @@ class ProductsCtrl extends controlller {
     }
 
     async putCart(req, res, next) {
+        let product;
         try {
             console.log("put cart at productCtrl")
             if (req.headers.add === "false") {
-                const product = await ProductService.updateCart(req.body, req.params.id_u, false);
+                 product = await ProductService.updateCart(req.body, req.params.id_u, false);
             }
             else {
-                const product = await ProductService.updateCart(req.body, req.params.id_u);
+                 product = await ProductService.updateCart(req.body, req.params.id_u);
             }
             return res.status(200).json(product);
         } catch (error) {
@@ -74,7 +75,7 @@ class ProductsCtrl extends controlller {
     async delete(req, res, next) {
         try {
             console.log("delete product at productCtrl")
-            await ProductService.destroy({
+            await this.model.products.destroy({
                 where: { id: req.params.id },
             });
             return res.status(204).send();
