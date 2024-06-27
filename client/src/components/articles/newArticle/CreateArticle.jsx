@@ -1,10 +1,9 @@
-import React from 'react'
-import { useState } from 'react'
+import React, { useState } from 'react';
+import "../css/CreateArticle.css";
 
-
-function CreateArticle({userIn, setArticles, setShowForm}) {
-  
+function CreateArticle({ userIn, setArticles, setShowForm }) {
   const [newArticle, setNewArticle] = useState({ title: '', body: '' });
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setNewArticle({ ...newArticle, [name]: value });
@@ -30,38 +29,47 @@ function CreateArticle({userIn, setArticles, setShowForm}) {
       console.error('Error:', error);
     });
   };
+
+  const handleClose = () => {
+    setShowForm(false);
+    setNewArticle({ title: '', body: '' }); // Reset form fields on close
+  };
+
   return (
     <div className="new-article-form">
-      <i className="fas fa-times" onClick={() => setShowForm(false)}></i>
-          <h2>New Article</h2>
-          <form onSubmit={handleSubmit}>
-            <div>
-              <label>
-                Title:
-                <input
-                  type="text"
-                  name="title"
-                  value={newArticle.title}
-                  onChange={handleInputChange}
-                  required
-                />
-              </label>
-            </div>
-            <div>
-              <label>
-                Content:
-                <textarea
-                  name="body"
-                  value={newArticle.body}
-                  onChange={handleInputChange}
-                  required
-                />
-              </label>
-            </div>
-            <button type="submit">Add Article</button>
-          </form>
+      <button id="close-button" onClick={handleClose} >❌</button>
+      <h2>New Article</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label>
+            Title:
+            <input
+              type="text"
+              name="title"
+              value={newArticle.title}
+              onChange={handleInputChange}
+              required
+            />
+          </label>
         </div>
-  )
+        <div>
+          <label>
+            Content:
+            <textarea
+              name="body"
+              value={newArticle.body}
+              onChange={handleInputChange}
+              required
+            />
+          </label>
+        </div>
+        <div className="button-container">
+          <button type="submit">Add Article</button>
+        </div>
+      </form>
+    </div>
+  );
 }
 
-export default CreateArticle
+export default CreateArticle;
+

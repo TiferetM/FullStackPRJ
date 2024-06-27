@@ -41,10 +41,13 @@ function Articles({ userIn }) {
       {articles.map(article => (
         <Article key={article.id} article={article} />
       ))}
-      {!showForm && <button onClick={() => setShowForm(!showForm)}>Add Article</button>}
+      {!showForm && <button onClick={() => setShowForm(!showForm)} style={{ backgroundColor: '#e2e6ea', color: 'white',potision: 'fixed',right: '20px', padding: '10px 20px', border: 'none', borderRadius: '4px', cursor: 'pointer', marginTop: '20px' }}>Add Article</button>}
       {showForm && <CreateArticle userIn={userIn} setArticles={setArticles} setShowForm={setShowForm} />}
     </div>
   );
 }
+//
+//    background-color:;
+
 
 export default Articles;

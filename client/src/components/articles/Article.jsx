@@ -1,24 +1,51 @@
-import React from 'react';
+import React, { useState } from 'react';
 import "../css/Articles.css";
 import { Link } from 'react-router-dom';
-function Article({ article}) {
+
+function Article({ article }) {
+  const [showComments, setShowComments] = useState(false); // State to manage comment visibility
+  const [commentText, setCommentText] = useState(''); // State to store comment text
+
+  const toggleComments = () => {
+    setShowComments(!showComments);
+  };
+
+  const closeComments = () => {
+    setShowComments(false);
+  };
+
+  const handleCommentSubmit = (e) => {
+    e.preventDefault();
+    // Handle comment submission logic here (e.g., API call to add comment)
+    console.log('Adding comment:', commentText);
+    // Reset comment text
+    setCommentText('');
+  };
+
   return (
-    <Link to={article._id}>
-      <div className="article">
+    <div className="article">
+      <Link to={article._id}>
         <h2>{article.title}</h2>
         <p>{article.body}</p>
-      </div>
-    </Link>
+      </Link>
+      <button onClick={showComments ? closeComments : toggleComments}>
+        {showComments ? '❌' : '➕'}
+      </button>
+      {showComments && (
+        <div className="comment-section">
+          <form onSubmit={handleCommentSubmit}>
+            <textarea
+              value={commentText}
+              onChange={(e) => setCommentText(e.target.value)}
+              placeholder="Write your comment..."
+              required
+            />
+            <button type="submit">Submit Comment</button>
+          </form>
+        </div>
+      )}
+    </div>
   );
 }
 
 export default Article;
-// import React from 'react'
-
-// function Article() {
-//   return (
-//     <div>Article</div>
-//   )
-// }
-
-// export default Article

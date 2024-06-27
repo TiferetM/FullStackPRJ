@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
-
+import '../../css/AddProduct.css';
 function AddProduct({ setProductList, userIn, setShowForm }) {
     const [newProduct, setNewProduct] = useState({
         name: '',

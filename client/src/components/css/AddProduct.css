@@ -1,0 +1,62 @@
+.new-product-form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 10px; /* הקטןתי את הרווח הפנימי */
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    position: relative;
+}
+
+.new-product-form h2 {
+    margin-bottom: 15px; /* הקטןתי את המרווח התחתון */
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+}
+
+.new-product-form label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px; /* הקטןתי את המרווח התחתון */
+    font-weight: bold;
+    color: #555;
+}
+
+.new-product-form input {
+    width: 70%; /* הקטןתי את הרוחב */
+    padding: 5px; /* הקטןתי את הרווח הפנימי */
+    margin-left: 10px; /* מרווח קטן בין התווית לקלט */
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.new-product-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #505051;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.new-product-form button:hover {
+    background-color: #1d1e1e;
+}
+
+.new-product-form .fas.fa-times {
+    position: absolute;
+    top: 5px; /* הקטןתי את המרווח העליון */
+    right: 5px; /* הקטןתי את המרווח הימני */
+    cursor: pointer;
+    font-size: 20px;
+    color: #999;
+}
+
+.new-product-form .fas.fa-times:hover {
+    color: #333;
+}

@@ -39,10 +39,16 @@ function FullArticle({ userIn }) {
             console.error('Error:', error);
         });
     }
-    const handleEdit = () => {
-        navigate(`/articles/${id_a}/edit`);
+    const handleEdit = async (e) => {
+        //navigate(`/articles/${id_a}/edit`);
+        e.target.classList.toggle('fa-solid');
+        e.target.classList.toggle('fa-regular');
     }
     const handleRequestFriendship = async (e) => {
+        e.target.classList.toggle('fa-solid');
+        e.target.classList.toggle('fa-regular');
+    }
+    const handleDelete= async (e) => {
         e.target.classList.toggle('fa-solid');
         e.target.classList.toggle('fa-regular');
     }
@@ -55,6 +61,7 @@ function FullArticle({ userIn }) {
                 <i className='fa-regular fa-star' onClick={handleStared}></i>
                 {isAuther && <i className="fa-solid fa-pen-to-square" onClick={handleEdit}></i>}
                 <i className="fa-solid fa-handshake" onClick={handleRequestFriendship}></i>
+                <i className="fa-solid fa-trash" onClick={handleDelete}></i>
             </div>
         </div>
     )
