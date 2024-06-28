@@ -1,0 +1,9 @@
+.productsSideNav{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 20%;
+    padding-top: 0.2%;
+    flex-direction: column;
+}

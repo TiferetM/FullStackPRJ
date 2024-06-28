@@ -1,36 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import Product from './Product.jsx';
+import { useSelector, useDispatch } from 'react-redux'
 import AddProduct from './new product/AddProduct.jsx';
+import { setProductsList } from '../../store/silces/productsSlice.jsx';
 
 function Products({ userIn }) {
 const isAdmin=JSON.parse(sessionStorage.getItem('role'))==='admin';
-  const [productList, setProductList] = useState([]);
-
-  useEffect(() => {
-    fetch(`http://127.0.0.1:3305/${userIn}/products`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': sessionStorage.getItem('token'),
-      }
-    }).then(response => {
-      return response.json();
-    }).then(data => {
-      setProductList(data);
-    }
-    )
-  }, []);
-
+  const productsList = useSelector(state => state.products.productsList)
   const [showForm, setShowForm] = useState(false);
 
   return (
     <div>
       {(isAdmin&&!showForm) && <button onClick={() => setShowForm(!showForm)}>Add New Product</button>}
 
-      {showForm && <AddProduct userIn={userIn} setProductList={setProductList} setShowForm={setShowForm}/>}
+      {showForm && <AddProduct userIn={userIn} setProductList={setProductsList} setShowForm={setShowForm}/>}
 
       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-        {productList.map((product, index) => (
+        {productsList.map((product, index) => (
           console.log(product),
           <Product
             key={index}

@@ -16,13 +16,17 @@ import Cart from './components/products/Cart';
 import Login from './components/register/Login';
 import Signup from './components/register/Signup';
 import Exit from './components/register/Exit';
-import FullArticle from './components/articles/FullArticle'
-import Settings from './components/user/Settings'
+import FullArticle from './components/articles/FullArticle';
+import Settings from './components/user/Settings';
+import useFetchAllData from './hooks/useFetchAllData';
 
 function App() {
   const [userIn, setUserIn] = useState("guest");
   const navigate = useNavigate();
   const location = useLocation();
+  useFetchAllData({userIn});
+
+
   useEffect(() => {
     let origionalPath = location.pathname;
     //if there is no user in the session storage, set the user to guest
@@ -64,7 +68,8 @@ function App() {
       <header>
         <NavBar userIn={userIn} />
       </header>
-      <Routes >
+      {/* <Routes > move yo a routers components */}
+      <Routes>
         <Route path="/:id_u">
           <Route index element={<U_Home userIn={userIn} />} />
           <Route path="info" element={<Settings userIn={userIn} />} />

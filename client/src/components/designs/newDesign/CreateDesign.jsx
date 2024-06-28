@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import RoomCanvas from './RoomCanvas';
-import SideNav from './SideNav';
+import SideNav from './sideNav/SideNav';
 
 function CreateDesign() {
   const [height, setHeight] = React.useState(150);
