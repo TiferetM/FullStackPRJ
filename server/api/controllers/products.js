@@ -59,7 +59,7 @@ class ProductsCtrl extends controlller {
     async putCart(req, res, next) {
         let product;
         try {
-            console.log("put cart at productCtrl")
+            console.log("put cart at productCtrl", req.body, req.params.id_u, req.headers.add)
             if (req.headers.add === "false") {
                  product = await ProductService.updateCart(req.body, req.params.id_u, false);
             }

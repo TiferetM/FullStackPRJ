@@ -15,6 +15,7 @@ function Cart({userIn}) {
     }).then(response => {
       return response.json();
     }).then(data => {
+      console.log(data);
       setItems(data);
     }).catch(error => {
       console.error('Error:', error);
@@ -36,7 +37,7 @@ function Cart({userIn}) {
         <ul>
           {items.map(item => (
             <li key={item.id}>
-              <span>{item.name}</span>
+              <span>{item.title}</span>
               <span>{item.price}</span>
               <button onClick={() => handleRemoveItem(item.id)}>Remove</button>
             </li>
