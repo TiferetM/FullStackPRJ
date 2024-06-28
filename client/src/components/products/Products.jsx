@@ -25,7 +25,7 @@ const isAdmin=JSON.parse(sessionStorage.getItem('role'))==='admin';
             price={product.price}
             imageUrl={product.pic}
             userIn={userIn}
-            id={product.id}
+            id={product._id}
           />
         ))}
       </div>

@@ -1,5 +1,7 @@
 
 import Access from "./access.js";
+import UseerAccess from "./users.js";
+import { ObjectId } from 'mongodb';
 
 class ProductAccess extends Access {
     constructor() {
@@ -7,11 +9,12 @@ class ProductAccess extends Access {
     }
     async read(id) {
         try {
-            const product = await this.db.collection("products").findOne({ where: { id: id } });
+            const product = await this.db.collection("products").findOne({ _id: new ObjectId(id) });
+            console.log("read product at product access id:", id, product);
             return product;
         }
         catch (error) {
-            return { error: error.message };
+            throw new Error(error.message);
         }
     }
 
@@ -25,71 +28,33 @@ class ProductAccess extends Access {
             return { error: error.message };
         }
     }
+
     async readCart(id) {
         try {
-            //natural join between products, cart and users, return the products
-            const cart = this.db.collection("cart").aggregate([
-                {
-                    $match: { username: id }
-                },
-                {
-                    $lookup: {
-                        from: "products",
-                        localField: "product",
-                        foreignField: "_id",
-                        as: "product_details"
-                    }
-                },
-                {
-                    $unwind: "$product_details"
-                },
-                {
-                    //project the fields we want to return
-                    $project: {
-                        _id: 0,
-                        prod_id: 1,
-                        product_data: "$product_details.data",
-                        product_pic: "$product_details.pic",
-                        product_category: "$product_details.category",
-                        product_quantity : 1,
-                        product_title: "$product_details.title",
-                        product_price: "$product_details.price"
-                    }
-                }
-            ]);
-
-            products = cart.toArray();
-            products = products.map(product => {
-                return {
-                    id: product.prod_id,
-                    title: product.product_title,
-                    data: product.product_data,
-                    price: product.product_price,
-                    category: product.product_category,
-                    pic: product.product_pic,
-                    quantity: product.product_quantity
-                }
-            });
-            //return the products only one kind of each product, and quantity is the sum of all the same products
-            products = products.reduce((acc, current) => {
-                //check if the product is already in the array
-                const x = acc.find(item => item.id === current.id);
-                if (!x) {
-                    //if the product is not in the array, add it
-                    return acc.concat([current]);
-                } else {
-                    //if the product is in the array, add the quantity
-                    x.quantity += current.quantity;
-                    return acc;
-                }
-            }, []);
-
+            let cart = await UseerAccess.getUser(id);
+            cart = cart.cart;
+            console.log("read cart at product access", cart);
+            
+            const productPromises = cart.map(cartId => 
+                this.read(cartId.id).then(product => ({
+                    id: product._id,
+                    title: product.name,
+                    data: product.description,
+                    price: product.price,
+                    category: product.category,
+                    pic: product.pic,
+                    quantity: cartId.quantity
+                }))
+            );
+            
+            const products = await Promise.all(productPromises);
+            console.log("read cart at product access", products);
             return products;
-        }
-        catch {
-            return { error: error.message };
+        } catch (error) {
+            throw new Error(error.message);
         }
     }
+    
 
     async create(product) {
         try {
@@ -119,19 +84,26 @@ class ProductAccess extends Access {
         }
     }
 
-    async updateCart(product, add=true) {
+    async updateCart(product, username, add = true) {
         try {
+            let cart = await UseerAccess.getUser(username);
+            console.log("cart at product access", cart);
+            cart = cart.cart;
             if (!add) {
-                await this.db.collection("cart").destroy({
-                    where: { product: product.id }
-                });
-                return { message: "product removed from cart" };
+                cart.some(item => item.id == product.id && item.quantity > 1) ?
+                    cart.forEach(item => { if (item.id == product.id) item.quantity-- }) :
+                    cart.filter(item => item.id !== product.id);
             }
-            const updatedProduct = this.db.cart.create(product);
-            return updatedProduct;
+            else {
+                cart.some(item => item.id == product.id) ?
+                    cart.forEach(item => { if (item.id == product.id) item.quantity++ }) :
+                    cart.concat({ id: product.id, quantity: 1 });
+            }
+            await UseerAccess.update(username, { cart: [...cart] });
+            return this.readCart(username);
         }
         catch (error) {
-            return { error: error.message };
+            throw new Error(error.message);
         }
     }
 

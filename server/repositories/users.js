@@ -58,6 +58,7 @@ class UserAccess extends Access {
     }
     async getUser(username) {
         try {
+            console.log("getUser at user access username:",username);
             const user = await this.db.collection('users').findOne({ username: username });
             console.log("getUser at user access",user);
             return user;
@@ -78,6 +79,25 @@ class UserAccess extends Access {
             throw new Error(error.message);
         }
     }
+
+    async update(username, updateFields) {
+        try {
+            const updatedUser = await this.db.collection('users').updateOne(
+                { username: username },
+                { $set: updateFields }
+            );
+            if (updatedUser.matchedCount === 0) {
+                throw new Error('User not found');
+            }
+            if (updatedUser.modifiedCount === 0) {
+                throw new Error('No changes made to the user');
+            }
+            return this.getUser(username);
+        } catch (error) {
+            new Error(error.message);
+        }
+    }
+    
 }
 
 export default UserAccess = new UserAccess();

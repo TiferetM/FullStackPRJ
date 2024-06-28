@@ -14,7 +14,7 @@ function Product({ id, name, description, price, imageUrl, userIn }) {
           'Content-Type': 'application/json',
           'add': 'true' // Assuming you're using this header to specify the operation
         },
-        body: JSON.stringify({ id, name, description, price, imageUrl }),
+        body: JSON.stringify({ id: id, name: name, data: description, price: price, pic: imageUrl }),
       });
 
       if (response.ok) {
