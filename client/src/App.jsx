@@ -19,6 +19,7 @@ import Exit from './components/register/Exit';
 import FullArticle from './components/articles/FullArticle';
 import Settings from './components/user/Settings';
 import useFetchAllData from './hooks/useFetchAllData';
+import Checkout from './components/products/Checkout'
 
 function App() {
   const [userIn, setUserIn] = useState("guest");
@@ -91,7 +92,10 @@ function App() {
           <Route path="products">
             <Route index element={<Products userIn={userIn} />} />
             <Route path=":id_p" element={<Product userIn={userIn} />} />
-            <Route path="cart" element={<Cart userIn={userIn} />} />
+            <Route path="cart" >
+              <Route index element={<Cart userIn={userIn} />} />
+              <Route path="checkout" element={<Checkout />} />
+            </Route>
           </Route>
         </Route>
         <Route path="/login" element={<Login setUserIn={setUserIn} />} />

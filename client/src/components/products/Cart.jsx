@@ -1,6 +1,7 @@
 // src/components/Cart.js
 import React, { useState, useEffect } from 'react';
 import './css/cart.css';  // Import CSS file
+import { Link } from 'react-router-dom';
 
 function Cart({ userIn }) {
   const [items, setItems] = useState([]);
@@ -74,18 +75,21 @@ function Cart({ userIn }) {
       {items.length === 0 ? (
         <p>Your cart is empty</p>
       ) : (
-        <ul className='cart'>
-          {items.map(item => (
-            <li key={item.id} className='item'>
-              <span className='title'>{item.title}</span>
-              <span className='price'>{item.price}</span>
-              <span className='quantity'>{item.quantity}</span>
-              <i className='fa fa-plus' onClick={() => handleChangeQuantity('+', item.id)} />
-              <i className='fa fa-minus' onClick={() => handleChangeQuantity('-', item.id)} />
-              <i className="fa fa-trash" onClick={() => handleRemoveItem(item.id)} />
-            </li>
-          ))}
-        </ul>
+        <>
+          <ul className='cart'>
+            {items.map(item => (
+              <li key={item.id} className='item'>
+                <span className='title'>{item.title}</span>
+                <span className='price'>{item.price}</span>
+                <span className='quantity'>{item.quantity}</span>
+                <i className='fa fa-plus' onClick={() => handleChangeQuantity('+', item.id)} />
+                <i className='fa fa-minus' onClick={() => handleChangeQuantity('-', item.id)} />
+                <i className="fa fa-trash" onClick={() => handleRemoveItem(item.id)} />
+              </li>
+            ))}
+          </ul>
+          <Link to='checkout'>Proceed to checkout</Link>
+        </>
       )}
     </div>
   );
