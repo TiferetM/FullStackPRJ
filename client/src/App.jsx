@@ -38,7 +38,7 @@ function App() {
     } else {
       signGuest();
     }
-  }, [location.pathname]);
+  }, []);
 
   const signGuest = () => {
     const url = new URL("http://localhost:3305/login");
