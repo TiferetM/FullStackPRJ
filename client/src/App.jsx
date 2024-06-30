@@ -19,7 +19,10 @@ import Exit from './components/register/Exit';
 import FullArticle from './components/articles/FullArticle';
 import Settings from './components/user/Settings';
 import useFetchAllData from './hooks/useFetchAllData';
-import Checkout from './components/products/Checkout'
+import Checkout from './components/products/Checkout';
+import CreateDesign from './components/designs/newDesign/CreateDesign';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 function App() {
   const [userIn, setUserIn] = useState("guest");
@@ -103,6 +106,9 @@ function App() {
         <Route path="/exit" element={<Exit setUserIn={setUserIn} />} />
         <Route path="*" element={<Home />} />
       </Routes>
+      <DndProvider backend={HTML5Backend}>
+      <CreateDesign />
+    </DndProvider>
     </>
   )
 }
