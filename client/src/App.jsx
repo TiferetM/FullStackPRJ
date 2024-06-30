@@ -33,10 +33,7 @@ function App() {
     let origionalPath = location.pathname;
     if (!sessionStorage.getItem('currentUser')) {
      signGuest();
-    }
-    else {
-      signGuest();
-    } else {
+    }else {
       let json = sessionStorage.getItem('currentUser');
       if (json != "guest") {
         setUserIn(JSON.parse(json));
@@ -45,9 +42,7 @@ function App() {
       //if the user is guest, set the user to guest
       else {
        signGuest();
-      } else {
-        signGuest();
-      }
+      } 
     }
   }, []);
   const signGuest = () => {
@@ -57,9 +52,6 @@ function App() {
             passwordHash: "w3l0v3gu3sts"
         }).toString();
    fetch(url, {
-
-  const signGuest = async () => {
-    await fetch("http://localhost:3305/login", {
       method: "GET",
       headers: {
         "Content-Type": "application/json"
