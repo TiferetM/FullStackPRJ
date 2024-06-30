@@ -4,7 +4,7 @@ import '../css/sideNav.css'
 import { useSelector } from 'react-redux'
 
 
-const ProductsSideNav = ({height, width, depth, setHeight, setWidth, setDepth}, setCurrentComponent) => {
+const ProductsSideNav = ({height, width, depth, setHeight, setWidth, setDepth, setCurrentComponent} ) => {
     const productsList = useSelector(state => state.products.productsList)
 
     return (
