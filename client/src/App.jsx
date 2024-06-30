@@ -30,17 +30,13 @@ function App() {
   useEffect(() => {
     const originalPath = location.pathname;
     const currentUser = sessionStorage.getItem('currentUser');
-    
-    if (!currentUser) {
-      signGuest();
-    } else {
+
+    if (currentUser && currentUser != "guest") {
       const parsedUser = JSON.parse(currentUser);
-      if (parsedUser !== "guest") {
-        setUserIn(parsedUser);
-        navigate(originalPath.replace(/[^/]+/, parsedUser));
-      } else {
-        signGuest();
-      }
+      setUserIn(parsedUser);
+      navigate(originalPath.replace(/[^/]+/, parsedUser));
+    } else {
+      signGuest();
     }
   }, [location.pathname]);
 
