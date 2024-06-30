@@ -5,15 +5,15 @@ import AddProduct from './new product/AddProduct.jsx';
 import { setProductsList } from '../../store/silces/productsSlice.jsx';
 
 function Products({ userIn }) {
-const isAdmin=JSON.parse(sessionStorage.getItem('role'))==='admin';
+  const isAdmin = JSON.parse(sessionStorage.getItem('role')) === 'admin';
   const productsList = useSelector(state => state.products.productsList)
   const [showForm, setShowForm] = useState(false);
 
   return (
     <div>
-      {(isAdmin&&!showForm) && <button onClick={() => setShowForm(!showForm)}>Add New Product</button>}
+      {(isAdmin && !showForm) && <button onClick={() => setShowForm(!showForm)}>Add New Product</button>}
 
-      {showForm && <AddProduct userIn={userIn} setProductList={setProductsList} setShowForm={setShowForm}/>}
+      {showForm && <AddProduct userIn={userIn} setProductList={setProductsList} setShowForm={setShowForm} />}
 
       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
         {productsList.map((product, index) => (
