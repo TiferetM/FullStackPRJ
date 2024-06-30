@@ -1,6 +1,8 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import RoomCanvas from './RoomCanvas';
 import SideNav from './sideNav/SideNav';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 function CreateDesign() {
   const [height, setHeight] = React.useState(150);
@@ -8,11 +10,17 @@ function CreateDesign() {
   const [depth, setDepth] = React.useState(150);
 
   return (
-    <>
-      <SideNav height={height} width={width} depth={depth}
-       setHeight={setHeight} setWidth={setWidth} setDepth={setDepth} />
+    <DndProvider backend={HTML5Backend}>
+      <SideNav 
+        height={height} 
+        width={width} 
+        depth={depth}
+        setHeight={setHeight} 
+        setWidth={setWidth} 
+        setDepth={setDepth} 
+      />
       <RoomCanvas height={height} width={width} depth={depth} />
-    </>
+    </DndProvider>
   );
 }
 

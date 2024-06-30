@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useDrag } from 'react-dnd';
 
 const DraggableProduct = ({ product }) => {
@@ -11,16 +12,32 @@ const DraggableProduct = ({ product }) => {
   }));
 
   return (
+   
     <div
       ref={drag}
       style={{
         opacity: isDragging ? 0.5 : 1,
         cursor: 'move',
+        padding: '8px',
+        border: '1px solid #ccc',
+        borderRadius: '4px',
+        display: 'inline-block',
       }}
     >
-      {product.pic}
+      <img
+        src={product.pic}
+        alt={product.name}
+        style={{ maxWidth: '100px', maxHeight: '100px' }}
+      />
     </div>
   );
+};
+
+DraggableProduct.propTypes = {
+  product: PropTypes.shape({
+    pic: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default DraggableProduct;

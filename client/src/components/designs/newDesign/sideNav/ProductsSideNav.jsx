@@ -1,7 +1,7 @@
 import React from 'react'
 import '../css/sideNav.css'
 import { useSelector } from 'react-redux'
-import DraggableProduct from '../draggable/DraggableProduct'
+import DraggableProduct from '../dragable/dragableProduct'
 
 const ProductsSideNav = ({height, width, depth, setHeight, setWidth, setDepth, setCurrentComponent} ) => {
     const productsList = useSelector(state => state.products.productsList)

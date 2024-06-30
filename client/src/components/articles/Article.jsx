@@ -29,7 +29,7 @@ function Article({ article }) {
         <p>{article.body}</p>
       </Link>
       <button onClick={showComments ? closeComments : toggleComments}>
-        {showComments ? '❌' : '➕'}
+        {showComments ? '❌' : 'add a comment'}
       </button>
       {showComments && (
         <div className="comment-section">
