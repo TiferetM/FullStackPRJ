@@ -1,5 +1,4 @@
 import React from 'react'
-import '../css/productSideNav.css'
 import '../css/sideNav.css'
 import { useSelector } from 'react-redux'
 
