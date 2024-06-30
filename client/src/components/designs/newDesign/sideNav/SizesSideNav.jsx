@@ -15,4 +15,4 @@ function SizesSideNav({height, width, depth, setHeight, setWidth, setDepth, setC
   )
 }
 
-export default SizesSideNav 
+export default SizesSideNav
