@@ -17,6 +17,7 @@ function useFetchAllData({userIn}) {
           return response.json();
         }).then(data => {
           dispatch(setProductsList(data));
+          console.log();
         }
         )
       }, []);  
