@@ -8,7 +8,7 @@ import Designs from './components/designs/Designs'
 import Design from './components/designs/Design'
 import Articles from './components/articles/Articles'
 import U_Home from './components/user/Home';
-import NewDesign from './components/designs/newDesign/CreateDesign'
+import CreateDesign from './components/designs/newDesign/CreateDesign'
 import NewArticle from './components/articles/newArticle/CreateArticle'
 import Products from './components/products/Products'
 import Product from './components/products/Product'
@@ -20,9 +20,6 @@ import FullArticle from './components/articles/FullArticle';
 import Settings from './components/user/Settings';
 import useFetchAllData from './hooks/useFetchAllData';
 import Checkout from './components/products/Checkout';
-import CreateDesign from './components/designs/newDesign/CreateDesign';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
 
 function App() {
   const [userIn, setUserIn] = useState("guest");
@@ -30,16 +27,17 @@ function App() {
   const location = useLocation();
   //useFetchAllData({userIn});
 
+  useFetchAllData({ userIn });
 
   useEffect(() => {
     let origionalPath = location.pathname;
-    //if there is no user in the session storage, set the user to guest
     if (!sessionStorage.getItem('currentUser')) {
      signGuest();
     }
     else {
+      signGuest();
+    } else {
       let json = sessionStorage.getItem('currentUser');
-      //if the user is not guest, set the user to the user in the session storage
       if (json != "guest") {
         setUserIn(JSON.parse(json));
         navigate(origionalPath.replace(/[^/]+/, JSON.parse(json)));
@@ -47,6 +45,8 @@ function App() {
       //if the user is guest, set the user to guest
       else {
        signGuest();
+      } else {
+        signGuest();
       }
     }
   }, []);
@@ -57,27 +57,30 @@ function App() {
             passwordHash: "w3l0v3gu3sts"
         }).toString();
    fetch(url, {
+
+  const signGuest = async () => {
+    await fetch("http://localhost:3305/login", {
       method: "GET",
       headers: {
         "Content-Type": "application/json"
       }
     }).then(res => {
       sessionStorage.setItem("token", JSON.stringify(res.headers.get("Authorization")));
-      return res.json()
+      return res.json();
     }).then(async data => {
       sessionStorage.setItem("currentUser", JSON.stringify(data.username));
       setUserIn(data.username);
-      navigate(`/${data.username}`)
+      navigate(`/${data.username}`);
     }).catch(err => {
-      console.log(err)
-    })
+      console.log(err);
+    });
   }
+
   return (
     <>
       <header>
         <NavBar userIn={userIn} />
       </header>
-      {/* <Routes > move yo a routers components */}
       <Routes>
         <Route path="/:id_u">
           <Route index element={<U_Home userIn={userIn} />} />
@@ -87,7 +90,7 @@ function App() {
           <Route path="designs">
             <Route index element={<Designs userIn={userIn} />} />
             <Route path=":id_d" element={<Design userIn={userIn} />} />
-            <Route path="new" element={<NewDesign userIn={userIn} />} />
+            <Route path="new" element={<CreateDesign userIn={userIn} />} />
           </Route>
           <Route path="articles">
             <Route index element={<Articles userIn={userIn} />} />
@@ -111,9 +114,6 @@ function App() {
         <Route path="/exit" element={<Exit setUserIn={setUserIn} />} />
         <Route path="*" element={<Home />} />
       </Routes>
-      <DndProvider backend={HTML5Backend}>
-      <CreateDesign />
-    </DndProvider>
     </>
   )
 }
