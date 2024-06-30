@@ -26,6 +26,34 @@ class UserAccess extends Access {
         }
     }
 
+    async readFriend(username) {
+        try {
+            const friends = await this.db.collection('fallowers').find({ username: username }).toArray();
+            friends = friends.filter(async friend => 
+                await this.db.collection("fallowers").findOne({ username: friend.fallowes, fallowes: username })
+            );
+            friends = Promise.all(friends);
+            friends.map(async friends => 
+                await this.getUser(friends.fallowes)
+            );
+            friends = Promise.all(friends);
+            return friends;
+        }
+        catch (error) {
+            throw new Error(error.message);
+        }
+    }
+
+    async createFriend(username, friend) {
+        try {
+            const newFriend = await this.db.collection('fallowers').insertOne({ username: username, fallowes: friend });
+            return newFriend;
+        }
+        catch (error) {
+            throw new Error(error.message);
+        }
+    }
+
     async create(user) {
         try {
             //add the user to the database without the salt and password hash
