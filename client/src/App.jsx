@@ -28,14 +28,14 @@ function App() {
   const [userIn, setUserIn] = useState("guest");
   const navigate = useNavigate();
   const location = useLocation();
-  useFetchAllData({userIn});
+  //useFetchAllData({userIn});
 
 
   useEffect(() => {
     let origionalPath = location.pathname;
     //if there is no user in the session storage, set the user to guest
     if (!sessionStorage.getItem('currentUser')) {
-      signGuest();
+     signGuest();
     }
     else {
       let json = sessionStorage.getItem('currentUser');
@@ -46,12 +46,17 @@ function App() {
       }
       //if the user is guest, set the user to guest
       else {
-        signGuest();
+       signGuest();
       }
     }
   }, []);
-  const signGuest = async () => {
-    await fetch("http://localhost:3305/login", {
+  const signGuest = () => {
+    const url = new URL("http://localhost:3305/login");
+        url.search = new URLSearchParams({
+            username: "guest",
+            passwordHash: "w3l0v3gu3sts"
+        }).toString();
+   fetch(url, {
       method: "GET",
       headers: {
         "Content-Type": "application/json"
