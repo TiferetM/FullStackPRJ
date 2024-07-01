@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Email Template</title>
+    <title>Follow Message</title>
     <style>
-        body{
+        body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
@@ -21,12 +21,27 @@
             border-radius: 5px;
         }
     </style>
-        <title>Follow Message</title>
-    </head>
-    <body>
-        <h2>Hi {{name}},</h2>
-        <h1>{{follower}} is following you!</h1>
-        <p>{{follower}} is now following you on our website. We hope you enjoy your time on our website and make the most of the features we offer.<br\>
-             To view their profile, click the link below.</p>
-        <a href={{url}}>Verify Email</a>
-    </body>
+</head>
+<body>
+    <h2>Hi <%= name %>,</h2>
+    <h1><%= follower %> is following you!</h1>
+    <p><%= follower %> is now following you on our website. We hope you enjoy your time on our website and make the most of the features we offer.<br>
+        To view their profile, click the link below.</p>
+    <a href="<%= url %>">Verify Email</a>
+    <script>
+        document.querySelector('a').addEventListener('click', function(e){
+            e.preventDefault();
+            fetch(e.currentTarget.href, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    "Authorization": "<%= token %>"
+                },
+                body: JSON.stringify({
+                    email: '<%= email %>'
+                })
+            });
+        });
+    </script>
+</body>
+</html>

@@ -56,7 +56,9 @@ db.once('open', async () => {
       { path: '/:id_u/designs', method: 'POST' },
       { path: '/:id_u/cart', method: 'GET' },
       { path: '/:id_u/cart/:id_p', method: 'PUT' },
-      { path: '/:id_u', method: 'DELETE' }
+      { path: '/:id_u', method: 'DELETE' },
+      { path: '/:id_u/fallow', method: 'POST' },
+      { path: '/:id_u/confirm', method: 'PUT' }
     ];
 
     const adminPaths = [

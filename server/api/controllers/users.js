@@ -33,12 +33,32 @@ class UsersCtrl extends controlller {
         }
     }
 
+    async postFallow(req, res, next) {
+        try {
+            console.log("postFallow user at userCtrl")
+            const {username, friend} = req.body;
+            const fallowers = await UserService.createFallower(username, friend);
+            return res.status(201).json(fallowers);
+        } catch (error) {
+            next(error, req, res);
+        }
+    }
+
     async put(req, res, next) {
         try {
             console.log("put user at userCtrl")
             const user = await UserService.update(req.body, {
                 where: { id: req.params.id },
             });
+            return res.status(200).json(user);
+        } catch (error) {
+            next(error, req, res);
+        }
+    }
+
+    async putEmail(req, res, next) {
+        try {
+            console.log("putEmail user at userCtrl")
             return res.status(200).json(user);
         } catch (error) {
             next(error, req, res);

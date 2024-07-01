@@ -1,42 +1,66 @@
-import accessUsers from '../repositories/users.js'
-import accessArticles from '../repositories/articles.js'
-import accessDesigns from '../repositories/designs.js'
-import accessComments from '../repositories/comment.js'
-import sendEmail from '../services/email.sending.js'
+import accessUsers from '../repositories/users.js';
+import accessArticles from '../repositories/articles.js';
+import accessDesigns from '../repositories/designs.js';
+import accessComments from '../repositories/comment.js';
+import sendEmail from '../services/email.sending.js';
+import path from 'path';
 
 class UserService {
-    constructor() {
-    }
+    constructor() {}
 
     async createUser(user) {
-        console.log("createUser at userService")
-        if(!accessUsers.getUser(user.username))
-           throw new Error("Username already exist");
-        return accessUsers.create(user);
+        console.log("createUser at userService");
+        if (!accessUsers.getUser(user.username))
+            throw new Error("Username already exists");
+        const newUser = accessUsers.create(user);
+
+        const templatePath = path.join(__dirname, '../views/signUpConfermation.ejs');
+        const variables = {
+            name: user.username,
+            url: `http://localhost:3305/${user.username}/confirm`,
+            email: user.email,
+            token: user.token // Add token to variables if needed
+        };
+
+        await sendEmail(user.email, 'Confirm Your Email', templatePath, variables);
+        return newUser;
     }
 
     async readUser(id) {
         return accessUsers.getUser(id);
     }
 
-    async createFallower(username, friend) {
-        const fallowes = accessUsers.createFallower(username, friend);
-        if (accessUsers.readFallowes(friend).then(fallowes => fallowes.some(fallowe => fallowe.username === username))) {
-            return fallowes;
-        } else {
+    async createFollower(username, friend) {
+        const followers = accessUsers.createFollower(username, friend);
+        const isFollowerAlready = await accessUsers.readFollowers(friend)
+            .then(followers => followers.some(follower => follower.username === username));
 
+        if (!isFollowerAlready) {
+            const followFriend = accessUsers.getUser(friend);
+            const templatePath = path.join(__dirname, '../views/followMessage.ejs');
+            const variables = {
+                name: followFriend.username,
+                follower: username,
+                url: `http://localhost:5173/${username}/info`,
+                email: followFriend.email,
+                token: followFriend.token // Add token to variables if needed
+            };
+
+            await sendEmail(followFriend.email, 'You have a new follower', templatePath, variables);
         }
+
+        return followers;
     }
 
     async checkRole(path, method, role) {
         const pathArray = path.split('/');
         const entity = pathArray[2] ?? "users";
-        const segments = path.split('/')
+        const segments = path.split('/');
         segments[1] = ':id_u';
-        if(segments.length == 4) segments[3] = ':id_' + entity[0];
+        if (segments.length == 4) segments[3] = ':id_' + entity[0];
         const noIDPath = segments.join('/');
         const roles = await accessUsers.readRole(noIDPath, method);
-        console.log(`roles: ${roles}, noIDPath:${noIDPath} at checkRole`);
+        console.log(`roles: ${roles}, noIDPath: ${noIDPath} at checkRole`);
 
         if (roles.some(path => path.role === 'owner')) {
             const userid = pathArray[0];
@@ -73,7 +97,6 @@ class UserService {
         }
         return false;
     }
-
 
     async updateUser(user) {
         return accessUsers.update(user);
