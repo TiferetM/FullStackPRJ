@@ -7,7 +7,7 @@ class UserAccess extends Access {
     }
     async getUserPassword(username) {
         try {
-            const user = await this.db.collection('PasswordHash').findOne({ username: username });
+            const user = await this.db.collection('passwordhashes').findOne({ username: username });
             return { username: user.username, pswd: user.passwordHash, salt: user.salt };
         }
         catch (error) {
