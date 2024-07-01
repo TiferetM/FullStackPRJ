@@ -1,7 +1,7 @@
-import nodemailer from 'nodemailer';
-import dotenv from 'dotenv';
-import fs from 'fs';
-import path from 'path';
+const fs = require('fs');
+const path = require('path');
+const handlebars = require('handlebars');
+const nodemailer = require('nodemailer');
 
 // Create a transporter object using the default SMTP transport
 const transporter = nodemailer.createTransport({
@@ -13,12 +13,12 @@ const transporter = nodemailer.createTransport({
 });
 
 // Function to send an email
-const sendEmail = (to, subject, html) => {
+const sendEmail = (to, subject, template, variables) => {
   const mailOptions = {
     from: process.env.EMAIL_USER, // Sender address
     to, // List of recipients
     subject, // Subject line
-    html // HTML body
+    html: template(variables) // HTML body with variables replaced
   };
 
   // Send email with defined transport object
@@ -29,4 +29,5 @@ const sendEmail = (to, subject, html) => {
     console.log('Email sent successfully:', info.response);
   });
 };
-export default sendEmail;
+
+module.exports = sendEmail;

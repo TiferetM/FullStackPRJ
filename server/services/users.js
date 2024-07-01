@@ -2,6 +2,7 @@ import accessUsers from '../repositories/users.js'
 import accessArticles from '../repositories/articles.js'
 import accessDesigns from '../repositories/designs.js'
 import accessComments from '../repositories/comment.js'
+import sendEmail from '../services/email.sending.js'
 
 class UserService {
     constructor() {
@@ -22,6 +23,8 @@ class UserService {
         const fallowes = accessUsers.createFallower(username, friend);
         if (accessUsers.readFallowes(friend).then(fallowes => fallowes.some(fallowe => fallowe.username === username))) {
             return fallowes;
+        } else {
+
         }
     }
 
