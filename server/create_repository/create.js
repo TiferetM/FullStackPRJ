@@ -58,12 +58,12 @@ const PasswordHashSchema = new mongoose.Schema({
 });
 const PasswordHash = mongoose.model('PasswordHash', PasswordHashSchema);
 
-const FriendSchema = new mongoose.Schema({
+const FallowersSchema = new mongoose.Schema({
   username: String,
-  friend: String
+  fallowes: String
 });
-FriendSchema.index({ username: 1, friend: 1 }, { unique: true });
-const Friend = mongoose.model('Friends', FriendSchema);
+FallowersSchema.index({ username: 1, fallowes: 1 }, { unique: true });
+const Fallower = mongoose.model('Fallowers', FallowersSchema);
 
 const RoleSchema = new mongoose.Schema({
   path: String,
@@ -72,4 +72,4 @@ const RoleSchema = new mongoose.Schema({
 });
 const Role = mongoose.model('Roles', RoleSchema);
 
-export { User, Article, Comment, Design, Product, PasswordHash, Friend, Role };
+export { User, Article, Comment, Design, Product, PasswordHash, Fallower, Role };

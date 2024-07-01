@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import { fileURLToPath } from 'url';
 import path, { dirname } from 'path';
-import { User, Article, Comment, Design, Product, PasswordHash, Friend, Role } from './create.js';
+import { User, Article, Comment, Design, Product, PasswordHash, Fallower, Role } from './create.js';
 
 // Set up __dirname in ESM environment
 const __filename = fileURLToPath(import.meta.url);
