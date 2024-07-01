@@ -30,7 +30,6 @@ const ProductsSideNav = ({height, width, depth, setHeight, setWidth, setDepth, s
       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
         {productsList.map((product, index) => (
           <DraggableProduct key={index} product={product} />
-         // < DraggableProduct/>
         ))}
       </div>
       <button onClick={() => setCurrentComponent('sizes')}>Sizes</button>

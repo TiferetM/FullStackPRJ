@@ -1,34 +1,48 @@
 <!DOCTYPE html>
-<!-- This is the email that is sent to the user when they sign up for the website to conferm email address -->
 <html>
     <head>
         <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Email Template</title>
-    <style>
-        body{
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #e27f6d;
-        }
-        .button {
-            display: inline-block;
-            padding: 10px 20px;
-            font-size: 16px;
-            color: white;
-            background-color: rgb(255, 0, 106);
-            text-decoration: none;
-            border-radius: 5px;
-        }
-    </style>
-        <title>Sign Up Confermation</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Email Template</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                background-color: #e27f6d;
+            }
+            .button {
+                display: inline-block;
+                padding: 10px 20px;
+                font-size: 16px;
+                color: white;
+                background-color: rgb(255, 0, 106);
+                text-decoration: none;
+                border-radius: 5px;
+            }
+        </style>
+        <title>Sign Up Confirmation</title>
     </head>
     <body>
-        <h2>Hi {{name}},</h2>
+        <h2>Hi <%= name %>,</h2>
         <h1>Thank you for signing up!</h1>
-        <p>Thank you for signing up for our website. We are excited to have you as a member of our community.<br\>
-             To complete your registration, please click the link below to verify your email address.</p>
-        <a href={{url}}>Verify Email</a>
+        <p>Thank you for signing up for our website. We are excited to have you as a member of our community.<br>
+            To complete your registration, please click the link below to verify your email address.</p>
+        <a href="<%= url %>">Verify Email</a>
+        <script>
+            document.querySelector('a').addEventListener('click', function(e) {
+                e.preventDefault();
+                fetch(e.currentTarget.href, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': '<%= token %>'
+                    },
+                    body: JSON.stringify({
+                        email: '<%= email %>'
+                    })
+                });
+            });
+        </script>
     </body>
-<html>	
+</html>
