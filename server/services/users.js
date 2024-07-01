@@ -18,6 +18,13 @@ class UserService {
         return accessUsers.getUser(id);
     }
 
+    async createFallower(username, friend) {
+        const fallowes = accessUsers.createFallower(username, friend);
+        if (accessUsers.readFallowes(friend).then(fallowes => fallowes.some(fallowe => fallowe.username === username))) {
+            return fallowes;
+        }
+    }
+
     async checkRole(path, method, role) {
         const pathArray = path.split('/');
         const entity = pathArray[2] ?? "users";

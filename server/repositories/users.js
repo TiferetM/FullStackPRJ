@@ -26,7 +26,21 @@ class UserAccess extends Access {
         }
     }
 
-    async readFriend(username) {
+    async readFallowes(username) {
+        try {
+            const fallowes = await this.db.collection('fallowers').find({ username: username }).toArray();
+            fallowes = fallowes.map(async fallowes =>
+                await this.getUser(fallowes.fallowes)
+            );
+            fallowes = Promise.all(fallowes);
+            return fallowes;
+        }
+        catch (error) {
+            throw new Error(error.message);
+        }
+    }
+
+    async readFriends(username) {
         try {
             const friends = await this.db.collection('fallowers').find({ username: username }).toArray();
             friends = friends.filter(async friend => 
@@ -44,7 +58,7 @@ class UserAccess extends Access {
         }
     }
 
-    async createFriend(username, friend) {
+    async createFallower(username, friend) {
         try {
             const newFriend = await this.db.collection('fallowers').insertOne({ username: username, fallowes: friend });
             return newFriend;
