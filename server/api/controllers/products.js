@@ -60,12 +60,7 @@ class ProductsCtrl extends controlller {
         let product;
         try {
             console.log("put cart at productCtrl", req.body, req.params.id_u, req.headers.add)
-            if (req.headers.add === "false") {
-                 product = await ProductService.updateCart(req.body, req.params.id_u, false);
-            }
-            else {
-                 product = await ProductService.updateCart(req.body, req.params.id_u);
-            }
+            product = await ProductService.updateCart(req.body, req.params.id_u, req.headers.add);
             return res.status(200).json(product);
         } catch (error) {
             next(error, req, res);
