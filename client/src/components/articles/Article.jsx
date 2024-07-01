@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import "../css/Articles.css";
 import { Link } from 'react-router-dom';
 
-function Article({ article }) {
+function Article({ article, userIn }) {
   const [showComments, setShowComments] = useState(false); // State to manage comment visibility
   const [commentText, setCommentText] = useState(''); // State to store comment text
 
@@ -25,6 +25,7 @@ function Article({ article }) {
   return (
     <div className="article">
       <Link to={article._id}>
+        <Link to={`http://localhost:5173/${userIn}/users/${article.auther}`} ><img src={article.ppic} alt={article.auther} /></Link>
         <h2>{article.title}</h2>
         <p>{article.body}</p>
       </Link>

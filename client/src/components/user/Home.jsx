@@ -1,35 +1,57 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import '../css/Home.css'
 
-const testimonials = [
-  {
-    name: "John Doe",
-    feedback: "This is the best service I have ever used!",
-    date: "2023-01-15"
-  },
-  {
-    name: "Jane Smith",
-    feedback: "Amazing experience, highly recommend!",
-    date: "2023-01-10"
-  },
-  {
-    name: "Samuel Green",
-    feedback: "Great customer support and reliable service.",
-    date: "2023-01-05"
-  }
-];
+function Home({ userIn }) {
+  const username = useParams().name_u ?? userIn;
+  const [user, setUser] = useState();
 
-function Home() {
+  useEffect(() => {
+    fetch(`http://localhost:3305/${userIn}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': sessionStorage.getItem('token'),
+      }
+    }).then(response => {
+      return response.json();
+    }).then(data => {
+      console.log(data);
+      setUser(data);
+    }).catch(error => {
+      console.log(error.message);
+    });
+  }, []);
+
+  const handleFollow = () => {
+    fetch(`http://localhost:3305/${userIn}/follow`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': sessionStorage.getItem('token'),
+      },
+      body: JSON.stringify({ username: userIn, follow: user.username})
+    }).then(response => {
+      return response.json();
+    } ).then(data => {
+      console.log(data);
+    }).catch(error => {
+      console.log(error.message);
+    });
+  }
+
+
   return (
     <div className="home-container">
       <div className="testimonials">
-        {testimonials.map((testimonial, index) => (
-          <div className="testimonial" key={index}>
-            <p className="feedback">"{testimonial.feedback}"</p>
-            <p className="name">- {testimonial.name}</p>
-            <p className="date">{testimonial.date}</p>
-          </div>
-        ))}
+        {user &&
+          (<>
+            <img src={user.pic} alt="user" />
+            <h1>{user.username}</h1>
+            <h2>{user.email}</h2>
+           {userIn !== user.username && <button onClick={handleFollow}>Follow</button>}
+          </>)
+        }
       </div>
     </div>
   );
