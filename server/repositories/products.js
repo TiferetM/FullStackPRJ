@@ -87,10 +87,10 @@ class ProductAccess extends Access {
         try {
             let cart = await UseerAccess.getUser(username);
             cart = cart.cart;
-            console.log("cart at product access", cart);
+            console.log("cart at product access", cart, "add", add);
             console.log("cart.some at product access", cart.some(item => item.id == product.id));
             
-            if (add === 0) {
+            if (add == 0) {
                 cart = cart.filter(item => item.id !== product.id);
             } else if (!add) {
                 cart.some(item => item.id == product.id && (add === -1 && item.quantity > 1)) ?
