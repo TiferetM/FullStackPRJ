@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Product from './Product.jsx';
-import { useSelector, useDispatch } from 'react-redux'
 import AddProduct from './new product/AddProduct.jsx';
-import { setProductsList } from '../../store/silces/productsSlice.jsx';
-import useFetchAllData from '../../hooks/useFetchAllData.jsx';
 
 function Products({ userIn }) {
   const isAdmin = JSON.parse(sessionStorage.getItem('role')) === 'admin';

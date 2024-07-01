@@ -18,14 +18,12 @@ import Signup from './components/register/Signup';
 import Exit from './components/register/Exit';
 import FullArticle from './components/articles/FullArticle';
 import Settings from './components/user/Settings';
-import useFetchAllData from './hooks/useFetchAllData';
 import Checkout from './components/products/Checkout';
 
 function App() {
   const [userIn, setUserIn] = useState("guest");
   const navigate = useNavigate();
   const location = useLocation();
-  useFetchAllData({ userIn });
 
   useEffect(() => {
     const originalPath = location.pathname;

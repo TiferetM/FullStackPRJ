@@ -3,28 +3,36 @@ import SizesSideNav from './SizesSideNav';
 import ProductsSideNav from './ProductsSideNav';
 import '../css/sideNav.css';
 
-const COMPONENT_LIST = ['allList', 'products', 'sizes'];
 
 function SideNav({ height, width, depth, setHeight, setWidth, setDepth }) {
-  const [currentComponent, setCurrentComponent] = useState('allList');
+  const COMPONENT_LIST = ['products', 'sizes'];
+  const [currentComponent, setCurrentComponent] = useState('sizes');
 
   return (
     <nav className='sideNav'>
-     <ProductsSideNav  />
- </nav>
+        {currentComponent === 'products' && (
+          <ProductsSideNav setCurrentComponent={setCurrentComponent} />
+        )}
+        {currentComponent === 'sizes' && (
+          <SizesSideNav
+            height={height}
+            width={width}
+            depth={depth}
+            setHeight={setHeight}
+            setWidth={setWidth}
+            setDepth={setDepth}
+            setCurrentComponent={setCurrentComponent}
+          />
+        )}
+    </nav>
   );
-    //   {currentComponent === 'allList' &&
-    //     COMPONENT_LIST.map(item => (
-    //       <div key={item} onClick={() => setCurrentComponent(item)}>
-    //         {item}
-    //       </div>
-    //     ))}
 
-      {/* {currentComponent === 'products' && ( */}
-        // <ProductsSideNav setCurrentComponent={setCurrentComponent} />
-      {/* )} */}
 
-      {/* {currentComponent === 'sizes' && (
+  {/* {currentComponent === 'products' && ( */ }
+  // <ProductsSideNav setCurrentComponent={setCurrentComponent} />
+  {/* )} */ }
+
+  {/* {currentComponent === 'sizes' && (
         <SizesSideNav
           height={height}
           width={width}
@@ -35,7 +43,7 @@ function SideNav({ height, width, depth, setHeight, setWidth, setDepth }) {
           setCurrentComponent={setCurrentComponent}
         />
       )} */}
-    // </nav>
+  // </nav>
   // );
 }
 
