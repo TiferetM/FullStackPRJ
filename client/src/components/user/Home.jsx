@@ -7,7 +7,7 @@ function Home({ userIn }) {
   const [user, setUser] = useState();
 
   useEffect(() => {
-    fetch(`http://localhost:3305/${userIn}`, {
+    fetch(`http://localhost:3305/${username}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

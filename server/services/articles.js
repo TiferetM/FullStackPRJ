@@ -37,8 +37,9 @@ class ArticleService {
 
     async readAll(query = {}) {
         console.log("read all articles at articleService")
-        const articles = accessArticle.readAll(query);
-        (await articles).map(async article => {
+        const articles = await accessArticle.readAll(query);
+        console.log("articles", articles)
+        articles.map(async article => {
             console.log("article auther", article)
             const ppic = (await accessUsers.getUser(article.author)).profilePic;
             article = { ...article, ppic: ppic };

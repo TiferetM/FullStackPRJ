@@ -33,7 +33,7 @@ class ArticleAccess extends access {
         }
     }
 
-    async readAll(query) {
+    async readAll(query={}) {
         try {
             console.log("read all articles at articleAccess")
             const articles = await this.db.collection('articles').find(query).toArray();
