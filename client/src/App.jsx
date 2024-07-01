@@ -73,6 +73,7 @@ function App() {
       <Routes>
         <Route path="/:id_u">
           <Route index element={<U_Home userIn={userIn} />} />
+          <Route path="users/:name_u" element={<U_Home userIn={userIn} />} />
           <Route path="info" element={<Settings userIn={userIn} />} />
           <Route path="home" element={<Home userIn={userIn} />} />
           <Route path="about" element={<About userIn={userIn} />} />
