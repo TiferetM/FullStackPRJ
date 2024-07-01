@@ -4,12 +4,13 @@ import ejs from 'ejs';
 import path from 'path';
 dotenv.config();
 
+console.log("send email",process.env.EMAIL_USER, process.env.EMAIL_PASS);
 // Create a transporter object using the default SMTP transport
 const transporter = nodemailer.createTransport({
     service: 'gmail', // You can use other services like 'yahoo', 'hotmail', etc.
     auth: {
-        user: process.env.EMAIL_USER, // Your email address
-        pass: process.env.EMAIL_PASS  // Your email password
+        user: "yokheved.spr@gmail.com", // Your email address
+        pass: "my_corect_email_password_is_here"  // Your email password
     }
 });
 
