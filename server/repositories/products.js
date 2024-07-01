@@ -84,14 +84,14 @@ class ProductAccess extends Access {
         }
     }
 
-    async updateCart(product, username, add = true) {
+    async updateCart(product, username, add = 1) {
         try {
             let cart = await UseerAccess.getUser(username);
             cart = cart.cart;
             console.log("cart at product access", cart);
             console.log("cart.some at product access", cart.some(item => item.id == product.id));
-            if (!add) {
-                cart.some(item => item.id == product.id && item.quantity > 1) ?
+            if (!add) {// minus or delete
+                cart.some(item => item.id == product.id && (add === -1 && item.quantity > 1)) ?
                     cart.forEach(item => { if (item.id == product.id) item.quantity-- }) :
                     cart = cart.filter(item => item.id !== product.id);
             }
