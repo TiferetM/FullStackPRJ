@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import "../css/CreateArticle.css";
 
 function CreateArticle({ userIn, setArticles, setShowForm }) {
-  const [newArticle, setNewArticle] = useState({ title: '', body: '' });
+  const [newArticle, setNewArticle] = useState({ title: '', body: '', category: ''});
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -17,7 +17,7 @@ function CreateArticle({ userIn, setArticles, setShowForm }) {
         'Content-Type': 'application/json',
         'Authorization': sessionStorage.getItem('token'),
       },
-      body: JSON.stringify(newArticle)
+      body: JSON.stringify({...newArticle, auther: userIn})
     }).then(response => {
       return response.json();
     }).then(data => {
@@ -61,6 +61,17 @@ function CreateArticle({ userIn, setArticles, setShowForm }) {
               onChange={handleInputChange}
               required
             />
+          </label>
+        </div>
+        <div>
+          <label>
+            Catagory:
+            <input
+              type="text"
+              name="category"
+              value={newArticle.category}
+              onChange={handleInputChange}
+              required />
           </label>
         </div>
         <div className="button-container">

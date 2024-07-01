@@ -12,6 +12,7 @@ class ArticleAccess extends access {
             const newArticle = await this.db.collection('articles').insertOne({
                 title: article.title,
                 body: article.body,
+                auther: article.auther,
                 category: article.category,
                 pic: article.image
             });
