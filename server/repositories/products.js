@@ -83,30 +83,32 @@ class ProductAccess extends Access {
             return { error: error.message };
         }
     }
-
     async updateCart(product, username, add = 1) {
         try {
             let cart = await UseerAccess.getUser(username);
             cart = cart.cart;
             console.log("cart at product access", cart);
             console.log("cart.some at product access", cart.some(item => item.id == product.id));
-            if (!add) {// minus or delete
+            
+            if (add === 0) {
+                cart = cart.filter(item => item.id !== product.id);
+            } else if (!add) {
                 cart.some(item => item.id == product.id && (add === -1 && item.quantity > 1)) ?
                     cart.forEach(item => { if (item.id == product.id) item.quantity-- }) :
                     cart = cart.filter(item => item.id !== product.id);
-            }
-            else {
+            } else {
                 cart.some(item => item.id == product.id) ?
                     cart.forEach(item => { if (item.id == product.id) item.quantity++ }) :
                     cart.push({ id: product.id, quantity: 1 });
             }
+            
             await UseerAccess.update(username, { cart: [...cart] });
             return this.readCart(username);
-        }
-        catch (error) {
+        } catch (error) {
             throw new Error(error.message);
         }
     }
+    
 
     async delete(id) {
         try {

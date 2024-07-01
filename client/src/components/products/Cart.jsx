@@ -141,14 +141,19 @@ function Cart({ userIn }) {
       console.error('Error:', error);
     });
   }
-
+  // const handleRemoveItem = (itemId) => {
+  //   const updatedItems = items.filter(item => item.id !== itemId);
+  //   setItems(updatedItems);
+  //   updateCart(items.find(i => i.id == itemId), 0);
+  //   localStorage.setItem('cartItems', JSON.stringify(updatedItems));
+  // };
   const handleRemoveItem = (itemId) => {
     const updatedItems = items.filter(item => item.id !== itemId);
     setItems(updatedItems);
-    updateCart(items.find(i => i.id == itemId), 0);
+    updateCart(items.find(i => i.id === itemId), 0);
     localStorage.setItem('cartItems', JSON.stringify(updatedItems));
-
   };
+
 
   const handleChangeQuantity = (operation, itemId) => {
     const updatedItems = items.map(item => {
