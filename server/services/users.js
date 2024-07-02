@@ -4,9 +4,10 @@ import accessDesigns from '../repositories/designs.js';
 import accessComments from '../repositories/comment.js';
 import sendEmail from '../services/email.sending.js';
 import path from 'path';
+import { fileURLToPath } from 'url';
 
 class UserService {
-    constructor() {}
+    constructor() { }
 
     async createUser(user) {
         console.log("createUser at userService");
@@ -14,7 +15,9 @@ class UserService {
             throw new Error("Username already exists");
         const newUser = accessUsers.create(user);
 
-        const templatePath = path.join(__dirname, '../views/signUpConfermation.ejs');
+        const __filename = fileURLToPath(import.meta.url);
+        const __dirname = path.dirname(__filename);
+        const templatePath = path.join(__dirname, '../repositories/html for emails/signUpConferm.html');
         const variables = {
             name: user.username,
             url: `http://localhost:3305/${user.username}/confirm`,
@@ -37,7 +40,9 @@ class UserService {
 
         if (!isFollowerAlready) {
             const followFriend = accessUsers.getUser(friend);
-            const templatePath = path.join(__dirname, '../views/followMessage.ejs');
+            const __filename = fileURLToPath(import.meta.url);
+            const __dirname = path.dirname(__filename);
+            const templatePath = path.join(__dirname, '../repositories/html for emails/followMessage.html');
             const variables = {
                 name: followFriend.username,
                 follower: username,
