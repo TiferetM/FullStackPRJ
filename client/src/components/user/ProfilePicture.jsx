@@ -19,10 +19,10 @@ function ProfilePicture({user, userIn}) {
         }).catch(error => {
             console.error('Error:', error);
         });
-    }, [user]);
+    }, [userIn, user]);
 
   return (
-    <Link to={`${userIn}/users/${user}`} className='profilePicture'>
+    <Link to={`/${userIn}/users/${user}`} className='profilePicture'>
         <img src={imgUrl} alt={user + "profile"} />
     </Link>
   )

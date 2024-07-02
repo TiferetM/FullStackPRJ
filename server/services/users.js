@@ -38,8 +38,8 @@ class UserService {
     }
 
     async createFollower(username, friend) {
-        const followers = accessUsers.createFollower(username, friend);
-        const isFollowerAlready = await accessUsers.readFollowers(friend)
+        const followers = accessUsers.createFallower(username, friend);
+        const isFollowerAlready = await accessUsers.readFallowes(friend)
             .then(followers => followers.some(follower => follower.username === username));
 
         if (!isFollowerAlready) {

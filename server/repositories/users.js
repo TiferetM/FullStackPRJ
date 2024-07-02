@@ -28,7 +28,7 @@ class UserAccess extends Access {
 
     async readFallowes(username) {
         try {
-            const fallowes = await this.db.collection('fallowers').find({ username: username }).toArray();
+            let fallowes = await this.db.collection('fallowers').find({ username: username }).toArray();
             fallowes = fallowes.map(async fallowes =>
                 await this.getUser(fallowes.fallowes)
             );

@@ -31,7 +31,7 @@ function Home({ userIn }) {
         'Content-Type': 'application/json',
         'Authorization': sessionStorage.getItem('token'),
       },
-      body: JSON.stringify({ username: userIn, follow: user.username})
+      body: JSON.stringify({ username: userIn, friend: user.username})
     }).then(response => {
       return response.json();
     } ).then(data => {

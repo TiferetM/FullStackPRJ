@@ -27,7 +27,7 @@ class UsersCtrl extends controller {
             const user = await UserService.readUser(username);   
             const avatar = user.profilePic;
             const __dirname = dirname(fileURLToPath(import.meta.url));        
-            return res.status(200).sendFile(join(__dirname, `../../repositories/avatars/${avatar}.png`));
+            return res.status(200).sendFile(join(__dirname, `../../repositories/avatars/${avatar}`));
         } catch (error) {
             next(error, req, res);
         }
@@ -52,7 +52,7 @@ class UsersCtrl extends controller {
         try {
             console.log("postFallow user at userCtrl")
             const { username, friend } = req.body;
-            const fallowers = await UserService.createFallower(username, friend);
+            const fallowers = await UserService.createFollower(username, friend);
             return res.status(201).json(fallowers);
         } catch (error) {
             next(error, req, res);

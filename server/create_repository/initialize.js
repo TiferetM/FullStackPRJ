@@ -33,7 +33,7 @@ db.once('open', async () => {
     const guest = new User({
       username: "guest",
       email: null,
-      profilePic: null,
+      profilePic: "guest",
       role: "guest",
       staredArticles: [],
       staredDesigns: [],
