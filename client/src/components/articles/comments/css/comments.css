@@ -1,0 +1,21 @@
+div.comment{
+    margin: 2px 0;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.fa-pen{
+    margin-left: 10px;
+    cursor:pointer;
+    display: inline-block
+}
+
+div.comment.edit{
+    text-decoration: underline solid #2d2c2c 2px;
+}
+
+div.comment p a.profilePicture{
+    width: 25px;
+}

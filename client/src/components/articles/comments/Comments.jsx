@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Comment from './Comment.jsx'
 import AddComment from './AddComment.jsx'
+import './css/comments.css'
 
 function Comments({ userIn, articleId }) {
     const [comments, setComments] = useState([]);

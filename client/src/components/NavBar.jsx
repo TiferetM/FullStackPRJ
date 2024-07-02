@@ -1,13 +1,15 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import navlinks from '../data/hoverNavLinks.js'
 import './css/NavBar.css'
 import HoverNav from './HoverNav';
 import logo from '../images/logo_min.png';
 import '@fortawesome/fontawesome-free/css/all.css';
+import ProfilePicture from './user/ProfilePicture.jsx';
 
 function NavBar({ userIn }) {
     const [hoverNav, setHoverNav] = useState({ show: false, coordination: { x: 0, y: 0 }, links: {} });
+    const [imgUrl, setImgUrl] = useState('');  
     let hideTimeout;
     
     const handleMouseEnter = (e) => {
@@ -32,7 +34,7 @@ function NavBar({ userIn }) {
 
     return (
         <nav className='mainNav'>
-            <NavLink to={`/${userIn}`} onMouseEnter={e => handleMouseEnter(e)} onMouseLeave={e => handleMouseLeave(e)}><i className="fa-regular fa-user"></i></NavLink>
+            <NavLink to={`/${userIn}`} onMouseEnter={e => handleMouseEnter(e)} onMouseLeave={e => handleMouseLeave(e)}><ProfilePicture user={userIn} userIn={userIn}/></NavLink>
             <NavLink to={`/${userIn}/home`} onMouseEnter={e => handleMouseEnter(e)} onMouseLeave={e => handleMouseLeave(e)}><img src={logo} /></NavLink>
             <NavLink to={`/${userIn}/about`} onMouseEnter={e => handleMouseEnter(e)} onMouseLeave={e => handleMouseLeave(e)}>About</NavLink>
             <NavLink to={`/${userIn}/designs`} onMouseEnter={e => handleMouseEnter(e)} onMouseLeave={e => handleMouseLeave(e)}>Designs</NavLink>

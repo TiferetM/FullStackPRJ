@@ -75,7 +75,7 @@ class UserAccess extends Access {
                 //returns the user object
                 username: user.username,
                 email: user.email,
-                profilePic: user.profilePic??'',
+                profilePic: `${Math.ceil(Math.random() * 6)}.png`,
                 role: "user",
                 staredArticles: [],
                 staredDesigns: [],

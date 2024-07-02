@@ -1,6 +1,7 @@
 import React, { useState} from 'react';
 import "../css/Articles.css";
 import { Link } from 'react-router-dom';
+import ProfilePicture from '../user/ProfilePicture';
 
 function Article({ article, userIn }) {
 
@@ -9,7 +10,7 @@ function Article({ article, userIn }) {
   return (
     <div className="article">
       <Link to={article._id}>
-        <Link to={`/${userIn}/users/${article.author}`} ><img src={article.ppic} alt={article.author} /></Link>
+        <ProfilePicture user={article.author} userIn={userIn}/>
         <h2>{article.title}</h2>
         <p>{text}</p>
       </Link>

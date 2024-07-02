@@ -1,4 +1,5 @@
 import access from "./access.js";
+import {ObjectId} from "mongodb";
 
 class CommentAccess extends access {
     constructor() {
@@ -53,16 +54,14 @@ class CommentAccess extends access {
         }
     }
     
-    async update(comment) {
+    async update(comment, id) {
         try {
             console.log("update comment at commentAccess")
-            const updatedComment = await this.db.collection("comments").update(comment, {
-                where: { id: comment.id }
-            });
+            const updatedComment = await this.db.collection("comments").updateOne({ _id: new ObjectId(id)}, { $set: comment });
             return updatedComment;
         }
         catch (error) {
-            return { error: error.message };
+           throw new Error(error.message);
         }
     }
     async delete(id) {

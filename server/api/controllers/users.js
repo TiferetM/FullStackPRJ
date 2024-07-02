@@ -1,8 +1,10 @@
-import controlller from "./controller.js";
+import controller from "./controller.js";
 import UserService from "../../services/users.js";
 import { authenticateUser, getToken } from "../../services/authentication.js";
+import { dirname, join } from 'path';
+import { fileURLToPath } from 'url';
 
-class UsersCtrl extends controlller {
+class UsersCtrl extends controller {
     constructor() {
         super();
     }
@@ -11,10 +13,23 @@ class UsersCtrl extends controlller {
         try {
             console.log("get user at userCtrl")
             const username = req.params.id_u;
-            const users = await UserService.readUser(username);
-            return res.status(200).json(users);
+            const user = await UserService.readUser(username);
+            return res.status(200).json(user);
         } catch (error) {
             next(error, req, res);    
+        }
+    }
+
+    async getAvatar(req, res, next) {
+        try {
+            console.log("getAvatar user at userCtrl")
+            const username = req.params.id_f;
+            const user = await UserService.readUser(username);   
+            const avatar = user.profilePic;
+            const __dirname = dirname(fileURLToPath(import.meta.url));        
+            return res.status(200).sendFile(join(__dirname, `../../repositories/avatars/${avatar}.png`));
+        } catch (error) {
+            next(error, req, res);
         }
     }
 
@@ -24,7 +39,7 @@ class UsersCtrl extends controlller {
             const user = await UserService.createUser(req.body);
             const token = await getToken(user.username);
             res.setHeader("Authorization", token);
-            console.log(`user created: ${user} token: ${token}`)
+            console.log(`user created: ${user} token: ${token}`);
             return res.status(201).json(user);
         } catch (error) {
             if(error.message == "Username already exist")
@@ -36,7 +51,7 @@ class UsersCtrl extends controlller {
     async postFallow(req, res, next) {
         try {
             console.log("postFallow user at userCtrl")
-            const {username, friend} = req.body;
+            const { username, friend } = req.body;
             const fallowers = await UserService.createFallower(username, friend);
             return res.status(201).json(fallowers);
         } catch (error) {
@@ -81,9 +96,8 @@ class UsersCtrl extends controlller {
         try {
             console.log("login user at userCtrl")
             let { username, passwordHash } = req.query;
-            const {fullUser} = await authenticateUser({ username:username, pswd:passwordHash });
+            const { fullUser } = await authenticateUser({ username: username, pswd: passwordHash });
             const token = await getToken(fullUser.username);
-            //add the token to the header
             res.setHeader("Role", fullUser.role);
             res.setHeader("Authorization", token);
             console.log(`user logedin: `, fullUser.role)
@@ -94,4 +108,4 @@ class UsersCtrl extends controlller {
     }
 }
 
-export default UsersCtrl = new UsersCtrl();
+export default new UsersCtrl();

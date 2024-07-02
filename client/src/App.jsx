@@ -29,7 +29,7 @@ function App() {
     const originalPath = location.pathname;
     const currentUser = sessionStorage.getItem('currentUser');
 
-    if (currentUser && currentUser != "guest") {
+    if (currentUser && currentUser !== "guest") {
       const parsedUser = JSON.parse(currentUser);
       setUserIn(parsedUser);
       navigate(originalPath.replace(/[^/]+/, parsedUser));

@@ -31,12 +31,9 @@ class CommentsCtrl extends controlller {
     async put(req, res, next) {
         try {
             console.log("put comment at commentCtrl")
-            const comment = await CommentsService.update(req.body, {
-                where: { id: req.params.id },
-            });
+            const comment = await CommentsService.update(req.body, req.params.id_c);
             return res.status(200).json(comment);
         } catch (error) {
-            next(error, req, res);
             next(error, req, res);
         }
     }

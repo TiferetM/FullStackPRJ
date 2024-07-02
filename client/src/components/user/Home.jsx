@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import '../css/Home.css'
+import ProfilePicture from './ProfilePicture';
 
 function Home({ userIn }) {
   const username = useParams().name_u ?? userIn;
@@ -46,7 +47,7 @@ function Home({ userIn }) {
       <div className="testimonials">
         {user &&
           (<>
-            <img src={user.pic} alt="user" />
+            <ProfilePicture user={user.username} />
             <h1>{user.username}</h1>
             <h2>{user.email}</h2>
            {userIn !== user.username && <button onClick={handleFollow}>Follow</button>}

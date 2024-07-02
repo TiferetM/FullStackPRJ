@@ -16,9 +16,9 @@ class CommentService
         console.log("read all comments at commentService")
         return CommentAccess.readAll(query);
     }
-    async update(comment) {
+    async update(comment, id) {
         console.log("update comment at commentService")
-        return CommentAccess.update(comment);
+        return CommentAccess.update(comment, id);
     }
     async delete(id) {
         console.log("delete comment at commentService")

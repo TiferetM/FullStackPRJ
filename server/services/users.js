@@ -30,7 +30,11 @@ class UserService {
     }
 
     async readUser(id) {
-        return accessUsers.getUser(id);
+        return await accessUsers.getUser(id);
+    }
+
+    async readAvatar(id) {
+        return await accessUsers.getUser(id).profilePic;
     }
 
     async createFollower(username, friend) {
@@ -59,6 +63,7 @@ class UserService {
 
     async checkRole(path, method, role) {
         const pathArray = path.split('/');
+        const user = pathArray[1];
         const entity = pathArray[2] ?? "users";
         const segments = path.split('/');
         segments[1] = ':id_u';
@@ -92,7 +97,10 @@ class UserService {
             if (!entityObject) {
                 throw new Error('Entity not found');
             }
-            return entityObject.author.toString() === accessUsers.readById(userid);
+            if (entity === 'comments')
+                return entityObject.userId.toString() === user;
+            else
+                return entityObject.author.toString() === user;
         } else if (role === 'admin') {
             return roles.some(path => path.role === 'admin' || path.role === 'registered' || path.role === 'everyone');
         } else if (role === 'registered') {
