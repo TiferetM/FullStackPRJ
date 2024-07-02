@@ -153,4 +153,3 @@ function RoomCanvas({ height = 10, width = 10, depth = 2 }) {
 }
 
 export default RoomCanvas;
-

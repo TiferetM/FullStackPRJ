@@ -12,7 +12,6 @@ const DraggableProduct = ({ product }) => {
   }));
 
   return (
-   
     <div
       ref={drag}
       style={{
@@ -26,7 +25,7 @@ const DraggableProduct = ({ product }) => {
     >
       <img
         src={product.pic}
-        alt={product.name}
+        alt={product.title}
         style={{ maxWidth: '100px', maxHeight: '100px' }}
       />
     </div>
@@ -37,7 +36,9 @@ DraggableProduct.propTypes = {
   product: PropTypes.shape({
     pic: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
+    path: PropTypes.string.isRequired, // Path to the GLB file
   }).isRequired,
 };
 
 export default DraggableProduct;
+
