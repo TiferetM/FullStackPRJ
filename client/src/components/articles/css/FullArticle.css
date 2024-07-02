@@ -11,6 +11,11 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+.fullArticle h1 p{
+  display: inline-block;
+  font-size: 0.7em;
+}
+
 .fullArticle .edits{
     display: flex;
     justify-content: space-around;

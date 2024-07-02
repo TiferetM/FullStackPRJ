@@ -1,3 +1,4 @@
+import CommentAccess from '../repositories/comments.js';
 
 class CommentService
 {
@@ -5,19 +6,23 @@ class CommentService
     }
     async create(comment) {
         console.log("create comment at commentService")
-        return this.access.create(comment);
+        return CommentAccess.create(comment);
     }
     async read(id) {
         console.log("read comment at commentService")
-        return this.access.read(id);
+        return CommentAccess.read(id);
+    }
+    async readAll(query = {}) {
+        console.log("read all comments at commentService")
+        return CommentAccess.readAll(query);
     }
     async update(comment) {
         console.log("update comment at commentService")
-        return this.access.update(comment);
+        return CommentAccess.update(comment);
     }
     async delete(id) {
         console.log("delete comment at commentService")
-        return this.access.delete(id);
+        return CommentAccess.delete(id);
     }
 }
 export default CommentService = new CommentService();

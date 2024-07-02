@@ -1,7 +1,7 @@
 import accessUsers from '../repositories/users.js';
 import accessArticles from '../repositories/articles.js';
 import accessDesigns from '../repositories/designs.js';
-import accessComments from '../repositories/comment.js';
+import accessComments from '../repositories/comments.js';
 import sendEmail from '../services/email.sending.js';
 import path from 'path';
 import { fileURLToPath } from 'url';

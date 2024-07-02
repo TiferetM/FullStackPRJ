@@ -10,7 +10,8 @@ class CommentsCtrl extends controlller {
         try {
             console.log("get comment at commentsCtrl")
             const query = req.query;
-            const comments = await CommentsService.findAll({ where: query });
+            console.log(query)
+            const comments = await CommentsService.readAll(query);
             return res.status(200).json(comments);
         } catch (error) {
             next(error, req, res);

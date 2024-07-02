@@ -22,8 +22,19 @@ class CommentAccess extends access {
     async read(id) {
         try {
             console.log("read comment at commentAccess")
-            const comment = await this.db.collection("comments").findOne({ where: { id: id } });
+            const comment = await this.db.collection("comments").findOne({ _id: id });
             return comment;
+        }
+        catch (error) {
+            return { error: error.message };
+        }
+    }
+
+    async readAll(query = {}) {
+        try {
+            console.log("read all comments at commentAccess")
+            const comments = await this.db.collection("comments").find(query).toArray();
+            return comments;
         }
         catch (error) {
             return { error: error.message };
