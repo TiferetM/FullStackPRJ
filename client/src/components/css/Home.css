@@ -2,10 +2,10 @@
     position: relative;
     text-align: center;
     padding: 20px;
-    background-image: url('../images/logo.png'); /* נתיב יחסי נכון לתמונה */
+    /*background-image: url('../images/logo.png'); /* נתיב יחסי נכון לתמונה */
     background-size: cover;
     background-position: center;
-    height: 100vh; /* הגדרה שגובה הדף יכסה את כל המסך */
+    height: 75vh; /* הגדרה שגובה הדף יכסה את כל המסך */
   }
   
   .testimonials {

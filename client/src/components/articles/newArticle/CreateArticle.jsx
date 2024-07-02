@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import "../css/CreateArticle.css";
 
-function CreateArticle({ userIn, setArticles, setShowForm }) {
+function CreateArticle({ userIn}) {
   const [newArticle, setNewArticle] = useState({ title: '', body: '', category: ''});
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -22,9 +24,8 @@ function CreateArticle({ userIn, setArticles, setShowForm }) {
       return response.json();
     }).then(data => {
       console.log('Article added successfully:', data);
-      setArticles(last => [...last, { id: data.id, ...newArticle }]);
-      setShowForm(false);
       setNewArticle({ title: '', body: '' });
+      navigate(`/${userIn}/articles`);
     }).catch(error => {
       console.error('Error:', error);
     });

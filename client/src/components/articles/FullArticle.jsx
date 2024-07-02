@@ -1,8 +1,29 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import './css/FullArticle.css';
 
 function FullArticle({ userIn }) {
+
+    
+  const [showComments, setShowComments] = useState(false); // State to manage comment visibility
+  const [commentText, setCommentText] = useState(''); // State to store comment text
+
+  const toggleComments = () => {
+    setShowComments(!showComments);
+  };
+
+  const closeComments = () => {
+    setShowComments(false);
+  };
+
+  const handleCommentSubmit = (e) => {
+    e.preventDefault();
+    // Handle comment submission logic here (e.g., API call to add comment)
+    console.log('Adding comment:', commentText);
+    // Reset comment text
+    setCommentText('');
+  };
+
     const { id_a } = useParams();
     const [article, setArticle] = useState([]);
     let isAuther = false;
@@ -56,7 +77,24 @@ function FullArticle({ userIn }) {
         <div className='fullArticle'>
             <h1>{article.title}</h1>
             <p>{article.body}</p>
-            <p>{article.author}</p>
+            <Link to={`/${userIn}/users/${article.author}`}><p>{article.author}</p></Link>
+            
+      <button onClick={showComments ? closeComments : toggleComments}>
+        {showComments ? '❌' : 'add a comment'}
+      </button>
+      {showComments && (
+        <div className="comment-section">
+          <form onSubmit={handleCommentSubmit}>
+            <textarea
+              value={commentText}
+              onChange={(e) => setCommentText(e.target.value)}
+              placeholder="Write your comment..."
+              required
+            />
+            <button type="submit">Submit Comment</button>
+          </form>
+        </div>
+      )}
             <div className='edits'>
                 <i className='fa-regular fa-star' onClick={handleStared}></i>
                 {isAuther && <i className="fa-solid fa-pen-to-square" onClick={handleEdit}></i>}

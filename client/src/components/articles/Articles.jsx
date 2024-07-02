@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Article from './Article.jsx';
+import './css/Articles.css';
 import CreateArticle from './newArticle/CreateArticle.jsx';
 
 function Articles({ userIn }) {
   const [articles, setArticles] = useState([]);
-  const [showForm, setShowForm] = useState(false);
   const [query, setQuery] = useState('');
   const location = useLocation();
 
@@ -37,17 +37,16 @@ function Articles({ userIn }) {
   }, [query]);
 
   return (
-    <div className="article-list">
-      {articles.map(article => (
-        <Article key={article.id} article={article} userIn={userIn}/>
-      ))}
-      {!showForm && <button onClick={() => setShowForm(!showForm)} style={{ backgroundColor: '#e2e6ea', color: 'white',potision: 'fixed',right: '20px', padding: '10px 20px', border: 'none', borderRadius: '4px', cursor: 'pointer', marginTop: '20px' }}>Add Article</button>}
-      {showForm && <CreateArticle userIn={userIn} setArticles={setArticles} setShowForm={setShowForm} />}
-    </div>
+    <>
+      <div className="article-list">
+        {articles.map(article => (
+          <Article key={article.id} article={article} userIn={userIn} />
+        ))}
+      </div>
+      <Link to='new'>Add Article</Link>
+    </>
   );
 }
-//
-//    background-color:;
 
 
 export default Articles;
