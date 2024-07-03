@@ -29,7 +29,7 @@ function Comment({ comment, userIn }) {
     return (
         <div className='comment' key={comment.id}>
             <p><ProfilePicture userIn={userIn} user={comment.userId} /> :       <input onChange={handleBodyChange} value={body} name="body"/>       </p>
-            {comment.userId == userIn && <i className='fa fa-solid fa-pen' onClick={handleSubmit}></i>}
+            {comment.userId == userIn && <i className='fa fa-solid fa-paper-plane' onClick={handleSubmit}></i>}
         </div>
     )
 }

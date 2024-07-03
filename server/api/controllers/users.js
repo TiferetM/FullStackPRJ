@@ -71,6 +71,18 @@ class UsersCtrl extends controller {
         }
     }
 
+    async putAvatar(req, res, next) {
+        try {
+            console.log("putAvatar user at userCtrl")
+            const username = req.params.id_u;
+            const avatar = req.file.filename;
+            const user = await UserService.update(username, {profilePic : avatar});
+            return res.status(200).json(user);
+        } catch (error) {
+            next(error, req, res);
+        }
+    }
+
     async putEmail(req, res, next) {
         try {
             console.log("putEmail user at userCtrl")

@@ -111,8 +111,8 @@ class UserService {
         return false;
     }
 
-    async updateUser(user) {
-        return accessUsers.update(user);
+    async update(username, updateFields) {
+        return accessUsers.update(username, updateFields);
     }
 
     async deleteUser(id) {

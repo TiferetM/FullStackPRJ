@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import { Link } from 'react-router-dom';
 import './css/profilePicture.css'
 
-function ProfilePicture({user, userIn}) {
+function ProfilePicture({user, userIn, update=null}) {
     const [imgUrl, setImgUrl] = useState('');
     
     useEffect(() => {
@@ -19,7 +19,7 @@ function ProfilePicture({user, userIn}) {
         }).catch(error => {
             console.error('Error:', error);
         });
-    }, [userIn, user]);
+    }, [userIn, user, update]);
 
   return (
     <Link to={`/${userIn}/users/${user}`} className='profilePicture'>

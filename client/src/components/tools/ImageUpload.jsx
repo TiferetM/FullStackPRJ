@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function ImageUpload() {
+function ImageUpload({type, url}) {
   const [selectedFile, setSelectedFile] = useState(null);
   const [preview, setPreview] = useState(null);
 
@@ -22,6 +22,21 @@ function ImageUpload() {
 
     const formData = new FormData();
     formData.append('file', selectedFile);
+
+    fetch(url, {
+      method: 'PUT',
+      headers: {
+        'Authorization': sessionStorage.getItem('token'),
+        'type' : type
+      },
+      body: formData,
+    }).then(response => {
+      return response.json();
+    }).then(data => {
+      console.log(data);
+    }).catch(error => {
+      console.error('Error:', error);
+    });
     
     console.log('Uploading image...');
     
