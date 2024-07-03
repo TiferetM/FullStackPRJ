@@ -26,25 +26,6 @@ function SideNav({ height, width, depth, setHeight, setWidth, setDepth }) {
         )}
     </nav>
   );
-
-
-  {/* {currentComponent === 'products' && ( */ }
-  // <ProductsSideNav setCurrentComponent={setCurrentComponent} />
-  {/* )} */ }
-
-  {/* {currentComponent === 'sizes' && (
-        <SizesSideNav
-          height={height}
-          width={width}
-          depth={depth}
-          setHeight={setHeight}
-          setWidth={setWidth}
-          setDepth={setDepth}
-          setCurrentComponent={setCurrentComponent}
-        />
-      )} */}
-  // </nav>
-  // );
 }
 
 export default SideNav;

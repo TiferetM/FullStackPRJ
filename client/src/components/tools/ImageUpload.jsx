@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function ImageUpload({type, url}) {
+function ImageUpload({type, url, afterUpload=null, parametersAfterUpload=null}) {
   const [selectedFile, setSelectedFile] = useState(null);
   const [preview, setPreview] = useState(null);
 
@@ -34,6 +34,7 @@ function ImageUpload({type, url}) {
       return response.json();
     }).then(data => {
       console.log(data);
+      afterUpload && afterUpload(parametersAfterUpload);
     }).catch(error => {
       console.error('Error:', error);
     });

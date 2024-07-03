@@ -33,7 +33,7 @@ db.once('open', async () => {
     const guest = new User({
       username: "guest",
       email: null,
-      profilePic: "guest",
+      profilePic: "guest.png",
       role: "guest",
       staredArticles: [],
       staredDesigns: [],
@@ -65,7 +65,8 @@ db.once('open', async () => {
       { path: '/:id_u/products', method: 'POST' },
       { path: '/:id_u/products/:id_p', method: 'PUT' },
       { path: '/:id_u/products/:id_p', method: 'DELETE' },
-      { path: '/:id_u', method: 'DELETE' }
+      { path: '/:id_u', method: 'DELETE' },
+      { path: '/:id_u/products/:id_p', method: 'PUT' }
     ];
 
     const everyonePaths = [
@@ -79,7 +80,9 @@ db.once('open', async () => {
       { path: '/:id_u/products/?q', method: 'GET' },
       { path: '/:id_u', method: 'GET' },
       { path: '/:id_u/designs/?q', method: 'GET' },
-      { path: '/:id_u/comments', method: 'GET' }
+      { path: '/:id_u/comments', method: 'GET' },
+      { path: "/:id_u/products/:id_p/img", method: 'GET'},
+      
     ];
 
     const ownerPaths = [

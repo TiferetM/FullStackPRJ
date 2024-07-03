@@ -20,8 +20,8 @@ class ProductService {
         return accessProducts.readCart(product, username, add);
     }
 
-    async updateProduct(product) {
-        return accessProducts.update(product);
+    async updateProduct(id, product) {
+        return accessProducts.update(id, product);
     }
 
     async updateCart(product, username, add = true) {

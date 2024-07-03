@@ -5,8 +5,6 @@ import AddProduct from './new product/AddProduct.jsx';
 function Products({ userIn }) {
   const isAdmin = JSON.parse(sessionStorage.getItem('role')) === 'admin';
   const [productsList, setProductsList] = useState([]);	
-  //const productsList = useSelector(state => state.products.productsList)
-  //const productsList = useFetchAllData({userIn});
   const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
@@ -20,11 +18,31 @@ function Products({ userIn }) {
       return response.json();
     }).then(data => {
       console.log(data);
+      data = getImages(data);
       setProductsList(data);
     }).catch (error => {
       console.log(error.message);
     });
   }, []);
+
+  const getImages = (data) => {
+    data.map(product => {
+      fetch(`http://localhost:3305/${userIn}/products/${product._id}/img`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': sessionStorage.getItem('token'),
+        }
+      }).then(response => response.blob())
+      .then(blob => {
+        const imgUrl = URL.createObjectURL(blob);
+        return {...product, pic : imgUrl};
+      }).catch(error => {
+        console.error('Error:', error);
+      });
+    });
+    return data;
+  }
 
   return (
     <div>

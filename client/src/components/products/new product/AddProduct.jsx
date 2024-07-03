@@ -1,7 +1,9 @@
 import React from 'react'
 import { useState } from 'react'
 import '../../css/AddProduct.css';
+import ImageUpload from '../../tools/ImageUpload';
 function AddProduct({ setProductList, userIn, setShowForm }) {
+    const [uploadPhoto, setUploadPhoto] = useState(false);
     const [newProduct, setNewProduct] = useState({
         name: '',
         description: '',
@@ -38,7 +40,7 @@ function AddProduct({ setProductList, userIn, setShowForm }) {
                 pic: '',
                 quantity: ''
             });
-            setShowForm(false);
+            setUploadPhoto(data.insertedId);
         }).catch(error => {
             console.error('Error:', error);
         });
@@ -47,8 +49,8 @@ function AddProduct({ setProductList, userIn, setShowForm }) {
         <div className="new-product-form">
             <i className="fas fa-times" onClick={() => setShowForm(false)}></i>
             <h2>Add New Product</h2>
-    
-            <form onSubmit={handleSubmit}>
+
+            {!uploadPhoto && <form onSubmit={handleSubmit}>
                 <div>
                     <label>
                         Name:
@@ -99,18 +101,6 @@ function AddProduct({ setProductList, userIn, setShowForm }) {
                 </div>
                 <div>
                     <label>
-                        Image URL:
-                        <input
-                            type="text"
-                            name="pic"
-                            value={newProduct.pic}
-                            onChange={handleInputChange}
-                            required
-                        />
-                    </label>
-                </div>
-                <div>
-                    <label>
                         Quantity:
                         <input
                             type="number"
@@ -122,7 +112,10 @@ function AddProduct({ setProductList, userIn, setShowForm }) {
                     </label>
                 </div>
                 <button type="submit">Add Product</button>
-            </form>
+            </form>}
+            {uploadPhoto && <div>
+                <ImageUpload type={"products"} url={`http://localhost:3305/${userIn}/products/${uploadPhoto}`} afterUpload={setShowForm} parametersAfterUpload={false}/>
+            </div>}
         </div>
     )
 }

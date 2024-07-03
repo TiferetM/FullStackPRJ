@@ -1,5 +1,7 @@
 import controlller from "./controller.js";
 import ProductService from "../../services/products.js";
+import { dirname, join } from "path";
+
 class ProductsCtrl extends controlller {
     constructor() {
         super();
@@ -33,6 +35,18 @@ class ProductsCtrl extends controlller {
         }
     }
 
+    async getImg(req, res, next) {
+        try {
+            console.log("get img at productCtrl")
+            const id_p = req.params.id_p;
+            const product = await ProductService.readProduct(id_p);
+            const __dirname = dirname(fileURLToPath(import.meta.url));
+            return res.status(200).sendFile(join(__dirname, `../../repositories/products/${product.pic}`));
+        } catch (error) {
+            next(error, req, res);
+        }
+    }
+
     async post(req, res, next) {
         try {
             console.log("post product at productCtrl");
@@ -47,9 +61,8 @@ class ProductsCtrl extends controlller {
     async put(req, res, next) {
         try {
             console.log("put product at productCtrl")
-            const product = await this.model.products.update(req.body, {
-                where: { id: req.params.id },
-            });
+            const body = req.body? req.body : {pic : req.file.filename};
+            const product = await ProductService.updateProduct(req.params.id_p, body);
             return res.status(200).json(product);
         } catch (error) {
             next(error, req, res);

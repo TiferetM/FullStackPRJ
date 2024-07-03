@@ -72,11 +72,10 @@ class ProductAccess extends Access {
             return { error: error.message };
         }
     }
-    async update(product) {
+    async update(id, product) {
         try {
-            const updatedProduct = await this.db.collection("products").update(product, {
-                where: { id: product.id }
-            });
+            const updatedProduct = await this.db.collection("products").updateOne(
+                { _id: new ObjectId(id) }, { $set : product });
             return updatedProduct;
         }
         catch (error) {
