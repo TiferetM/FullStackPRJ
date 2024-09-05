@@ -3,7 +3,6 @@ import { decryptData, authenticateUser } from '../../services/authentication.js'
 const authenticate = async (req, res, next) => {
     // Get the token from the header
     const token = req.header('Authorization');
-    console.log("Token at authenticate:", token);
 
     // Check if token exists
     if (!token) {
@@ -13,7 +12,6 @@ const authenticate = async (req, res, next) => {
     // Decrypt the token and authenticate the user
     try {
         const decoded = await decryptData(token);
-        console.log("Decoded token at authenticate:", decoded);
 
         const { fullUser } = await authenticateUser(decoded);
         req.user = fullUser;

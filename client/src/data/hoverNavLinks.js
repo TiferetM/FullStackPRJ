@@ -5,9 +5,7 @@ export default (userIn, title) => {
         "About": {
         },
         "Designs": {
-            "my designs": userIn == "guest" ? '/login' : `/${userIn}/designs/me`,
             "new design": userIn == "guest" ? '/login' : `/${userIn}/designs/new`,
-            "friends designs": userIn == "guest" ? '/login' : `/${userIn}/designs/friends`,
             "all designs": `/${userIn}/designs`
         },
         "Articles": {

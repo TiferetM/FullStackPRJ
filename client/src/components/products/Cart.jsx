@@ -15,7 +15,6 @@ function Cart({ userIn }) {
     }).then(response => {
       return response.json();
     }).then(data => {
-      console.log(data);
       setItems([...data]);
     }).catch(error => {
       console.error('Error:', error);
@@ -23,7 +22,6 @@ function Cart({ userIn }) {
   }, []);
 
   const updateCart = (item, add = true) => {
-    console.log(item, add);
     fetch(`http://localhost:3305/${userIn}/cart`, {
       method: 'PUT',
       headers: {
@@ -35,19 +33,10 @@ function Cart({ userIn }) {
     }).then(response => {
       return response.json();
     }
-    ).then(data => {
-      console.log(data);
-    }
     ).catch(error => {
       console.error('Error:', error);
     });
   }
-  // const handleRemoveItem = (itemId) => {
-  //   const updatedItems = items.filter(item => item.id !== itemId);
-  //   setItems(updatedItems);
-  //   updateCart(items.find(i => i.id == itemId), 0);
-  //   localStorage.setItem('cartItems', JSON.stringify(updatedItems));
-  // };
   const handleRemoveItem = (itemId) => {
     const updatedItems = items.filter(item => item.id !== itemId);
     setItems(updatedItems);

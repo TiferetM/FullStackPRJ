@@ -6,23 +6,10 @@ import CreateArticle from './newArticle/CreateArticle.jsx';
 
 function Articles({ userIn }) {
   const [articles, setArticles] = useState([]);
-  const [query, setQuery] = useState('');
   const location = useLocation();
 
   useEffect(() => {
-    if (location.pathname.includes("/me"))
-      setQuery(`/?author=${userIn}`);
-    else if (location.pathname.includes("/friends"))
-      setQuery(`/?friends=true`);
-    else if (location.pathname.includes("/stared"))
-      setQuery(`/?stared=true`);
-    else
-      setQuery('');
-    console.log("query", query);
-  }, [location.pathname]);
-
-  useEffect(() => {
-    fetch(`http://localhost:3305/${userIn}/articles${query}`, {
+    fetch(`http://localhost:3305/${userIn}/articles`, {
       headers: {
         'Authorization': sessionStorage.getItem('token'),
       }

@@ -9,7 +9,6 @@ function Signup({ setUserIn, publicKey }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(e.target);
     
     let valid = true;
     Array.from(e.target).forEach((input) => {
@@ -43,7 +42,6 @@ function Signup({ setUserIn, publicKey }) {
         passwordHash: sha512(e.target[2].value)
       })
     }).then(res => {
-      console.log(res.headers);
       sessionStorage.setItem('currentUser', JSON.stringify(e.target[0].value));
       sessionStorage.setItem('token', res.headers.get("Authorization"));
       setUserIn(e.target[0].value);

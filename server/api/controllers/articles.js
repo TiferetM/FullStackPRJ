@@ -11,7 +11,6 @@ class ArticlesCtrl extends controlller {
             let articles;
             console.log("get articles at ArticlesCtrl")
             const query = req.query;
-            console.log("query at ArticleCtrl get", query)
             if(query?.friends)
                 articles =  await ArticleService.readFriends(req.params.id_u);
             else if(query?.stared)

@@ -39,7 +39,6 @@ class UsersCtrl extends controller {
             const user = await UserService.createUser(req.body);
             const token = await getToken(user.username);
             res.setHeader("Authorization", token);
-            console.log(`user created: ${user} token: ${token}`);
             return res.status(201).json(user);
         } catch (error) {
             if(error.message == "Username already exist")
@@ -112,7 +111,6 @@ class UsersCtrl extends controller {
             const token = await getToken(fullUser.username);
             res.setHeader("Role", fullUser.role);
             res.setHeader("Authorization", token);
-            console.log(`user logedin: `, fullUser.role)
             return res.status(200).json(fullUser);
         } catch (error) {
             next(error, req, res);

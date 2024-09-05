@@ -17,7 +17,6 @@ function Home({ userIn }) {
     }).then(response => {
       return response.json();
     }).then(data => {
-      console.log(data);
       setUser(data);
     }).catch(error => {
       console.log(error.message);

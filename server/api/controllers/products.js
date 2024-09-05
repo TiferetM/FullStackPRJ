@@ -16,7 +16,6 @@ class ProductsCtrl extends controlller {
                 req.params.id_p ?
                     await ProductService.readProduct(req.params.id_p) :
                     await ProductService.readProducts();
-            console.log(products);
             //returns products in json format
             return res.status(200).json(products);
         } catch (error) {
@@ -50,7 +49,6 @@ class ProductsCtrl extends controlller {
     async post(req, res, next) {
         try {
             console.log("post product at productCtrl");
-            console.log(req.body);
             const product = await ProductService.create(req.body);
             return res.status(201).json(product);
         } catch (error) {

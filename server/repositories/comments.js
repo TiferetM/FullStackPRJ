@@ -17,7 +17,7 @@ class CommentAccess extends access {
             return newComment;
         }
         catch (error) {
-            return { error: error.message };
+            throw new Error(error.message);
         }
     }
     async read(id) {
@@ -27,7 +27,7 @@ class CommentAccess extends access {
             return comment;
         }
         catch (error) {
-            return { error: error.message };
+            throw new Error(error.message);
         }
     }
 
@@ -38,7 +38,7 @@ class CommentAccess extends access {
             return comments;
         }
         catch (error) {
-            return { error: error.message };
+            throw new Error(error.message);
         }
     }
 

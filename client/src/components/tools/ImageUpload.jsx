@@ -45,7 +45,6 @@ function ImageUpload({type, url, afterUpload=null, parametersAfterUpload=null}) 
 
   const handleRemove = async e => {
     e.preventDefault();
-    console.log('Removing image...');
     setSelectedFile(null);
     setPreview(null);
   };

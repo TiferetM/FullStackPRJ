@@ -17,7 +17,6 @@ function Products({ userIn }) {
     }).then(response => {
       return response.json();
     }).then(data => {
-      console.log(data);
       data = getImages(data);
       setProductsList(data);
     }).catch (error => {

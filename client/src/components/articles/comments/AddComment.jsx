@@ -6,7 +6,6 @@ function AddComment({ articleId, userIn, setShowComments}) {
     const handleCommentSubmit = (e) => {
         e.preventDefault();
         // Handle comment submission logic here (e.g., API call to add comment)
-        console.log('Adding comment:', commentText);
         fetch(`http://localhost:3305/${userIn}/comments`, {
             method: 'POST',
             headers: {

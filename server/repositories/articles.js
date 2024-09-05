@@ -19,7 +19,7 @@ class ArticleAccess extends access {
             return newArticle;
         }
         catch (error) {
-            return { error: error.message };
+            throw new Error(error.message);
         }
     }
     async read(id) {
@@ -29,7 +29,7 @@ class ArticleAccess extends access {
             return article;
         }
         catch (error) {
-            return { error: error.message };
+            throw new Error(error.message);
         }
     }
 
@@ -65,7 +65,7 @@ class ArticleAccess extends access {
             return updatedArticle;
         }
         catch (error) {
-            return { error: error.message };
+            throw new Error(error.message);
         }
     }
     async delete(id) {
@@ -77,7 +77,7 @@ class ArticleAccess extends access {
             return { message: "article deleted" };
         }
         catch (error) {
-            return { error: error.message };
+            throw new Error(error.message);
         }
     }
 

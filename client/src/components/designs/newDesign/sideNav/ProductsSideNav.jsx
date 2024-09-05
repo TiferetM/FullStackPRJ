@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import '../css/sideNav.css'
 import DraggableProduct from '../dragable/dragableProduct'
 
-const ProductsSideNav = ({height, width, depth, setHeight, setWidth, setDepth, setCurrentComponent} ) => {
+const ProductsSideNav = ({ setCurrentComponent} ) => {
     const [productsList, setProductsList] = useState([]);
     const userIn = JSON.parse(sessionStorage.getItem('currentUser'));
     useEffect(() => {
@@ -15,7 +15,6 @@ const ProductsSideNav = ({height, width, depth, setHeight, setWidth, setDepth, s
       }).then(response => {
         return response.json();
       }).then(data => {
-        console.log(data);
         setProductsList(data);
       }).catch (error => {
         console.log(error.message);
