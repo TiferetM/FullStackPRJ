@@ -35,9 +35,8 @@ class UsersCtrl extends controller {
 
     async post(req, res, next) {
         try {
-            console.log("post user at userCtrl")
-            const user = await UserService.createUser(req.body);
-            const token = await getToken(user.username);
+            console.log("post user at userCtrl" , req.body.username)
+            const {user, token} = await UserService.createUser(req.body);
             res.setHeader("Authorization", token);
             return res.status(201).json(user);
         } catch (error) {

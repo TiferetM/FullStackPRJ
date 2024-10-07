@@ -40,9 +40,7 @@ class CommentsCtrl extends controlller {
     async delete(req, res, next) {
         try {
             console.log("delete comment at commentCtrl")
-            await CommentsService.destroy({
-                where: { id: req.params.id },
-            });
+            await CommentsService.delete(req.params.id_c);
             return res.status(204).send();
         } catch (error) {
             next(error, req, res);

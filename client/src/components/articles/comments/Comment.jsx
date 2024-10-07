@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import ProfilePicture from '../../user/ProfilePicture'
 
 function Comment({ comment, userIn }) {
@@ -24,10 +24,31 @@ function Comment({ comment, userIn }) {
         });
     }
 
+    const handleDelete = async (e) => {
+        const res = fetch(`http://localhost:3305/${userIn}/comments/${comment._id}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': sessionStorage.getItem('token'),
+            }
+        });
+        if (res.status <400 && res.status >= 200) {
+            console.log('Comment deleted successfully');
+            e.target.parentElement.remove();
+        } else {
+            console.error('Error:', res.statusText);
+        }
+
+    }
+
     return (
         <div className='comment' key={comment.id}>
-            <p><ProfilePicture userIn={userIn} user={comment.userId} /> :       <input onChange={handleBodyChange} value={body} name="body"/>       </p>
-            {comment.userId == userIn && <i className='fa fa-solid fa-paper-plane' onClick={handleSubmit}></i>}
+            <p><ProfilePicture userIn={userIn} user={comment.userId} /> :       <input onChange={handleBodyChange} value={body} name="body" />       </p>
+            {comment.userId == userIn && 
+            <>
+                <i className='fa fa-solid fa-paper-plane' onClick={handleSubmit}></i>
+                <i className='fa fa-solid fa-trash' onClick={handleDelete}></i>
+            </>
+            }
         </div>
     )
 }

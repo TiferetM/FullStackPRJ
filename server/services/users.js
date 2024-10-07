@@ -3,8 +3,10 @@ import accessArticles from '../repositories/articles.js';
 import accessDesigns from '../repositories/designs.js';
 import accessComments from '../repositories/comments.js';
 import sendEmail from '../services/email.sending.js';
+import { getToken } from './authentication.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { get } from 'http';
 
 class UserService {
     constructor() { }
@@ -13,7 +15,8 @@ class UserService {
         console.log("createUser at userService");
         if (!accessUsers.getUser(user.username))
             throw new Error("Username already exists");
-        const newUser = accessUsers.create(user);
+        const newUser = await accessUsers.create(user);
+        const token = await getToken(user.username);
 
         const __filename = fileURLToPath(import.meta.url);
         const __dirname = path.dirname(__filename);
@@ -22,11 +25,11 @@ class UserService {
             name: user.username,
             url: `http://localhost:3305/${user.username}/confirm`,
             email: user.email,
-            token: user.token // Add token to variables if needed
+            token: token // Add token to variables if needed
         };
 
         await sendEmail(user.email, 'Confirm Your Email', templatePath, variables);
-        return newUser;
+        return {user: newUser, token: token};
     }
 
     async readUser(id) {

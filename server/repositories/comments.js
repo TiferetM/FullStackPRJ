@@ -67,9 +67,7 @@ class CommentAccess extends access {
     async delete(id) {
         console.log("delete comment at commentAccess")
         try {
-            await this.db.collection("comments").destroy({
-                where: { id: id }
-            });
+            await this.db.collection("comments").deleteOne({ _id: new ObjectId(id) });
             return { message: "comment deleted" };
         }
         catch (error) {

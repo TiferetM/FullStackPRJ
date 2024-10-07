@@ -21,7 +21,7 @@ function Articles({ userIn }) {
     }).catch(error => {
       console.error('Error:', error);
     });
-  }, [query]);
+  }, []);
 
   return (
     <>

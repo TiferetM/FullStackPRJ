@@ -4,13 +4,14 @@ import ejs from 'ejs';
 import path from 'path';
 dotenv.config();
 
-console.log("send email",process.env.EMAIL_USER, process.env.EMAIL_PASS);
+console.log("send email", process.env.EMAIL_USER, process.env.EMAIL_PASS);
 // Create a transporter object using the default SMTP transport
 const transporter = nodemailer.createTransport({
     service: 'gmail', // You can use other services like 'yahoo', 'hotmail', etc.
+    secure: true,
     auth: {
-        user: "yokheved.spr@gmail.com", // Your email address
-        pass: "my_corect_email_password_is_here"  // Your email password
+        user: process.env.EMAIL_USER, // Your email address
+        pass: process.env.EMAIL_PASS // Your email password
     }
 });
 
@@ -41,7 +42,7 @@ const sendEmail = async (to, subject, templatePath, variables) => {
     // Send email with defined transport object
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
-            return console.log('Error while sending email:', error);
+            return console.log('Error while sending email:', error.response);
         }
         console.log('Email sent successfully:', info.response);
     });

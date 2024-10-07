@@ -11,6 +11,7 @@ const authenticate = async (req, res, next) => {
 
     // Decrypt the token and authenticate the user
     try {
+        
         const decoded = await decryptData(token);
 
         const { fullUser } = await authenticateUser(decoded);
