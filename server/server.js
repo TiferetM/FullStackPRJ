@@ -11,9 +11,6 @@ import errorHandler from './api/middleware/errorHandling.js';
 
 export const server = express();
 
-//use mongo database D-HOME for the project
-mongoose.connect('mongodb://localhost:27017/D-HOME', { useNewUrlParser: true, useUnifiedTopology: true });
-
 server.use(express.json()); // Middleware to parse JSON bodies
 //make requests from localhost everywhere
 server.use(cors({
