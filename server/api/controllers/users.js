@@ -12,8 +12,10 @@ class UsersCtrl extends controller {
     async get(req, res, next) {
         try {
             console.log("get user at userCtrl")
-            const username = req.params.id_u;
-            const user = await UserService.readUser(username);
+            const userIn = req.params.id_i;
+            const username = req.params.id_u ?? userIn;
+            console.log("username: ", username)
+            const user = await UserService.readUser(username, userIn);
             return res.status(200).json(user);
         } catch (error) {
             next(error, req, res);    

@@ -31,6 +31,9 @@ export const renderEJSTemplate = (templatePath, variables) => {
 // Function to send an email
 const sendEmail = async (to, subject, templatePath, variables) => {
     const html = await renderEJSTemplate(templatePath, variables);
+    if (!html) {
+        console.log('Failed to render EJS template', templatePath);
+    }
 
     const mailOptions = {
         from: process.env.EMAIL_USER, // Sender address
@@ -42,7 +45,7 @@ const sendEmail = async (to, subject, templatePath, variables) => {
     // Send email with defined transport object
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
-            return console.log('Error while sending email:', error.response);
+            return console.log('Error while sending email:', error);
         }
         console.log('Email sent successfully:', info.response);
     });

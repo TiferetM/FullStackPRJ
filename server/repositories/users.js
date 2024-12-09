@@ -27,12 +27,14 @@ class UserAccess extends Access {
     }
 
     async readFallowes(username) {
+        ///get the users that username(varialbe) is fallowing
         try {
             let fallowes = await this.db.collection('fallowers').find({ username: username }).toArray();
             fallowes = fallowes.map(async fallowes =>
                 await this.getUser(fallowes.fallowes)
-            );
+            );//get the user object for each fallowes
             fallowes = Promise.all(fallowes);
+            //returns array of users that username is fallowing
             return fallowes;
         }
         catch (error) {

@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import '../css/Home.css'
 import ProfilePicture from './ProfilePicture';
 
 function Home({ userIn }) {
   const username = useParams().name_u ?? userIn;
   const [user, setUser] = useState();
+  const location = useLocation();
 
   useEffect(() => {
-    fetch(`http://localhost:3305/${username}`, {
+    fetch(`http://localhost:3305/${userIn}/${username}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -18,10 +19,11 @@ function Home({ userIn }) {
       return response.json();
     }).then(data => {
       setUser(data);
+      console.log(data.relationship);
     }).catch(error => {
       console.log(error.message);
     });
-  }, []);
+  }, [location.pathname]);
 
   const handleFollow = () => {
     fetch(`http://localhost:3305/${userIn}/follow`, {
@@ -49,7 +51,7 @@ function Home({ userIn }) {
             <ProfilePicture user={user.username} />
             <h1>{user.username}</h1>
             <h2>{user.email}</h2>
-           {userIn !== user.username && <button onClick={handleFollow}>Follow</button>}
+           {user.relationship == "none" || user.relationship == "followed" && <button onClick={handleFollow}>Follow</button>}
           </>)
         }
       </div>

@@ -29,11 +29,32 @@ class UserService {
         };
 
         await sendEmail(user.email, 'Confirm Your Email', templatePath, variables);
-        return {user: newUser, token: token};
+        return { user: newUser, token: token };
     }
 
-    async readUser(id) {
-        return await accessUsers.getUser(id);
+    async readUser(id, userIn) {
+        const user = await accessUsers.getUser(id);
+        if(!userIn) return user;
+        if (id !== userIn) {
+            //check if userIn is fallowing id
+            const isFallowing = await accessUsers.readFallowes(userIn)
+                .then(fallowers => fallowers.some(fallow => fallow.username === id));
+            //check if id is fallowing userIn
+            const isFallowingBack = await accessUsers.readFallowes(id)
+                .then(fallowers => fallowers.some(fallow => fallow.username === userIn));
+            if (!isFallowing && !isFallowingBack)
+                user.relationship = "none";
+            else if (isFallowing && !isFallowingBack)
+                //userIn is fallowing id but id is not fallowing userIn
+                user.relationship = "following";
+            else if (!isFallowing && isFallowingBack)
+                //id is fallowing userIn but userIn is not fallowing id
+                user.relationship = "followed";
+            else
+                user.relationship = "friends";
+        } else
+            user.relationship = "self";
+        return user;
     }
 
     async readAvatar(id) {
@@ -41,27 +62,37 @@ class UserService {
     }
 
     async createFollower(username, friend) {
+        const following = accessUsers.readFallowes(username);//get the users that username is fallowing
+        const isFollowingAlready = await accessUsers.readFallowes(username)
+            //check if username is fallowing friend already
+            .then(following => following.some(follow => follow.username === friend));
+        if (isFollowingAlready)
+            throw new Error("Already following this user");
+
         const followers = accessUsers.createFallower(username, friend);
         const isFollowerAlready = await accessUsers.readFallowes(friend)
             .then(followers => followers.some(follower => follower.username === username));
 
         if (!isFollowerAlready) {
-            const followFriend = accessUsers.getUser(friend);
-            const __filename = fileURLToPath(import.meta.url);
-            const __dirname = path.dirname(__filename);
-            const templatePath = path.join(__dirname, '../repositories/html for emails/followMessage.html');
-            const variables = {
-                name: followFriend.username,
-                follower: username,
-                url: `http://localhost:5173/${username}/info`,
-                email: followFriend.email,
-                token: followFriend.token // Add token to variables if needed
-            };
-
-            await sendEmail(followFriend.email, 'You have a new follower', templatePath, variables);
+            await sendFallowingEmail(username, friend);
         }
-
         return followers;
+    }
+
+    async __sendFallowingEmail(username, friend) {
+        const followFriend = accessUsers.getUser(friend);
+        const __filename = fileURLToPath(import.meta.url);
+        const __dirname = path.dirname(__filename);
+        const templatePath = path.join(__dirname, '../repositories/html for emails/followMessage.html');
+        const variables = {
+            name: followFriend.username,
+            follower: username,
+            url: `http://localhost:5173/${username}/info`,
+            email: followFriend.email,
+            token: followFriend.token // Add token to variables if needed
+        };
+
+        await sendEmail(followFriend.email, 'You have a new follower', templatePath, variables);
     }
 
     async checkRole(path, method, role) {
