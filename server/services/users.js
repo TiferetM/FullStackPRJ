@@ -103,10 +103,10 @@ class UserService {
         segments[1] = ':id_u';
         if (segments.length == 4) segments[3] = ':id_' + entity[0];
         const noIDPath = segments.join('/');
-        const roles = await accessUsers.readRole(noIDPath, method);
+        const roles = (await accessUsers.readRole(noIDPath, method)).map(role => role.role);
         console.log(`roles: ${roles}, noIDPath: ${noIDPath} at checkRole`);
 
-        if (roles.some(path => path.role === 'owner')) {
+        if (roles.some(role => role === 'owner')) {
             const userid = pathArray[0];
             const id = pathArray[pathArray.length - 1];
             let entityModel;
@@ -136,11 +136,11 @@ class UserService {
             else
                 return entityObject.author.toString() === user;
         } else if (role === 'admin') {
-            return roles.some(path => path.role === 'admin' || path.role === 'registered' || path.role === 'everyone');
+            return roles.some(role => role === 'admin' || role === 'registered' || role === 'everyone');
         } else if (role === 'registered') {
-            return roles.some(path => path.role === 'registered' || path.role === 'everyone');
+            return roles.some(role => role === 'registered' || role === 'everyone');
         } else if (role === 'guest') {
-            return roles.some(path => path.role === 'everyone');
+            return roles.some(role => role === 'everyone');
         }
         return false;
     }

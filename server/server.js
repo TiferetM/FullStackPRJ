@@ -18,20 +18,22 @@ server.use(cors({
   exposedHeaders: ['Authorization', 'Role']
 }));
 //middleware
-server.use((req, res, next) => {
+server.use(async (req, res, next) => {
   if(req.path === '/login' || req.path === '/signup') {
     return next();
   }
   else {
-    return authenticate(req, res, next);
+    console.log("authenticating middleware calling");
+    return await authenticate(req, res, next);
   }
 });
-server.use((req, res, next) => {
+server.use(async (req, res, next) => {
   if(req.path === '/login' || req.path === '/signup') {
     return next();
   }
   else {
-    return authorize(req, res, next);
+    console.log("authorizing middleware calling");
+    return await authorize(req, res, next);
   }
 });
 

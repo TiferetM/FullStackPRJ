@@ -1,6 +1,7 @@
 import { decryptData, authenticateUser } from '../../services/authentication.js';
 
 const authenticate = async (req, res, next) => {
+    console.log(`in authenticate middleware`);
     // Get the token from the header
     const token = req.header('Authorization');
 

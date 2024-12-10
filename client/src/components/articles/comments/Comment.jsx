@@ -37,7 +37,6 @@ function Comment({ comment, userIn }) {
         } else {
             console.error('Error:', res.statusText);
         }
-
     }
 
     return (
