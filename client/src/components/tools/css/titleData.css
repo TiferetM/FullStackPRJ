@@ -4,7 +4,12 @@
 }
 
 .tiltleData h1{
+    width: 80%;
     font-size: 1.5rem;
     font-weight: 500;
     color: #000;
+}
+
+.tiltleData .profilePicture{
+    margin: 0 ;
 }
