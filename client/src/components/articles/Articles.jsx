@@ -9,7 +9,17 @@ function Articles({ userIn }) {
   const location = useLocation();
 
   useEffect(() => {
-    fetch(`http://localhost:3305/${userIn}/articles`, {
+    let url = `http://localhost:3305/${userIn}/articles`;
+    if(location.pathname.includes('/me')) {
+      url = `http://localhost:3305/${userIn}/articles?auther=${userIn}`;
+    }
+    if(location.pathname.includes('/friends')) {
+      url = `http://localhost:3305/${userIn}/articles?friends=true`;
+    }
+    if(location.pathname.includes('/stared')) {
+      url = `http://localhost:3305/${userIn}/articles?stared=true`;
+    }
+    fetch(url, {
       headers: {
         'Authorization': sessionStorage.getItem('token'),
       }

@@ -11,11 +11,15 @@ class ArticlesCtrl extends controlller {
             let articles;
             console.log("get articles at ArticlesCtrl")
             const query = req.query;
+            //if the query looks like:
             if(query?.friends)
+                //if the query looks like: http://localhost:3305/1/articles?friends=true
                 articles =  await ArticleService.readFriends(req.params.id_u);
             else if(query?.stared)
+                //if the query looks like: http://localhost:3305/1/articles?stared=true
                 articles =  await ArticleService.readStared(req.params.id_u);
             else if(query?.author)
+                //if the query looks like: http://localhost:3305/1/articles?author=1
                 articles =  await ArticleService.readAll(query);
             else if(req.params.id_a)
                 articles = await ArticleService.read(req.params.id_a);
