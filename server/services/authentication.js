@@ -38,8 +38,8 @@ export const authenticateUser = async (user) => {
     }
     if (user.pswd == userSecurity.pswd) {
         const fullUser = await UserAccess.getUser(user.username);
-        console.log(`user authenticated: ${fullUser.email}`);
-        return {fullUser, userSecurity};
+        console.log(`user authenticated: ${fullUser}`);
+        return fullUser;
     }
     else{
         throw new Error("Invalid password");

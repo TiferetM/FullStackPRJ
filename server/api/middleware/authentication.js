@@ -15,7 +15,8 @@ const authenticate = async (req, res, next) => {
         
         const decoded = await decryptData(token);
 
-        const { fullUser } = await authenticateUser(decoded);
+        const fullUser = await authenticateUser(decoded);
+        console.log(` in authticate services, fullUser: ${fullUser}`);
         req.user = fullUser;
         next();
     } catch (error) {

@@ -108,7 +108,7 @@ class UsersCtrl extends controller {
         try {
             console.log("login user at userCtrl")
             let { username, passwordHash } = req.query;
-            const { fullUser } = await authenticateUser({ username: username, pswd: passwordHash });
+            const fullUser = await authenticateUser({ username: username, pswd: passwordHash });
             const token = await getToken(fullUser.username);
             res.setHeader("Role", fullUser.role);
             res.setHeader("Authorization", token);

@@ -137,7 +137,7 @@ class UserService {
                 return entityObject.author.toString() === user;
         } else if (role === 'admin') {
             return roles.some(role => role === 'admin' || role === 'registered' || role === 'everyone');
-        } else if (role === 'registered') {
+        } else if (role === 'user') {
             return roles.some(role => role === 'registered' || role === 'everyone');
         } else if (role === 'guest') {
             return roles.some(role => role === 'everyone');

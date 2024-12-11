@@ -25,7 +25,7 @@ function Comment({ comment, userIn }) {
     }
 
     const handleDelete = async (e) => {
-        const res = fetch(`http://localhost:3305/${userIn}/comments/${comment._id}`, {
+        const res = await fetch(`http://localhost:3305/${userIn}/comments/${comment._id}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': sessionStorage.getItem('token'),

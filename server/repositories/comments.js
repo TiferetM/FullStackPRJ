@@ -71,7 +71,7 @@ class CommentAccess extends access {
             return { message: "comment deleted" };
         }
         catch (error) {
-            return { error: error.message };
+            throw new Error(error.message);
         }
     }
 }
