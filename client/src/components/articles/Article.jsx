@@ -2,6 +2,7 @@ import React, { useState} from 'react';
 import "../css/Articles.css";
 import { Link } from 'react-router-dom';
 import ProfilePicture from '../user/ProfilePicture';
+import TitleData from '../tools/TitleData';
 
 function Article({ article, userIn }) {
 
@@ -10,8 +11,8 @@ function Article({ article, userIn }) {
   return (
     <div className="article">
       <Link to={article._id}>
-        <ProfilePicture user={article.author} userIn={userIn}/>
-        <h2>{article.title}</h2>
+        <TitleData userIn={userIn} user={article.author} 
+        title={article.title} following={article.following} stared={article.stared}/>
         <p>{text}</p>
       </Link>
     </div>

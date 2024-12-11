@@ -1,0 +1,10 @@
+.tiltleData{
+    display: flex;
+    flex-direction: row;
+}
+
+.tiltleData h1{
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #000;
+}

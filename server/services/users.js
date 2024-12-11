@@ -34,7 +34,12 @@ class UserService {
 
     async readUser(id, userIn) {
         const user = await accessUsers.getUser(id);
-        if(!userIn) return user;
+        if (!userIn) return user;
+        user.relationship = await this.getRealaionship(userIn, id);
+        return user;
+    }
+
+    async getRealaionship(userIn, id) {
         if (id !== userIn) {
             //check if userIn is fallowing id
             const isFallowing = await accessUsers.readFallowes(userIn)
@@ -43,18 +48,17 @@ class UserService {
             const isFallowingBack = await accessUsers.readFallowes(id)
                 .then(fallowers => fallowers.some(fallow => fallow.username === userIn));
             if (!isFallowing && !isFallowingBack)
-                user.relationship = "none";
+                return "none";
             else if (isFallowing && !isFallowingBack)
                 //userIn is fallowing id but id is not fallowing userIn
-                user.relationship = "following";
+                return "following";
             else if (!isFallowing && isFallowingBack)
                 //id is fallowing userIn but userIn is not fallowing id
-                user.relationship = "followed";
+                return "followed";
             else
-                user.relationship = "friends";
+                return "friends";
         } else
-            user.relationship = "self";
-        return user;
+            return "self";
     }
 
     async readAvatar(id) {
