@@ -82,6 +82,8 @@ db.once('open', async () => {
       { path: '/:id_u/designs/?q', method: 'GET' },
       { path: '/:id_u/comments', method: 'GET' },
       { path: "/:id_u/products/:id_p/img", method: 'GET'},
+      { path: "/:id_u/:id_u", method: 'GET'},
+      { path: "/:id_u/avatar/:id_a", method: 'GET'}
       
     ];
 

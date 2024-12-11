@@ -102,6 +102,7 @@ class UserService {
         const segments = path.split('/');
         segments[1] = ':id_u';
         if (segments.length == 4) segments[3] = ':id_' + entity[0];
+        if (segments.length == 3) segments[2] = ':id_u';
         const noIDPath = segments.join('/');
         const roles = (await accessUsers.readRole(noIDPath, method)).map(role => role.role);
         console.log(`roles: ${roles}, noIDPath: ${noIDPath} at checkRole`);
