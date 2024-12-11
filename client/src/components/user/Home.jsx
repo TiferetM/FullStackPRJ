@@ -9,7 +9,7 @@ function Home({ userIn }) {
   const location = useLocation();
 
   useEffect(() => {
-    fetch(`http://localhost:3305/${userIn}/${username}`, {
+    fetch(`http://localhost:3305/${userIn}/users/${username}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -51,7 +51,7 @@ function Home({ userIn }) {
             <ProfilePicture user={user.username} />
             <h1>{user.username}</h1>
             <h2>{user.email}</h2>
-           {user.relationship == "none" || user.relationship == "followed" && <button onClick={handleFollow}>Follow</button>}
+           {(user.relationship == "none" || user.relationship == "followed") && <button onClick={handleFollow}>Follow</button>}
           </>)
         }
       </div>
