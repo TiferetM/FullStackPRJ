@@ -41,7 +41,8 @@ class ArticleService {
         console.log("articles", articles)
         articles.map(async article => {
             console.log("article author", article)
-            const ppic = (await accessUsers.getUser(article.author)).profilePic;
+       //     const ppic = (await accessUsers.getUser(article.author)).profilePic;
+       const ppic="xyz";
             article = { ...article, ppic: ppic };
             return article;
         });
